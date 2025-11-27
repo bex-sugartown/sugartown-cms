@@ -3,7 +3,7 @@ import json
 import base64
 
 # --- CONFIGURATION ---
-URL = "https://sugartown.io/wp-json/wp/v2/gems"
+BASE_URL = "https://sugartown.io/wp-json/wp/v2/gems"
 USER = "bhead" # The username you use to login to WP
 PASSWORD = "2vf9 WvM1 ygJa EkbM PMVk X92O" # The Application Password you just generated (NOT your login password)
 
@@ -16,107 +16,68 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-# --- THE DATA LIST (Wrapped in a List called 'all_gems') ---
+# --- HELPER FUNCTION: FIND ID ---
+def find_gem_id(title):
+    # Ask WP if a post with this text exists (search in drafts AND published)
+    search_url = f"{BASE_URL}?search={title}&status=any"
+    response = requests.get(search_url, headers=headers)
+    
+    if response.status_code == 200:
+        results = response.json()
+        # Double check for exact match because search is fuzzy
+        for item in results:
+            if item['title']['rendered'] == title:
+                return item['id']
+    return None
+
+# --- THE CONTENT PAYLOAD ---
 all_gems = [
+    # GEM: Defense of the Blog
     {
-        'title': 'Sweet Upgrades: Why Gemini 3 is the Cherry on Top',
+        'title': 'Confession: I Don\'t Hate Blogs, I Just Hate Unstructured Data',
         'status': 'draft', 
         'content': """
-        <p>We’ve all been there—living comfortably in our standard Google Accounts. But with the release of <strong>Gemini 3 Pro</strong> this week, the question isn’t just “Do I need an AI?”—it’s “Am I ready to upgrade from a bicycle to a rocket ship?”</p>
-        <p>I’m sharing here because it took me an ungodly amount of time and lots of gemini’ing to get a straight answer out of Google (HELLO!).</p>
-        <h3>🍭 Comparison: The Gemini 3 Hierarchy (Nov 2025)</h3>
+        <p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p>
+        <p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p>
+        <h3>The Problem with "The Feed"</h3>
+        <p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p>
+        <p>If I write a technical guide today, and you visit my site in 2027, you won't find it. It will be on Page 47 of the pagination abyss.</p>
+        <h3>The Solution: The Node</h3>
+        <p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p>
         <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
-        <thead><tr>
-            <th>Feature</th>
-            <th>Google AI Premium<br>(Personal)</th>
-            <th>Workspace Business Standard<br>(The Team Essential)</th>
-            <th>Google AI Ultra for Business<br>(The Power-User Tier)</th>
-        </tr></thead>
+        <thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead>
         <tbody>
-        <tr>
-            <td><strong>Primary Purpose</strong></td>
-            <td>Individual Productivity:<br>For freelancers, students, and general use.</td>
-            <td>Team Collaboration:<br>For core business ops, secure email, and docs.</td>
-            <td>Heavy Compute / R&D:<br>For architects, data scientists, and media pros.</td>
-        </tr>
-        <tr>
-            <td><strong>Price</strong></td>
-            <td>$19.99 / month</td>
-            <td>Included in Workspace<br>(~$14.40 / user / mo)</td>
-            <td>🚀 <strong>$250.00 / user / month</strong><br>(The “VIP” Add-on)</td>
-        </tr>
-        <tr>
-            <td><strong>Model Name</strong></td>
-            <td>Gemini 3 Pro</td>
-            <td>Gemini 3 Pro</td>
-            <td>Gemini 3 Ultra</td>
-        </tr>
-        <tr>
-            <td><strong>Reasoning Engine</strong></td>
-            <td>Standard Reasoning<br>(Fast logic checks)</td>
-            <td>Standard Reasoning<br>(Fast logic checks)</td>
-            <td>🧠 <strong>Deep Think</strong><br>(Ph.D. level “Chain of Thought”)</td>
-        </tr>
-        <tr>
-            <td><strong>Deep Think Mode</strong></td>
-            <td>❌ Not Included</td>
-            <td>❌ Not Included</td>
-            <td>✅ Included<br>(Can “think” for minutes on complex tasks)</td>
-        </tr>
-        <tr>
-            <td><strong>Storage</strong></td>
-            <td>2 TB</td>
-            <td>2 TB (Pooled)</td>
-            <td>30 TB<br>(Massive Archive)</td>
-        </tr>
-        <tr>
-            <td><strong>Project Mariner</strong><br>(Agentic Research)</td>
-            <td>❌ Not Included</td>
-            <td>❌ Not Included</td>
-            <td>✅ Included<br>(Autonomous Multi-Tasking Agent)</td>
-        </tr>
-        <tr>
-            <td><strong>Video AI (Veo)</strong></td>
-            <td>Standard (Veo 2)</td>
-            <td>Standard (Veo 2)</td>
-            <td>Pro Studio (Veo 3)<br>(1080p, unlimited generation)</td>
-        </tr>
-        <tr>
-            <td><strong>Data Privacy</strong></td>
-            <td>👎 Consumer Grade<br>(Used for training)</td>
-            <td>👍 Enterprise Grade<br>(Private)</td>
-            <td>👍 Enterprise Grade<br>(Private + Advanced Compliance)</td>
-        </tr>
-        </tbody>
-        </table></figure>
-        <h4>“Why is AI Ultra $250/month?!”</h4>
-        <p>If you are staring at that price tag in shock, you aren’t the target audience—and that’s okay! With the <strong>$250 AI Ultra</strong> plan you are paying for:</p>
-        <ul>
-            <li><strong>Deep Think:</strong> The ability to solve novel architectural problems that stump standard models.</li>
-            <li><strong>Project Mariner:</strong> An autonomous agent that can browse the web, navigate complex UI, and complete tasks (like “Research the pricing of these 50 competitors and put them in a spreadsheet”) while you sleep.</li>
-            <li><strong>30 TB of Storage:</strong> This alone used to cost nearly $150/mo.</li>
-        </ul>
-        <p><strong>My Recommendation:</strong> Stick to <strong>Personal Premium ($20)</strong> or <strong>Workspace Business Standard ($14 per user)</strong> for 99% of your work. Only upgrade to <strong>Ultra</strong> if you need the AI to <em>solve</em> problems, not just <em>answer</em> them.</p>
+        <tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr>
+        <tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr>
+        <tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr>
+        <tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr>
+        </tbody></table></figure>
+        <h3>The Verdict</h3>
+        <p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>
+        <p><strong>Recruiters:</strong> If you want to know who I <em>am</em>, read the Blog. If you want to know what I can <em>build</em>, search the Graph.</p>
         """,
-        'meta': {
-            'gem_category': 'AI Strategy',
-            'gem_status': 'Done',
-            'gem_action_item': 'Upgrade Dev Pod to Ultra',
-            'gem_related_project': 'Tech Stack Eval'
-        }
+        'meta': {'gem_category': 'Content Strategy', 'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'Sugartown.io v2'}
     }
 ]
 
-# --- THE EXECUTION LOOP ---
-print(f"🚀 Preparing to upload {len(all_gems)} Gems...")
+# --- THE SMART LOOP ---
+print(f"🚀 Processing {len(all_gems)} Gems...")
 
 for gem in all_gems:
-    print(f"📤 Uploading: {gem['title']}...")
-    response = requests.post(URL, headers=headers, json=gem)
+    existing_id = find_gem_id(gem['title'])
     
-    if response.status_code == 201:
-        print("   ✅ Success")
-        print(f"   🔗 {response.json()['link']}")
+    if existing_id:
+        # --- UPDATE MODE ---
+        print(f"🔄 Updating Existing Gem: {gem['title']} (ID: {existing_id})...")
+        update_url = f"{BASE_URL}/{existing_id}"
+        response = requests.post(update_url, headers=headers, json=gem)
+    else:
+        # --- CREATE MODE ---
+        print(f"✨ Creating New Gem: {gem['title']}...")
+        response = requests.post(BASE_URL, headers=headers, json=gem)
+
+    if response.status_code in [200, 201]:
+        print(f"   ✅ Success: {response.json()['link']}")
     else:
         print(f"   ❌ ERROR: {response.status_code} - {response.text}")
 
