@@ -1,0 +1,38 @@
+# Sugartown CMS - Change Log
+# Tracks architectural and content updates to the Headless Knowledge Graph.
+
+[2025-11-28] --- INITIAL ARCHITECTURE SPRINT ---
+- [System] Initialized Python-to-WordPress REST API pipeline.
+- [System] Registered Custom Post Type: `gem` (Label: Knowledge Graph).
+- [System] Configured Native Meta Fields (removed ACF dependency).
+- [System] Created `publish_gem.py` script with "Upsert" logic (Update vs Create).
+- [Frontend] Created "Knowledge Graph" page with Grid Shortcode.
+- [Frontend] Defined "Single item: Gem" Block Template.
+- [Frontend] Implemented "Pink Master Header/Footer" Synced Patterns.
+- [Frontend] Fixed metadata visibility issues (Hidden Author/Date).
+- [Content] Created Gem: "Project: Sugartown CMS Architecture" (The Hero Story).
+- [Content] Created Gem: "Market Scan: Top Headless CMS Platforms" (with Data Tables).
+- [Content] Created Gem: "Sweet Upgrades: Gemini 3" (with Action Items).
+- [Content] Created Gem: "Process Insight: The CSV Reality Check" (with CSV Table).
+- [Content] Created Gem: "Resume Workflow" (with CI/CD Pipeline logic).
+- [Docs] Created README.md and initialized Git repository.
+
+--- AUTOMATED LOGS START BELOW ---
+[2025-11-28 06:15:06] [UPDATED] Project: Sugartown CMS Architecture (ID: 946)
+[2025-11-28 06:15:09] [UPDATED] Process Insight: The CSV Reality Check (ID: 942)
+[2025-11-28 06:15:11] [CREATED] Architecture Decision: The "Overwrite" Risk in Sugartown CMS (ID: 949)
+[2025-11-28 06:15:14] [UPDATED] Engineering the Perfect Resume Workflow (ID: 853)
+[2025-11-28 06:15:16] [UPDATED] Market Scan: Top Headless CMS Platforms (2025) (ID: 852)
+[2025-11-28 06:38:08] [UPDATED] Project: Sugartown CMS Architecture (ID: 946)
+[2025-11-28 06:38:10] [UPDATED] Process Insight: The CSV Reality Check (ID: 942)
+[2025-11-28 06:38:12] [UPDATED] Architecture Decision: The "Overwrite" Risk in Sugartown CMS (ID: 949)
+[2025-11-28 06:38:15] [UPDATED] Engineering the Perfect Resume Workflow (ID: 853)
+[2025-11-28 06:38:17] [UPDATED] Market Scan: Top Headless CMS Platforms (2025) (ID: 852)
+[2025-11-28 06:50:33] [UPDATED] Project: Sugartown CMS Architecture (ID: 946)
+[2025-11-28 06:50:36] [UPDATED] Process Insight: The CSV Reality Check (ID: 942)
+[2025-11-28 06:50:38] [UPDATED] Architecture Decision: The "Overwrite" Risk in Sugartown CMS (ID: 949)
+[2025-11-28 06:50:40] [UPDATED] Engineering the Perfect Resume Workflow (ID: 853)
+[2025-11-28 06:50:43] [UPDATED] Market Scan: Top Headless CMS Platforms (2025) (ID: 852)
+[2025-11-28 07:40:41] [CREATED (DRAFT)] Data Science: Visualizing the Knowledge Graph (ID: 950)
+[2025-11-28 07:48:14] [UPDATED] Project: Sugartown CMS Architecture (ID: 946)
+[2025-11-28 07:48:27] [CREATED (DRAFT)] Confession: I Don't Hate Blogs, I Just Hate Unstructured Data (ID: 951)
