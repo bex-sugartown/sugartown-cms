@@ -3,11 +3,12 @@ import base64
 import csv
 import sys
 from datetime import datetime
+import config # <--- IMPORT CONFIG
 
-# --- CONFIGURATION ---
-BASE_URL = "https://sugartown.io/wp-json/wp/v2/gems"
-USER = "bhead" # The username you use to login to WP
-PASSWORD = "2vf9 WvM1 ygJa EkbM PMVk X92O" # The Application Password you just generated (NOT your login password)
+# --- CONFIGURATION (Loaded from config.py) ---
+BASE_URL = config.BASE_URL
+USER = config.USER
+PASSWORD = config.PASSWORD
 
 # --- AUTHENTICATION ---
 credentials = f"{USER}:{PASSWORD}"

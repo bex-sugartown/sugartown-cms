@@ -7,11 +7,11 @@ from datetime import date
 DRIVE_FOLDER = "/Users/beckyalice/Library/CloudStorage/GoogleDrive-becky.head@gmail.com/My Drive/04 Resumes & Job Search/01 Resumes/Resume 2026"
 
 # The file you downloaded from Google Docs (Must be PDF!)
-SOURCE_FILENAME = "Becky-Head_Product-Leader_CMS-Design-System_2026_figma.pdf" 
+SOURCE_FILENAME = "MASTER_RESUME.pdf" 
 
 # Your Target Naming Convention
 NAME = "Becky-Head"
-ROLE = "Product-Leader_CMS-Design-System"
+ROLE = "Project-Product-Leader_CMS"
 YEAR = "2026" # Updated to match your folder year
 
 # --- 2. SETUP PATHS ---
