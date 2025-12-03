@@ -270,7 +270,7 @@ if existing_id and content_state.get(id) == current_hash:
 
 # GEM 14: The Sugartown Digital Ecosystem (Architecture v1.0)
     {
-        # 'id': 1023, <--- Commented out so it looks "New"
+        # 'id': 996, <--- Commented out so it looks "New"
         'title': 'Architecture: The Sugartown Digital Ecosystem (v1.0)',
         'status': 'draft',
         'content': """
