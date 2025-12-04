@@ -1,5 +1,5 @@
 # --- SUGARTOWN CMS CONTENT STORE ---
-# All 13 Gems. 
+# All 14 Gems. 
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
@@ -8,6 +8,8 @@ all_gems = [
         'id': 946,
         'title': 'Project: Sugartown CMS Architecture',
         'status': 'publish',
+        'categories': ['Engineering & DX', 'Content Architecture'],
+        'tags': ['headless CMS', 'content modeling', 'structured content', 'Sugartown'],
         'content': """
         <p>This project began with a simple request: <em>"Write a blog post about Gemini 3."</em> It spiraled into a full-stack engineering challenge because, as a Product Manager, I fundamentally reject unstructured data.</p>
         <h3>The Challenge: Breaking the Blob</h3>
@@ -47,6 +49,8 @@ all_gems = [
         'id': 942,
         'title': 'Process Insight: The CSV Reality Check',
         'status': 'publish',
+        'categories': ['Engineering & DX', 'Product & Platform Strategy'],
+        'tags': ['data integrity', 'audit', 'automation'],
         'content': """
         <p>I just ran my first full audit of the <strong>Sugartown CMS pipeline</strong>, exporting the raw database to a CSV report. The result? A lesson in data integrity.</p>
         <h3>The "Eyeballs" Theory</h3>
@@ -70,6 +74,8 @@ all_gems = [
         'id': 949,
         'title': 'Architecture Decision: The "Overwrite" Risk in Sugartown CMS',
         'status': 'publish',
+        'categories': ['Engineering & DX', 'Content Architecture'],
+        'tags': ['headless CMS', 'Python', 'content ops', 'governance models'],
         'content': """<p>I had a realization today while trying to manually edit a post in WordPress: <strong>The Pipeline is a Bully.</strong></p><p>In a typical "Push" architecture (Python -> WordPress), the script is the Source of Truth. If I manually add a witty joke or a custom image inside the WordPress Editor, the next time I run my Python script, it will blow those changes away because it performs a <code>PUT</code> (Replace) operation, not a <code>PATCH</code> (Merge) operation.</p><h3>The Strategy: Hybrid Content Management</h3><p>To solve this, I am evaluating two patterns for "Safe Updates":</p><ul><li><strong>1. The "Protected Block" Pattern:</strong> Using HTML comments (e.g., <code>&lt;!-- manual-start --&gt;</code>) to mark zones that the script ignores.</li><li><strong>2. The "Read-Merge-Write" Pattern:</strong> The script must first GET the current content, diff it against the new payload, and intelligently merge them before pushing back.</li></ul><p><strong>Current Verdict:</strong> I have moved this feature to the <strong>Backlog</strong>. For now, the Python script owns the "Structured Data" (Tables, Lists), and I will manually sync content if needed.</p>""",
         'meta': {'gem_category': 'HeadlessCMS', 'gem_status': 'Backlog', 'gem_action_item': 'Research Python Diff Libraries', 'gem_related_project': 'Sugartown.io v2'}
     },
@@ -79,6 +85,8 @@ all_gems = [
         'id': 853,
         'title': 'Engineering the Perfect Resume Workflow',
         'status': 'publish',
+        'categories': ['Engineering & DX', 'AI & Automation'],
+        'tags': ['AI-assisted authoring', 'LLM workflows', 'structured content'],
         'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody></table></figure>""",
         'meta': {'gem_category': 'Career Engineering', 'gem_status': 'In Progress', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'Job Hunt 2026'}
     },
@@ -88,6 +96,8 @@ all_gems = [
         'id': 852,
         'title': 'Market Scan: Top Headless CMS Platforms (2025)',
         'status': 'publish',
+        'categories': ['Product & Platform Strategy', 'Content Architecture'],
+        'tags': ['headless CMS', 'content modeling', 'PIM / PXM', 'content migration'],
         'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody></table></figure>""",
         'meta': {'gem_category': 'Market Research', 'gem_status': 'Active', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': '2026 Strategy'}
     },
@@ -97,6 +107,8 @@ all_gems = [
         'id': 952,
         'title': 'Confession: I Don\'t Hate Blogs, I Just Hate Unstructured Data',
         'status': 'publish',
+        'categories': ['Content Architecture', 'Sugartown Notes'],
+        'tags': ['structured content', 'taxonomy', 'metadata strategy'],
         'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table></figure><h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
         'meta': {'gem_category': 'Content Strategy', 'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'Sugartown.io v2'}
     },
@@ -106,9 +118,10 @@ all_gems = [
         'id': 950,
         'title': 'Data Science: Visualizing the Knowledge Graph',
         'status': 'publish', 
+        'categories': ['Engineering & DX', 'AI & Automation'],
+        'tags': ['Python', 'data visualization', 'knowledge graph', 'Sugartown'],
         'content': """<p>A Knowledge Graph isn't just a metaphor; it's a data structure. To visualize the relationships between my Projects, Categories, and Gems, I used Python's <code>networkx</code> library to generate a force-directed graph.</p>
         
-        <!-- LIVE KNOWLEDGE GRAPH -->
         <figure class="wp-block-image size-large">
             <img src="https://sugartown.io/wp-content/uploads/2025/11/knowledge_graph-scaled.png" alt="Sugartown Knowledge Graph Visualization" />
             <figcaption>Fig 1. The live Sugartown content topology, generated via Python.</figcaption>
@@ -123,6 +136,8 @@ all_gems = [
         'id': 953,
         'title': 'Strategy: Documentation Roadmap & Status',
         'status': 'publish', 
+        'categories': ['Ways of Working', 'Product & Platform Strategy'],
+        'tags': ['systemic documentation', 'governance models', 'agile workflows'],
         'content': """<p>This document serves as the strategic blueprint for capturing the intellectual property of the project. It is prioritized to ensure the most critical "Bus Factor" documentation exists immediately (Day 1), while deeper architectural references follow (Day 2).</p><h3>Documentation Status Tracker</h3><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Phase</th><th>Asset</th><th>Goal</th><th>Status</th><th>Artifact / Location</th></tr></thead><tbody><tr><td><strong>Day 1</strong><br>(Critical)</td><td><strong>README.md</strong></td><td>Repo entry point & Quick Start.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> (Git Root)</td></tr><tr><td><strong>Day 1</strong></td><td><strong>User Workflow</strong></td><td>Prevent "Overwrite" data loss.</td><td>🟡 <strong>In Progress</strong></td><td><a href="/gem/architecture-decision-the-overwrite-risk-in-sugartown-cms">Gem: Overwrite Risk</a></td></tr><tr><td><strong>Day 1</strong></td><td><strong>Tech Requirements</strong></td><td>Environment consistency.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> & <code>requirements.txt</code></td></tr><tr><td><strong>Day 2</strong><br>(Product)</td><td><strong>Content Model</strong></td><td>Define Gem structure/schema.</td><td>✅ <strong>Done</strong></td><td><code>content_store.py</code> (The Schema Source)</td></tr><tr><td><strong>Day 2</strong></td><td><strong>System Arch</strong></td><td>Visual proof of data flow.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr><tr><td><strong>Day 2</strong></td><td><strong>Feature List</strong></td><td>"Sales Sheet" of capabilities.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr></tbody></table></figure><h3>Next Actions</h3><ul><li><strong>Immediate:</strong> Create the Markdown file for "User Workflow" to formalize the manual vs. script rules.</li><li><strong>Next:</strong> Generate the Mermaid.js graph for the System Architecture visual.</li></ul>""",
         'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Draft User Workflow MD', 'gem_related_project': 'Sugartown.io v2'}
     },
@@ -132,9 +147,10 @@ all_gems = [
         'id': 954,
         'title': 'Market Scan: Top AI Tools for Data & Architecture Diagrams',
         'status': 'publish', 
+        'categories': ['Product & Platform Strategy', 'AI & Automation'],
+        'tags': ['generative UI', 'dashboards', 'interaction patterns'],
         'content': """<p>We just finished architecting a Headless CMS pipeline, which naturally led to the next question: <em>"How do we visualize this?"</em></p><p>The "best" AI diagramming tool depends entirely on your output goal: Do you need a <strong>System Blueprint</strong> (architecture/flow) or a <strong>Data Visualization</strong> (charts/trends)? Here is the breakdown of the current market leaders.</p><h3>The Comparison: Diagrams as Code vs. Data Analysis</h3><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table></figure><h3>The Product Manager's Take</h3><p>For the <strong>Sugartown CMS project</strong>, the recommendation is clear:</p><ul><li><strong>Use Eraser.io</strong> to map the "Content Supply Chain" (Python -> WordPress -> Frontend). It perfectly matches our "Resume as Code" and DevOps aesthetic.</li><li><strong>Use ChatGPT (Canvas)</strong> to analyze the weekly <code>gems_report.csv</code> export to track content velocity and identify metadata gaps.</li></ul>
         
-        <!-- YOUTUBE EMBED -->
         <figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
             <div class="wp-block-embed__wrapper">
                 <iframe title="ChatGPT Canvas Mode is Now FREE for Everyone!" width="500" height="281" src="https://www.youtube.com/embed/2tmvLdI3qIc?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -150,6 +166,8 @@ all_gems = [
         'id': 863,
         'title': 'Sweet Upgrades: Why Gemini 3 is the Cherry on Top',
         'status': 'publish',
+        'categories': ['AI & Automation', 'Product & Platform Strategy'],
+        'tags': ['agentic interfaces', 'LLM workflows', 'AI-assisted authoring'],
         'content': """
         <p>We’ve all been there—living comfortably in our standard Google Accounts. But with the release of <strong>Gemini 3 Pro</strong> this week, the question isn’t just “Do I need an AI?”—it’s “Am I ready to upgrade from a bicycle to a rocket ship?”</p>
         <p>I’m sharing here because it took me an ungodly amount of time and lots of gemini’ing to get a straight answer out of Google (HELLO!).</p>
@@ -184,6 +202,8 @@ all_gems = [
         'id': 977,
         'title': 'Meta-Analysis: Am I Crazy for Building This?',
         'status': 'publish',
+        'categories': ['Sugartown Notes', 'Ways of Working'],
+        'tags': ['product operations', 'content ops', 'Sugartown'],
         'content': """
         <p>I just spent my Thanksgiving break architecting a Python-based ETL pipeline to inject structured data into a WordPress Block Theme, solely to update my resume. Is this over-engineering? Or is it art?</p>
         <h3>The Symptom</h3>
@@ -198,7 +218,9 @@ all_gems = [
     {
         'id': 993,
         'title': 'Status Update: The Great Re-Platforming',
-        'status': 'publish', 
+        'status': 'publish',
+        'categories': ['Product & Platform Strategy', 'Ways of Working'],
+        'tags': ['portfolio', 'stakeholder alignment', 'cross-functional collaboration'],
         'content': """
         <p><strong>Status:</strong> <code>Migration in Progress</code> | <strong>Priority:</strong> <code>Critical</code> | <strong>Sprint:</strong> <code>The Hustle</code></p>
         
@@ -235,9 +257,11 @@ all_gems = [
 
     # GEM 13: The DevOps Upgrade
     {
-        # No ID yet
+        'id': 994, # Devops upgrade
         'title': 'DevOps: Building the "Undo" Button for My Career',
         'status': 'publish',
+        'categories': ['Engineering & DX', 'Ways of Working'],
+        'tags': ['QA workflows', 'systemic documentation', 'governance models'],
         'content': """
         <p>I realized this week that my "Resume as Code" project had a fatal flaw: <strong>It was dangerous.</strong></p>
         <p>Because I manage my personal brand via a Python script that overwrites my database, a single syntax error or bad API call could wipe my entire digital existence. So, I spent the weekend building a proper DevOps safety net.</p>
@@ -270,9 +294,11 @@ if existing_id and content_state.get(id) == current_hash:
 
 # GEM 14: The Sugartown Digital Ecosystem (Architecture v1.0)
     {
-        # 'id': 1023, <--- Commented out so it looks "New"
+        # 'id': 996, # Local ID
         'title': 'Architecture: The Sugartown Digital Ecosystem (v1.0)',
         'status': 'draft',
+        'categories': ['Engineering & DX', 'Content Architecture'],
+        'tags': ['headless CMS', 'Sugartown', 'systemic documentation', 'governance models'],
         'content': """
         <p><strong>Status:</strong> <code>Production</code> | <strong>Version:</strong> <code>1.0</code> | <strong>Repo:</strong> <code>2025-sugartown-pink</code></p>
         
