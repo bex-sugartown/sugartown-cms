@@ -1,187 +1,175 @@
+import content_store
 import requests
-import base64
-import sys
-import html
-import shutil
-import os
-import hashlib
 import json
-from datetime import datetime
-from content_store import all_gems
-import config 
+import base64
+import html
+import hashlib
+import os
+import re
+import config
 
-# --- CONFIGURATION ---
+# ==========================================
+# CONFIGURATION
+# ==========================================
 BASE_URL = config.BASE_URL
 USER = config.USER
 PASSWORD = config.PASSWORD
-STATE_FILE = ".content_state.json" # Stores hashes of content to detect changes
+STATE_FILE = ".content_state.json" 
 
-# --- AUTHENTICATION ---
-credentials = f"{USER}:{PASSWORD}"
-token = base64.b64encode(credentials.encode())
+API_ENDPOINT = f"{BASE_URL}/wp-json/wp/v2/gem" 
+CATS_ENDPOINT = f"{BASE_URL}/wp-json/wp/v2/categories"
+TAGS_ENDPOINT = f"{BASE_URL}/wp-json/wp/v2/tags"
+
+# Auth
+creds = f"{USER}:{PASSWORD}"
+token = base64.b64encode(creds.encode())
 headers = {
     'Authorization': f'Basic {token.decode("utf-8")}',
     'Content-Type': 'application/json'
 }
 
-# --- HELPERS ---
-def get_content_hash(gem_data):
-    """Generates a fingerprint of the gem's title, content, and status."""
-    # We combine key fields to create a unique ID for the content state
-    unique_string = f"{gem_data['title']}{gem_data['content']}{gem_data.get('status', 'draft')}"
-    return hashlib.md5(unique_string.encode('utf-8')).hexdigest()
+# ==========================================
+# CACHE & FUZZY MATCHING
+# ==========================================
+CATEGORY_MAP = {}
+TAG_MAP = {}
+GEM_MAP = {} 
 
-def load_content_state():
-    if os.path.exists(STATE_FILE):
+def simplify_key(text):
+    """Strips all punctuation/spaces/html for robust matching."""
+    if not text: return ""
+    text = html.unescape(text).lower()
+    return re.sub(r'[^a-z0-9]', '', text)
+
+def build_cache(endpoint, target_map, label="items"):
+    print(f"   🔄 Caching {label}...")
+    page = 1
+    while True:
         try:
-            with open(STATE_FILE, 'r') as f:
-                return json.load(f)
-        except:
-            return {}
-    return {}
-
-def save_content_state(state):
-    with open(STATE_FILE, 'w') as f:
-        json.dump(state, f)
-
-# --- LOGGING ---
-def log_change(action, title, gem_id, status):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # Format: [TIMESTAMP] [ACTION (STATUS)] Title (ID: X)
-    entry = f"[{timestamp}] [{action.upper()} ({status.upper()})] {title} (ID: {gem_id})\n"
-    try:
-        with open("changelog.txt", "a") as f:
-            f.write(entry)
-    except Exception as e:
-        print(f"   ⚠️ Warning: Could not write to changelog: {e}")
-
-def log_error(title, status_code, error_message):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    entry = f"[{timestamp}] [ERROR] {title} - Status: {status_code} - Message: {error_message}\n"
-    try:
-        with open("errorlog.txt", "a") as f:
-            f.write(entry)
-    except Exception as e:
-        print(f"   ⚠️ Warning: Could not write to errorlog: {e}")
-
-# --- BACKUP SYSTEM ---
-def create_backup():
-    # 🛠 UPDATED: Now backing up both the Data and the Engine
-    files_to_backup = ["content_store.py", "publish_gem.py"]
-    backup_dir = "backups"
-    
-    if not os.path.exists(backup_dir):
-        os.makedirs(backup_dir)
-
-    for filename in files_to_backup:
-        # Creates: content_store.last_good.py AND publish_gem.last_good.py
-        destination = os.path.join(backup_dir, filename.replace(".py", ".last_good.py"))
-        
-        try:
-            shutil.copy2(filename, destination)
-            print(f"💾 Backup created: {destination}")
-        except Exception as e:
-            print(f"⚠️ Warning: Backup failed for {filename}: {e}")
-
-# --- SYSTEM INTEGRITY CHECK ---
-def check_code_changes():
-    tracked_files = ["publish_gem.py", "content_store.py"]
-    sys_state_file = ".system_state.json"
-    
-    if os.path.exists(sys_state_file):
-        try:
-            with open(sys_state_file, "r") as f:
-                last_state = json.load(f)
-        except:
-            last_state = {}
-    else:
-        last_state = {}
-
-    current_state = {}
-    changes = []
-
-    for filename in tracked_files:
-        try:
-            with open(filename, "rb") as f:
-                file_hash = hashlib.md5(f.read()).hexdigest()
-                current_state[filename] = file_hash
-                if last_state.get(filename) != file_hash:
-                    changes.append(filename)
-        except Exception as e:
-            print(f"   ⚠️ Warning: Could not hash {filename}: {e}")
-
-    if changes:
-        pretty_list = ", ".join(changes)
-        print(f"🛠  System Update Detected: {pretty_list}")
-        log_change("CODE UPDATE", f"Modified files: {pretty_list}", "SYSTEM", "N/A")
-        with open(sys_state_file, "w") as f:
-            json.dump(current_state, f)
-
-# --- FIND ID ---
-def find_gem_id(gem):
-    if 'id' in gem:
-        return gem['id']
-    
-    # Fallback: Search by title
-    title = gem['title']
-    search_url = f"{BASE_URL}?search={title}&status=any"
-    response = requests.get(search_url, headers=headers)
-    if response.status_code == 200:
-        results = response.json()
-        for item in results:
-            # Normalize smart quotes for comparison
-            wp_title = item['title']['rendered']
-            decoded_wp_title = html.unescape(wp_title)
-            normalized_wp = decoded_wp_title.replace('“', '"').replace('”', '"').replace("’", "'")
-            normalized_local = title.replace('“', '"').replace('”', '"').replace("’", "'")
+            # ✨ FIX: Added '&status=any' to see Drafts/Pending posts
+            url = f"{endpoint}?per_page=100&page={page}&status=any"
+            response = requests.get(url, headers=headers)
             
-            if normalized_wp == normalized_local:
-                return item['id']
+            if response.status_code != 200: break
+            data = response.json()
+            if not data: break
+            
+            for item in data:
+                raw_name = item.get('name') or item.get('title', {}).get('rendered')
+                if raw_name:
+                    key = simplify_key(raw_name)
+                    target_map[key] = item['id']
+            page += 1
+        except: break
+        
+    print(f"      ✅ OK: Found {len(target_map)} {label}.")
+
+# ==========================================
+# HELPERS
+# ==========================================
+def get_term_id(name, endpoint, target_map):
+    key = simplify_key(name)
+    if key in target_map: return target_map[key]
+    
+    print(f"      ✨ Creating missing term: '{name}'...")
+    try:
+        response = requests.post(endpoint, headers=headers, json={'name': name})
+        if response.status_code == 201:
+            new_id = response.json()['id']
+            target_map[key] = new_id
+            return new_id
+    except: pass
     return None
 
-# --- MAIN LOOP ---
-create_backup()       # 1. Back up data + engine
-check_code_changes()  # 2. Check if code changed
-content_state = load_content_state() # 3. Load content fingerprints
+def calculate_hash(gem_data):
+    s = json.dumps(gem_data, sort_keys=True).encode('utf-8')
+    return hashlib.md5(s).hexdigest()
 
-print(f"🚀 Processing {len(all_gems)} Gems from Content Store...")
+def load_state():
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, 'r') as f: return json.load(f)
+    return {}
 
-for gem in all_gems:
-    existing_id = find_gem_id(gem)
-    gem_id = existing_id
-    current_hash = get_content_hash(gem)
-    target_status = gem.get('status', 'draft')
+def save_state(state):
+    with open(STATE_FILE, 'w') as f: json.dump(state, f, indent=2)
+
+# ==========================================
+# MAIN LOOP
+# ==========================================
+def main():
+    print("\n💎 SUGARTOWN PUBLISHER v3.7 (Draft Aware)")
+    print(f"🎯 Target: {BASE_URL}\n")
+
+    state = load_state()
     
-    # Check if content has actually changed (Skip if identical)
-    # We only skip if we have an ID AND the hash matches the last run
-    if existing_id and content_state.get(str(existing_id)) == current_hash:
-        print(f"   💤 Skipped (No Changes): {gem['title']}")
-        continue
+    # 1. PRE-FETCH (Now includes Drafts)
+    build_cache(CATS_ENDPOINT, CATEGORY_MAP, "Categories")
+    build_cache(TAGS_ENDPOINT, TAG_MAP, "Tags")
+    build_cache(API_ENDPOINT, GEM_MAP, "Existing Gems")
+    print("-" * 40)
 
-    # Logic for API Call
-    if existing_id:
-        print(f"   🔄 Updating [{target_status.upper()}]: {gem['title']}...")
-        update_url = f"{BASE_URL}/{existing_id}"
-        response = requests.post(update_url, headers=headers, json=gem)
-        action = "Updated"
-    else:
-        print(f"   ✨ Creating [{target_status.upper()}]: {gem['title']}...")
-        response = requests.post(BASE_URL, headers=headers, json=gem)
-        action = "Created"
-        if response.status_code == 201:
-            gem_id = response.json().get('id')
+    gems = content_store.all_gems
 
-    # Handle Response
-    if response.status_code in [200, 201]:
-        print(f"      ✅ Success: {response.json()['link']}")
-        log_change(action, gem['title'], gem_id, target_status)
+    for gem in gems:
+        # 1. RESOLVE ID
+        my_key = simplify_key(gem['title'])
+        target_id = GEM_MAP.get(my_key)
         
-        # Update local state so we don't re-upload next time
-        if gem_id:
-            content_state[str(gem_id)] = current_hash
-            save_content_state(content_state)
-    else:
-        print(f"      ❌ ERROR: {response.status_code} - {response.text}")
-        log_error(gem['title'], response.status_code, response.text)
+        # Fallback check for hardcoded ID in the map values
+        if not target_id and 'id' in gem:
+             if gem['id'] in GEM_MAP.values():
+                 target_id = gem['id']
 
-print("✨ Done!")
+        # 2. PREPARE DATA
+        cat_ids = []
+        if 'categories' in gem:
+            for c in gem['categories']:
+                cid = get_term_id(c, CATS_ENDPOINT, CATEGORY_MAP)
+                if cid: cat_ids.append(cid)
+
+        tag_ids = []
+        if 'tags' in gem:
+            for t in gem['tags']:
+                tid = get_term_id(t, TAGS_ENDPOINT, TAG_MAP)
+                if tid: tag_ids.append(tid)
+
+        payload = {
+            'title': gem['title'],
+            'content': gem['content'],
+            'status': gem['status'],
+            'categories': cat_ids,
+            'tags': tag_ids
+        }
+
+        # 3. SPEED CHECK
+        current_hash = calculate_hash(payload)
+        if target_id and str(target_id) in state and state[str(target_id)] == current_hash:
+            print(f"💤 Skipped: {gem['title']}")
+            continue
+
+        # 4. PUSH
+        print(f"Processing: {gem['title']}...")
+        
+        if target_id:
+            url = f"{API_ENDPOINT}/{target_id}"
+            response = requests.post(url, headers=headers, json=payload)
+            action = "Updated"
+            icon = "🔹"
+        else:
+            response = requests.post(API_ENDPOINT, headers=headers, json=payload)
+            action = "Created"
+            icon = "✨"
+
+        if response.status_code in [200, 201]:
+            real_id = response.json()['id']
+            print(f"   {icon} {action} (ID: {real_id})")
+            
+            state[str(real_id)] = current_hash
+            GEM_MAP[my_key] = real_id
+            save_state(state)
+        else:
+            print(f"   ❌ {action} Failed: {response.status_code}")
+            print(f"      {response.text[:200]}")
+
+if __name__ == "__main__":
+    main()

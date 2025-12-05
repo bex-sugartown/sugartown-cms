@@ -3,7 +3,7 @@
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
-    # GEM 1: The Hero Story (Architecture)
+# GEM 1: The Hero Story (Architecture)
     {
         'id': 946,
         'title': 'Project: Sugartown CMS Architecture',
@@ -25,20 +25,14 @@ all_gems = [
         <tr><td><strong>Presentation</strong></td><td>Theme templates display unwanted meta.</td><td><strong>Headless Templating.</strong> Custom Block Templates stripped of "Bloggy" bylines.</td></tr>
         </tbody></table><figcaption>Fig 1. The Architectural Decision Log.</figcaption></figure>
         <h3>The Outcome: Satisfaction</h3>
-        <p>The result is a system that feels alive. I can refactor my entire portfolio by changing one line of Python. The "Green Checkmark" in the terminal has become my favorite UI:</p>
-        <pre class="wp-block-code"><code>beckyalice@Barnabas second-brain-cms % python3 publish_gem.py    
-🚀 Processing 7 Gems...
-🔄 Updating Existing Gem: Market Scan: Top Headless CMS Platforms (2025) (ID: 852)...
-   ✅ Success: https://sugartown.io/?post_type=gem&p=852
-✨ Creating New Gem: Visualizing the Knowledge Graph (ID: 994)...
-   ✅ Success: https://sugartown.io/?post_type=gem&p=994
-✨ Done!</code></pre>
-        <h3>Future Roadmap</h3>
+        <p>The result is a system that feels alive. I can refactor my entire portfolio by changing one line of Python. The "Green Checkmark" in the terminal has become my favorite UI.</p>
+        
+        <h3>Roadmap Status (Dec 2025)</h3>
         <ul>
-        <li><strong>Q1:</strong> Migrate "Master Resume" from Google Docs to Markdown/Git.</li>
-        <li><strong>Q2:</strong> Implement "Smart Merge" so manual WP edits aren't overwritten.</li>
-        <li><strong>Q3:</strong> Explore a true React frontend (Next.js) consuming this WP API.</li>
-        <li><strong>Q4:</strong> Codify the <strong>"Mini Design System"</strong> (Header/Footer Patterns & Tokenized CSS) to ensure brand consistency across templates.</li>
+        <li><strong>Q1: Migrate "Master Resume" to Code.</strong><br>✅ <strong>Shipped.</strong> Built <code>master_resume_data.json</code> and a Python builder to generate PDF/Markdown on demand.</li>
+        <li><strong>Q2: Implement "Smart Merge".</strong><br>🟡 <strong>On Hold.</strong> Decided that "Script = Source of Truth" is safer than bi-directional syncing.</li>
+        <li><strong>Q3: React Frontend (Next.js).</strong><br>🔮 <strong>Future.</strong> Current WordPress Block Theme performance is sufficient.</li>
+        <li><strong>Q4: Codify the "Mini Design System".</strong><br>✅ <strong>Shipped.</strong> Deployed "Sugartown Pink" theme with tokenized CSS for tables, terminal blocks, and pills.</li>
         </ul>
         """,
         'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Refine Taxonomy Visualization', 'gem_related_project': 'Sugartown.io v2'}
@@ -197,7 +191,7 @@ all_gems = [
         'meta': {'gem_category': 'AI Strategy', 'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'Tech Stack Eval'}
     },
 
-    # GEM 11: The Recursion (Meta-Analysis)
+# GEM 11: The Recursion (Meta-Analysis)
     {
         'id': 977,
         'title': 'Meta-Analysis: Am I Crazy for Building This?',
@@ -210,10 +204,11 @@ all_gems = [
         <p>Instead of just opening a Google Doc and typing "Updated: Nov 2025," I built a system that parses PDFs into CSVs, uses AI to "explode" bullet points into atomic data rows, and then re-assembles them based on a schema.</p>
         <blockquote class="wp-block-quote"><p><strong>The Diagnosis:</strong> Chronic Product Ops Syndrome. The inability to do a task without first building a system to do the task for you.</p></blockquote>
         <h3>The "Cute" Result</h3>
-        <p>But look at this beautiful, structured data. My career history is no longer a flat document; it is a queryable database. I can now ask: <em>"Show me every time I mentioned 'API' between 2018 and 2022,"</em> and get a precise answer. That is power. That is leverage. That is... maybe a little crazy. 🍒</p>
+        <p>But look at this <a href="https://sugartown.io/gem/data-science-visualizing-the-knowledge-graph/">beautiful, structured data</a>. My career history is no longer a flat document; it is a queryable database. I can now ask: <em>"Show me every time I mentioned 'API' between 2018 and 2022,"</em> and get a precise answer. That is power. That is leverage. That is... maybe a little crazy. 🍒</p>
         """,
         'meta': {'gem_category': 'Personal Reflection', 'gem_status': 'Done', 'gem_action_item': 'Go eat leftover turkey', 'gem_related_project': 'Sugartown.io v2'}
     },
+
     # GEM 12: The Great Re-Platforming (The Layoff Retro)
     {
         'id': 993,
@@ -296,7 +291,7 @@ if existing_id and content_state.get(id) == current_hash:
     {
         # 'id': 996, # Local ID
         'title': 'Architecture: The Sugartown Digital Ecosystem (v1.0)',
-        'status': 'draft',
+        'status': 'publish',
         'categories': ['Engineering & DX', 'Content Architecture'],
         'tags': ['headless CMS', 'Sugartown', 'systemic documentation', 'governance models'],
         'content': """
@@ -345,6 +340,121 @@ git push origin main
             'gem_status': 'Shipped', 
             'gem_action_item': 'Move to Ticket B (Resume Model)', 
             'gem_related_project': 'Sugartown.io v2'
+        }
+    },
+# GEM 15: The Two-Repo Solution
+    {
+        # 'id': 1050, <--- Comment out until generated
+        'title': 'Architecture Decision: The Two-Repo Solution (Theme vs. Content)',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'Ways of Working'],
+        'tags': ['git', 'source control', 'headless CMS', 'Sugartown'],
+        'content': """
+        <p>I hit a wall today where my local Git commits weren't showing up in my repository. The root cause? I was trying to treat my <strong>Theme</strong> (Visuals) and my <strong>Content</strong> (Data) as the same entity. They are not.</p>
+        
+        <h3>The Separation of Concerns</h3>
+        <p>We have officially split the Sugartown codebase into two distinct repositories to prevent "Monolith Drift."</p>
+        
+        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <thead><tr><th>Repository</th><th>Scope</th><th>Lifecycle</th><th>Owner</th></tr></thead>
+        <tbody>
+        <tr><td><code>2025-sugartown-pink</code></td><td><strong>The Theme (Code)</strong><br>PHP, HTML Templates, CSS, JS.</td><td><strong>Slow & Stable.</strong><br>Updates only when design changes.</td><td>Engineering</td></tr>
+        <tr><td><code>sugartown-content-engine</code></td><td><strong>The Brain (Data)</strong><br>Python Scripts, Content Store, CSVs.</td><td><strong>Fast & Fluid.</strong><br>Updates daily with new thoughts/gems.</td><td>Product</td></tr>
+        </tbody></table></figure>
+
+        <h3>The "Stale Pointer" Incident</h3>
+        <p>The confusion arose because my local folder was named <code>sugartown_cms</code> but my Git remote was still pointing to <code>second-brain-cms</code>. This "Stale Pointer" meant I was pushing code to a ghost location.</p>
+        
+        <p><strong>The Fix:</strong> We renamed the GitHub repository to match the architectural intent (<code>sugartown-content-engine</code>) and updated the local Git remotes to align. The Digital Factory is now clean, decoupled, and ready for scaling.</p>
+        """,
+        'meta': {
+            'gem_category': 'Engineering', 
+            'gem_status': 'Shipped', 
+            'gem_action_item': 'Verify Git Remotes', 
+            'gem_related_project': 'Sugartown.io v2'
+        }
+    },
+# GEM 16: The Taxonomy Strategy
+    {
+        # 'id': 1060, <--- Comment out until generated
+        'title': 'Architecture: The Unified Taxonomy Strategy',
+        'status': 'publish',
+        'categories': ['Content Architecture', 'Product & Platform Strategy'],
+        'tags': ['taxonomy', 'metadata strategy', 'structured content', 'Sugartown'],
+        'content': """
+        <p>A headless CMS is useless if you can't find anything inside it. Today, we implemented the <strong>Unified Taxonomy Strategy</strong> for Sugartown.io, ensuring that our content is connected by <em>meaning</em>, not just <em>date</em>.</p>
+        
+        <h3>The Architecture</h3>
+        <p>We rejected the standard "Free Tagging" chaos in favor of a controlled vocabulary imported via XML.</p>
+        
+        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <thead><tr><th>Asset Type</th><th>Taxonomy Support</th><th>Flow Direction</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Gems</strong></td><td>✅ Categories & Tags</td><td><strong>Python -> WP.</strong> The script assigns IDs based on name lookups.</td></tr>
+        <tr><td><strong>Case Studies</strong></td><td>✅ Categories & Tags</td><td><strong>Manual -> WP.</strong> Curated by hand in the editor.</td></tr>
+        <tr><td><strong>Posts (Blog)</strong></td><td>✅ Categories & Tags</td><td><strong>Legacy.</strong> Inherits standard WP structure.</td></tr>
+        </tbody></table></figure>
+
+        <h3>The Core Categories</h3>
+        <p>We standardized on 8 high-level buckets to organize the "Product Operations" brain:</p>
+        <ul>
+        <li><strong>Engineering & DX:</strong> The "How" (DevOps, Pipelines, Git).</li>
+        <li><strong>Content Architecture:</strong> The "Structure" (Headless, Models, Schema).</li>
+        <li><strong>Product & Platform Strategy:</strong> The "Why" (Roadmaps, Market Scans).</li>
+        <li><strong>AI & Automation:</strong> The "Accelerator" (LLMs, Agents).</li>
+        <li><strong>UX, UI & Interaction:</strong> The "Feel" (Design Systems, Figma).</li>
+        <li><strong>Ways of Working:</strong> The "Process" (Agile, Team Topology).</li>
+        <li><strong>Sugartown Notes:</strong> Meta-commentary on this project.</li>
+        </ul>
+
+        <h3>The Implementation Details</h3>
+        <p>To make this work, we had to update the <code>register_post_type</code> arguments in <code>functions.php</code> to explicitly support <code>'taxonomies' => array('category', 'post_tag')</code>. Without this line, Case Studies are siloed islands. With it, they join the connected graph.</p>
+        """,
+        'meta': {
+            'gem_category': 'Content Strategy', 
+            'gem_status': 'Shipped', 
+            'gem_action_item': 'Tag all historic Case Studies', 
+            'gem_related_project': 'Sugartown.io v2'
+        }
+    },
+# GEM 17: The Resume Factory & Pink Stink
+    {
+        # 'id': 1070, <--- Comment out until generated
+        'title': 'Feature: The Resume Factory & The "Pink Stink" Design System',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'UX, UI & Interaction'],
+        'tags': ['resume builder', 'python', 'design systems', 'css', 'Sugartown'],
+        'content': """
+        <p>We have officially closed the loop on two major capabilities for the Sugartown ecosystem: a headless engine for my career history and a distinct visual identity for the site.</p>
+        
+        <h3>1. The Resume Factory</h3>
+        <p>I stopped updating my resume in Microsoft Word. Instead, I treated my career history as a dataset. We built a <strong>Headless Resume Pipeline</strong> that separates <em>Content</em> from <em>Presentation</em>.</p>
+        
+        <ul>
+        <li><strong>The Golden Record:</strong> A single JSON file (<code>master_resume_data.json</code>) containing every job, skill, and bullet point I've ever written, deduplicated and structured.</li>
+        <li><strong>The Builder:</strong> A Python script (<code>build_resume.py</code>) that reads the JSON and compiles it into a clean, formatted Markdown document ready for PDF export or ATS ingestion.</li>
+        <li><strong>The Win:</strong> I can now generate a "Product Manager" version or a "Design Systems" version of my resume instantly without copy-pasting a single line.</li>
+        </ul>
+
+        <h3>2. The "Sugartown Pink" Theme</h3>
+        <p>We deployed a custom WordPress Block Theme (child of Twenty Twenty-Five) to enforce a strict but playful visual language. The goal was <strong>"Subtle Tech"</strong>—a hacker aesthetic that doesn't feel like a terminal window.</p>
+        
+        <h4>Visual Upgrades:</h4>
+        <figure class="wp-block-table"><table>
+        <thead><tr><th>Component</th><th>Style</th><th>CSS Tweak</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Code Blocks</strong></td><td><strong>"The Terminal"</strong></td><td>Dark mode background, neon pink accent border, and <code>2.5rem</code> padding for breathability.</td></tr>
+        <tr><td><strong>Inline Code</strong></td><td><strong>"The Pill"</strong></td><td><code>git init</code> now renders with a cool gray background and deep magenta text to pop against prose.</td></tr>
+        <tr><td><strong>Tables</strong></td><td><strong>"The Zebra"</strong></td><td>Pink headers, alternating row stripes, and collapsed borders for high-density data.</td></tr>
+        </tbody></table></figure>
+
+        <p>This completes the <strong>Infrastructure Phase</strong>. The factory is open, the machines are running, and the paint is dry.</p>
+        """,
+        'meta': {
+            'gem_category': 'Engineering', 
+            'gem_status': 'Shipped', 
+            'gem_action_item': 'Generate PDF from JSON', 
+            'gem_related_project': 'Job Hunt 2026'
         }
     },
 

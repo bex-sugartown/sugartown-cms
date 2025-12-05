@@ -1,0 +1,396 @@
+{
+  "applicants": [
+    {
+      "id": "applicant_1",
+      "name": "Becky Prince Head",
+      "location": "San Francisco Bay Area",
+      "email": "bex@sugartown.io",
+      "phone": "(510) 679-4580",
+      "linkedin": "https://www.linkedin.com/in/beckyhead/",
+      "portfolio": "https://sugartown.io/",
+      "education": [
+        {
+          "institution": "City College of San Francisco",
+          "degree_certification": "Art & Design",
+          "dates": null,
+          "location": null
+        },
+        {
+          "institution": "UC Berkeley Extension",
+          "degree_certification": "Unix & JavaScript",
+          "dates": null,
+          "location": null
+        }
+      ]
+    }
+  ],
+  "resumes": [
+    {
+      "id": "CMS-DS-PDM-01",
+      "applicant_id": "applicant_1",
+      "role_title": "Content Management & Design Systems Product Leader",
+      "role_summary": "Product manager specializing in headless CMS, enterprise design systems, and structured content architecture for global, multi-brand ecosystems. I bridge UX, engineering, and content to build platforms where teams can design, ship, and evolve digital products with clarity and speed. My work centers on composable systems, multi-surface content delivery, and Al-supported workflows, helping organizations scale with reusable components, flexible schema design, and opinionated tooling. I thrive in ambiguous, systems-heavy environments where shaping foundational capabilities unlocks creativity across the entire product organization.",
+      "keywords_skills": "headless CMS, enterprise design systems, structured content architecture, UX, engineering, content, composable systems, multi-surface content delivery, AI-supported workflows, reusable components, flexible schema design, opinionated tooling, foundational capabilities, product organization",
+      "experience": [
+        {
+          "organization": "Estée Lauder Companies Inc.",
+          "role": "Principal Product Manager",
+          "dates": "09/2023-PRESENT",
+          "currently_employed": "Yes",
+          "location": "NYC",
+          "type": "Remote",
+          "category_summary": "Led the architecture and delivery of enterprise content and design foundations for a global portfolio of prestige beauty brands.",
+          "highlights": [
+            {
+              "content": "Led a two-year in-production innovation program that launched a luxury brand on a composable foundation, integrating a headless CMS, in-house commerce engine, and an enterprise design system (EDS) - validating the ecosystem later used to guide the enterprise migration to Shopify."
+            },
+            {
+              "content": "Product Lead for EDS, serving 20+ brands across 75+ markets; built theming, governance, workflows, and a multi-brand component model designed for consistency without sacrificing expression."
+            },
+            {
+              "content": "Integrated EDS and CMS architecture, defining shared content models, component mappings, and API-driven delivery layers to ensure design-content parity across web, mobile, and emerging surfaces."
+            },
+            {
+              "content": "Developed extensible content schemas (microcopy, metadata, taxonomy) that support personalization, guided shopping, and future Al/GenAl workflows."
+            },
+            {
+              "content": "Improved editorial velocity by rethinking authoring, preview, and publishing workflows, dramatically reducing time-to-publish compared to the legacy CMS."
+            },
+            {
+              "content": "Led the Headless CMS RFP, evaluating platforms across localization, extensibility, UX, and performance with engineering, architects, and brand teams."
+            },
+            {
+              "content": "Partnered with engineering on a Shopify migration proof of concept, demonstrating how EDS tokens and components accelerate multi-brand rollout."
+            }
+          ]
+        },
+        {
+          "organization": "Sephora",
+          "role": "Senior Product Manager",
+          "dates": "08/2021-05/2023",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": "Owned CMS modernization, structured content strategy, and platform integrations for a high-volume global retail ecosystem.",
+          "highlights": [
+            {
+              "content": "Quarterly Simplification Award Winner (Jan 2023) for building a Contentful migration utility that automated 500+ page transfers and saved hundreds of production/engineering hours."
+            },
+            {
+              "content": "Led the shift from a monolithic stack to a composable MACH architecture, integrating Contentful (CMS), AEM Assets (DAM), and Riversand (PIM)."
+            },
+            {
+              "content": "Implemented a new taxonomy system in the PIM to improve product discoverability and support richer faceted search and filtering experiences."
+            },
+            {
+              "content": "Designed and executed a strategy for structured content modeling that enabled dynamic content reuse across the website and mobile app, significantly improving SEO signal and user engagement."
+            },
+            {
+              "content": "Partnered with SEO and Engineering leads to implement a robust technical SEO roadmap, including automated schema markup, optimized URL structures, and improved core web vitals."
+            }
+          ]
+        },
+        {
+          "organization": "Elephant",
+          "role": "Lead Product Manager",
+          "dates": "05/2021-08/2021",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Remote",
+          "category_summary": "Product Lead for FX Networks website redesign nominated for Webby Award 2023 (sizzle reel).",
+          "highlights": [
+            {
+              "content": "Led the product strategy for the redesign of the FX Networks website, delivering a site optimized for both user engagement and search visibility."
+            },
+            {
+              "content": "Defined technical requirements for the new CMS to support modular design and ensure content was structured for SEO best practices."
+            },
+            {
+              "content": "Conducted comprehensive audits of accessibility (WCAG 2.1 AA) and SEO performance, driving remediation efforts with engineering and design teams."
+            },
+            {
+              "content": "Facilitated weekly reviews with stakeholders to align on product vision, ensuring the final deliverable met high standards for performance and usability."
+            }
+          ]
+        },
+        {
+          "organization": "StubHub",
+          "role": "Senior Product Manager",
+          "dates": "03/2019-03/2020",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Defined the MVP for a headless CMS implementation (Drupal 8) with an API-first architecture, improving content flexibility and delivery speed."
+            },
+            {
+              "content": "Led the RFP process for CMS vendor selection, evaluating platforms based on scalability, API capabilities, and ease of use."
+            }
+          ]
+        },
+        {
+          "organization": "Backroads",
+          "role": "Product Manager",
+          "dates": "06/2017-12/2018",
+          "currently_employed": "No",
+          "location": "Berkeley",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Mapped end-to-end customer journeys to inform the design of a new content ecosystem and CMS implementation."
+            },
+            {
+              "content": "Led the company-wide rollout of Drupal 8, streamlining content management and improving site performance."
+            }
+          ]
+        },
+        {
+          "organization": "Bare Minerals",
+          "role": "Senior Digital Project Manager",
+          "dates": "01/2016 10/2016",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Managed the implementation of an enterprise DAM system (Celum) and established governance for digital asset lifecycles."
+            },
+            {
+              "content": "Optimized digital workflows to increase team productivity by 40%, improving time-to-market for digital campaigns."
+            }
+          ]
+        },
+        {
+          "organization": "Treasury Wine Estates",
+          "role": "IT Systems Manager",
+          "dates": "02/2012-08/2015",
+          "currently_employed": "No",
+          "location": "Napa",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Managed digital systems for 30+ global brands, ensuring compliance with regional regulations and data governance standards."
+            },
+            {
+              "content": "Led global engineering and design teams to deliver scalable digital solutions that reduced operational risk."
+            }
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "category": "Content Platforms & Architecture",
+          "content": "Headless CMS (Contentful, Storyblok, AEM, Drupal, WordPress), Structured content modeling, Reusable schemas, Multi-brand/multi-market governance, Editorial Workflow Design, content-as-code, localization pipelines, component mapping, Metadata & taxonomy modeling, structured content delivery, omnichannel content strategy, Integrated CMS ecosystems across PIM/PXM (Riversand, Salsify), and DAM (AEM Assets, Widen, Celum)"
+        },
+        {
+          "category": "Commerce & Product Data Systems",
+          "content": "Headless commerce (CommerceTools, Elastic Path), Shopify / Shopify Plus, Salesforce Commerce Cloud, Magento / Adobe Commerce, Catalog modeling, SKU enrichment, merchandising logic, PDP/PLP modularization, OMS integration, inventory, fulfillment workflows, Search & indexing (Algolia, Elasticsearch)"
+        },
+        {
+          "category": "APIs, Integrations & Architecture",
+          "content": "API-first platforms (REST, GraphQL), microservices, MACH, JSON/GraphQL schemas, API contract definition, event-driven integrations, CDN/caching strategies, performance & latency optimization, Platform migration & replatform strategy"
+        },
+        {
+          "category": "Design Systems & Experience Delivery",
+          "content": "Enterprise design systems: multi-brand theming, design tokens, cross-channel parity, Component governance, variant logic, accessibility standards, PM leadership across design, engineering, and content teams to align CMS + DS + FE pipelines"
+        },
+        {
+          "category": "Product Leadership & Execution",
+          "content": "Roadmapping, prioritization, KPI development, Agile delivery, cross-functional alignment, requirements & acceptance criteria, RFP/RFI leadership for CMS, commerce, PIM, DAM, and AI platforms, Release planning, governance models, stakeholder communication"
+        }
+      ]
+    },
+    {
+      "id": "DS-CMS-PDM-01",
+      "applicant_id": "applicant_1",
+      "role_title": "Design Systems & Content Management Product Leader",
+      "role_summary": "Seasoned Product Leader with expertise in headless CMS, PIM, DAM, and design system implementation for enterprise e-commerce ecosystems. Proven track record of driving digital transformation, enhancing content operations, and delivering exceptional user experiences through systems thinking, cross-functional collaboration, and strategic vision.",
+      "keywords_skills": "headless CMS, PIM, DAM, design system implementation, digital transformation, content operations, user experiences, systems thinking, cross-functional collaboration, strategic vision",
+      "experience": [
+        {
+          "organization": "Estée Lauder Companies Inc.",
+          "role": "Principal Product Manager",
+          "dates": "09/2023-PRESENT",
+          "currently_employed": "Yes",
+          "location": "NYC",
+          "type": null,
+          "category_summary": "Led the architecture and delivery of enterprise content and design foundations for a global portfolio of prestige beauty brands.",
+          "highlights": [
+            {
+              "content": "Product Lead for the Enterprise Design System (EDS) serving 20+ prestige beauty brands across 75+ markets and 30+ languages, establishing clear roles, agile workflows, and scalable collaboration models to govern a universal component and pattern library, while enabling brand expression via themes."
+            },
+            {
+              "content": "Enabled brand expression through token-driven theming while maintaining consistency, accessibility, and governance across shared UI components."
+            },
+            {
+              "content": "Partnered closely with engineering on a Shopify proof of concept (POC) and made the business case to leadership that the Enterprise Design System (EDS) was the strategic enabler for scaling brand migrations-demonstrating how EDS components and tokens could deliver governance, reusability, and creative flexibility across 20+ global brands."
+            },
+            {
+              "content": "Architected the integration between the Enterprise Design System and Content Management Systems (CMS) to streamline content creation and ensure brand consistency across digital touchpoints."
+            },
+            {
+              "content": "Directed the Headless CMS RFP process, evaluating platforms for scalability, API capabilities, and ease of integration with existing tech stacks."
+            },
+            {
+              "content": "Developed comprehensive documentation and training materials for the design system and CMS to facilitate adoption and ensure best practices across global teams."
+            }
+          ]
+        },
+        {
+          "organization": "Sephora",
+          "role": "Senior Product Manager",
+          "dates": "08/2021-05/2023",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": "Owned CMS modernization, structured content strategy, and platform integrations for a high-volume global retail ecosystem.",
+          "highlights": [
+            {
+              "content": "Led the transition from a monolithic architecture to a composable MACH (Microservices, API-first, Cloud-native, Headless) stack, integrating Contentful (CMS), AEM Assets (DAM), and Riversand (PIM)."
+            },
+            {
+              "content": "Spearheaded the Headless CMS RFP process, aligning engineering, UX, editorial, and merchandising teams on requirements and platform selection."
+            },
+            {
+              "content": "Designed and implemented modular content models to enhance reusability and ensure consistent content delivery across web, mobile app, and in-store digital displays."
+            },
+            {
+              "content": "Established catalog structures and merchandising taxonomies to improve product attribution, search relevance, and data integrity."
+            },
+            {
+              "content": "Orchestrated the integration of PIM data with search, recommendation engines, and personalization platforms via robust APIs to drive customer engagement."
+            },
+            {
+              "content": "Advocated for content-as-code principles and atomic content modeling to prepare the organization for advanced AI-driven content automation initiatives."
+            },
+            {
+              "content": "Recognized with a Quarterly Simplification Award (Jan 2023) for developing a Contentful migration utility that automated the transfer of over 500 pages, saving hundreds of hours in manual production and engineering effort."
+            }
+          ]
+        },
+        {
+          "organization": "Elephant",
+          "role": "Lead Product Manager",
+          "dates": "05/2021-08/2021",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Remote",
+          "category_summary": "Product Lead for FX Networks website redesign nominated for Webby Award 2023 (sizzle reel).",
+          "highlights": [
+            {
+              "content": "Served as Product Lead for the FX Networks website redesign, a project nominated for a 2023 Webby Award."
+            },
+            {
+              "content": "Gathered and synthesized stakeholder requirements to define actionable features for the CMS replatforming and site redesign."
+            },
+            {
+              "content": "Collaborated with creative teams to ensure the modular design strategy aligned with CMS capabilities and constraints."
+            },
+            {
+              "content": "Facilitated weekly design reviews to verify adherence to SEO best practices, WCAG 2.1 AA accessibility standards, and technical requirements."
+            }
+          ]
+        },
+        {
+          "organization": "StubHub",
+          "role": "Senior Product Manager",
+          "dates": "03/2019-03/2020",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Led the CMS RFP process and defined the MVP for a headless CMS implementation (Drupal 8) utilizing modular, API-first content delivery."
+            },
+            {
+              "content": "Oversaw the product roadmap and managed iterative releases, coordinating efforts across engineering and design teams to meet project milestones."
+            }
+          ]
+        },
+        {
+          "organization": "Backroads",
+          "role": "Product Manager",
+          "dates": "06/2017-12/2018",
+          "currently_employed": "No",
+          "location": "Berkeley",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Developed comprehensive customer journey maps to guide CMS selection and the design of the content ecosystem."
+            },
+            {
+              "content": "Directed the company-wide implementation of a new CMS (Drupal 8), ensuring alignment with business goals and user needs."
+            }
+          ]
+        },
+        {
+          "organization": "Bare Minerals",
+          "role": "Senior Digital Project Manager",
+          "dates": "01/2016 10/2016",
+          "currently_employed": "No",
+          "location": "San Francisco",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Enhanced project delivery and team productivity by 40% through strategic workflow optimization and process improvements."
+            },
+            {
+              "content": "Managed the implementation of an enterprise Digital Asset Management (DAM) system (Celum), establishing lifecycle governance policies."
+            }
+          ]
+        },
+        {
+          "organization": "Treasury Wine Estates",
+          "role": "IT Systems Manager",
+          "dates": "02/2012-08/2015",
+          "currently_employed": "No",
+          "location": "Napa",
+          "type": "Hybrid",
+          "category_summary": null,
+          "highlights": [
+            {
+              "content": "Oversaw digital systems for over 30 brands, leading global design and engineering teams to deliver high-quality digital solutions."
+            },
+            {
+              "content": "Established governance controls that significantly reduced legal and operational risks across the organization's digital portfolio."
+            }
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "category": "Content & Data Expertise",
+          "content": "Content Management Systems (CMS), Headless CMS, Content Architect, Content Modeler, Metadata & Taxonomy, Structured Content, Schema.org, Content Modeling, Product Information Management, PXM, Digital Asset Management, DAM, Contentful, WordPress, Drupal, Storyblok, Adobe Experience Manager (AEM). Shopify, Celum, Widen, AEM Assets"
+        },
+        {
+          "category": "Technical Skills",
+          "content": "E-commerce, Web Development, APIs, Search, Design System, Design Tokens, CSS, Solution Architecture, Cloud Computing, Technical Architecture, SaaS"
+        },
+        {
+          "category": "Project & Product Management",
+          "content": "Agile & Waterfall Methodologies, Prioritization, Program Management, Product Development, Requirements & Story Writing, Adobe Workfront, JIRA, Confluence, Monday.com, SLACK, Asana, Smartsheet"
+        },
+        {
+          "category": "Business/Leadership",
+          "content": "Strategic Planning, Cross-functional Team Leadership, Continuous Improvement, Stakeholder Management, Competitive Analysis, Digital Strategy, Product Launch and Release"
+        },
+        {
+          "category": "Marketing/Creative",
+          "content": "SEO, SEM, Web Design, User Interface Design, User Experience, Marketing Technology, Marketing Operations, Design Operations, Email Marketing, Salesforce.com, Marketo, Eloqua"
+        },
+        {
+          "category": "AI and Personalization",
+          "content": "Metadata and Taxonomy Management, Data Management, AI Platforms, Machine Learning, Recommendation Engines, Dynamic Content Delivery, Content Personalization Strategies, Content-as-Code, Cross-Channel Synchronization, Behavioral Analytics, A/B Testing, Gemini, ChatGPT, Copilot, Firefly"
+        }
+      ]
+    }
+  ]
+}
