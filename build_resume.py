@@ -4,8 +4,8 @@ import os
 # ==========================================
 # CONFIGURATION
 # ==========================================
-SOURCE_FILE = 'master_resume_data.json'
-OUTPUT_DIR = 'builds'
+SOURCE_FILE = 'data/json/master_resume_data.json' # <--- Point to new location
+OUTPUT_DIR = 'output/resumes'                     # <--- Point to tidy output folder
 
 # ==========================================
 # TEMPLATE: MARKDOWN

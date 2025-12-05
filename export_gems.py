@@ -110,7 +110,14 @@ def main():
         csv_rows.append(row)
 
     # 4. Write to File
-    filename = f"gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
+    # Old:
+    # filename = f"gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
+
+    # New:
+    import os
+    os.makedirs('output/reports', exist_ok=True)
+    filename = f"output/reports/gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
+
     keys = ['id', 'title', 'status', 'date', 'categories', 'tags', 'slug', 'link']
     
     with open(filename, 'w', newline='', encoding='utf-8') as f:

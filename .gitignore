@@ -1,4 +1,20 @@
-.DS_Store
-__pycache__/
-*.gdoc
+# --- SECURITY ---
 config.py
+.env
+.DS_Store
+
+# --- STATE & LOGS ---
+.content_state.json
+.system_state.json
+logs/
+backups/
+__pycache__/
+
+# --- GENERATED OUTPUTS (Don't track these) ---
+output/
+archive/
+builds/
+
+# --- EXCEPTIONS (Track these!) ---
+!data/source/
+!data/json/
