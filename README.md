@@ -1,76 +1,234 @@
-# 🧠 Sugartown "Second Brain" Pipeline
+🚀 Workflows
+1. Publishing Content (Gems)
+The Python script is the "Bully." It enforces the state of content_store.py onto the WordPress database.
 
-This repository contains the automation scripts for the Sugartown.io Headless CMS architecture. It decouples content creation (local Python/AI) from presentation (WordPress Knowledge Graph) and treats personal branding as a CI/CD pipeline.
+Open content_store.py.
 
-## 🛠 Tech Stack
-* **Source:** Python 3 (Scripts) + Gemini 3 (Content Gen)
-* **Destination:** WordPress (Sugartown.io) via REST API
-* **Data Model:** Custom Post Type `gem` with Native Meta Fields
-* **Frontend:** Block Themes with Custom Templates (Headless Style)
+Add a new dictionary entry to the all_gems list.
 
-## ⚙️ Configuration
-**⚠️ IMPORTANT:** This repo ignores `config.py` to protect credentials.
+Set status: 'draft' to preview or 'publish' to go live.
 
-1.  Create a file named `config.py` in the root folder.
-2.  Add the following variables:
-    BASE_URL = "https://sugartown.io/wp-json/wp/v2/gems"
-    USER = "your_wp_username"
-    PASSWORD = "xxxx xxxx xxxx xxxx" # WP Application Password
+Run the engine:
+
+Bash
+
+python3 publish_gem.py
+Note: The script uses MD5 hashing to skip unchanged posts and "Fuzzy Matching" to prevent duplicates.
+
+2. Building Resumes
+We treat the Resume as a dataset, not a document.
+
+Edit the Golden Record: data/json/master_resume_data.json.
+
+Run the builder:
+
+Bash
+
+python3 build_resume.py
+Find your formatted Markdown files in output/resumes/.
+
+3. Auditing Taxonomy
+To verify that tags and categories are syncing correctly between Local/Prod:
+
+Run the exporter:
+
+Bash
+
+python3 export_gems.py
+Check the CSV in output/reports/ to see exactly what is live.
+
+🛠 Setup & Config
+1. Dependencies
+
+Bash
+
+pip3 install requests
+2. Authentication (config.py) Create a file named config.py in the root (it is ignored by Git).
+
+Python
+
+# UNCOMMENT ONE ENVIRONMENT
+# BASE_URL = "http://localhost:10003"  # Local
+BASE_URL = "[https://sugartown.io](https://sugartown.io)"    # Prod
+
+USER = "your_username"
+PASSWORD = "your_application_password" # Get this from WP Admin > Users > Profile
+📜 Governance Rules
+Code is King: Never manually edit a Gem's title, content, or tags in WordPress. The script will overwrite your changes on the next run.
+
+Taxonomy flows Down: Create Categories/Tags in WordPress (or import XML) first. The script reads them to assign IDs.
+
+One Repo, One Job: This repo owns Data. The 2025-sugartown-pink repo owns Theme/CSS. Do not mix them. """
+
+with open('README.md', 'w') as f: f.write(readme_content)
+
+print("README.md created successfully.")
+
+```python?code_reference&code_event_index=6
+readme_content = """# 💎 Sugartown Content Engine
+
+**The Headless "Brain" for Sugartown.io**
+
+This repository acts as the **Source of Truth** for the Sugartown digital ecosystem. It decouples content from presentation, managing the "Golden Records" for blog posts (Gems), career history (Resume), and portfolio data.
+
+## 📂 Architecture
+
+We follow a strict separation of concerns between **Data** (this repo) and **Code** (the Theme repo).
+
+text sugartown_cms/ ├── content_store.py # THE DATABASE. All Gems & Metadata live here. ├── publish_gem.py # THE PUBLISHER. Syncs content_store -> WordPress API. ├── build_resume.py # THE FACTORY. Generates PDF-ready Markdown from JSON. ├── export_gems.py # THE AUDITOR. Exports WP database to CSV for analysis. ├── config.py # SECRETS. API keys and Auth (Not in Git). ├── data/ │ └── json/ # Source JSON for Resume & Structured Data. ├── output/ │ ├── resumes/ # Generated Resume artifacts. │ └── reports/ # CSV exports and logs. └── scripts/ # Helper utilities (Graph viz, ingestors).
+
 
 ---
 
-## 🚀 Core Workflow Scripts
+## 🚀 Core Workflows
 
-### 1. `publish_gem.py` (The Engine)
-**Purpose:** The main logic script. Reads content from the store and pushes it to WordPress.
-* **Safety First:** Automatically backs up `content_store.py` (Data) and `publish_gem.py` (Logic) to the `/backups` folder before execution.
-* **Smart Updates (Diff Check):** Uses MD5 hashing to detect changes. If a Gem hasn't changed since the last run, it skips the API call (`💤 Skipped`), reducing API load and noise.
-* **System Integrity:** Self-aware checks that log any modifications to the script itself.
-* **Usage:** `python3 publish_gem.py`
+### 1. Publishing Content (Gems)
+The Python script is the "Bully." It enforces the state of `content_store.py` onto the WordPress database.
 
-### 2. `revert_changes.py` (The Panic Button)
-**Purpose:** Disaster recovery. Restores the system to the "Last Known Good" state.
-* **Menu System:** Prompts the user to fix the **Data** (Content Store) or the **Engine** (Publish Script).
-* **Logic:** Overwrites the broken live file with the timestamped backup created by the engine.
-* **Usage:** `python3 revert_changes.py`
+1.  Open `content_store.py`.
+2.  Add a new dictionary entry to the `all_gems` list.
+3.  Set `status: 'draft'` to preview or `'publish'` to go live.
+4.  Run the engine:
+    ```bash
+    python3 publish_gem.py
+    ```
+    * **Note:** The script uses MD5 hashing to skip unchanged posts and "Fuzzy Matching" to prevent duplicates.
 
-### 3. `content_store.py` (The Source of Truth)
-**Purpose:** A pure Python list of dictionaries containing your Gem data.
-* **Workflow:** Edit this file to add new Gems or update existing ones.
-* **Status:** Set `status: 'draft'` for new ideas, `status: 'publish'` for live updates.
+### 2. Building Resumes
+We treat the Resume as a dataset, not a document.
 
----
+1.  Edit the Golden Record: `data/json/master_resume_data.json`.
+2.  Run the builder:
+    ```bash
+    python3 build_resume.py
+    ```
+3.  Find your formatted Markdown files in `output/resumes/`.
 
-## 💼 Resume Engineering Scripts
+### 3. Auditing Taxonomy
+To verify that tags and categories are syncing correctly between Local/Prod:
 
-### 4. `prep_resume.py` (Standardization)
-**Purpose:** Standardizes resume file naming for external recruiters vs. internal archives.
-* **Input:** Google Doc exported as `MASTER_RESUME.pdf`.
-* **Output:** `Becky-Head_Product-Leader_2026.pdf` (Clean SEO name).
-
-### 5. `ingest_resume.py` (The ETL)
-**Purpose:** Parses the PDF resume and extracts structured data.
-* **Output:** Generates `resume_data.csv` for analysis or prompt engineering context.
-
----
-
-## 📊 Audit & Reporting Scripts
-
-### 6. `export_gems.py` (The Audit)
-**Purpose:** Pulls all data from WordPress and saves it as a CSV.
-* **Use Case:** Periodic audits to check for data integrity issues (missing meta, orphans) that aren't visible in the WP Admin.
-* **Output:** `gems_report_YYYY-MM-DD.csv`.
+1.  Run the exporter:
+    ```bash
+    python3 export_gems.py
+    ```
+2.  Check the CSV in `output/reports/` to see exactly what is live.
 
 ---
 
-## 📂 Logs & Artifacts
-* **`changelog.txt`**: A chronological record of every successful API update (Draft/Publish) and System Code update.
-* **`errorlog.txt`**: Captures API failures (400/500 errors) for debugging.
-* **`.content_state.json`**: (Hidden) Stores MD5 hashes of content to enable smart diffing.
-* **`/backups/`**: Directory containing `.last_good.py` snapshots.
+## 🛠 Setup & Config
 
-## 🐛 Troubleshooting
-* **Duplicate Posts?** The script matches by Title. If smart quotes (“) don't match straight quotes ("), it creates a duplicate. *Fix:* The script now uses `html.unescape` to handle this.
-* **Script crashes?** Run `python3 revert_changes.py` to restore the previous working version.
-* **"Skipped" messages?** This is normal. The script only updates Gems that have changed content.
-* **404 Error?** The Post Type `gem` isn't registered. Check WPCode snippet.
+**1. Dependencies**
+```bash
+pip3 install requests
+2. Authentication (config.py) Create a file named config.py in the root (it is ignored by Git).
+
+Python
+
+# UNCOMMENT ONE ENVIRONMENT
+# BASE_URL = "http://localhost:10003"  # Local
+BASE_URL = "[https://sugartown.io](https://sugartown.io)"    # Prod
+
+USER = "your_username"
+PASSWORD = "your_application_password" # Get this from WP Admin > Users > Profile
+📜 Governance Rules
+Code is King: Never manually edit a Gem's title, content, or tags in WordPress. The script will overwrite your changes on the next run.
+
+Taxonomy flows Down: Create Categories/Tags in WordPress (or import XML) first. The script reads them to assign IDs.
+
+One Repo, One Job: This repo owns Data. The 2025-sugartown-pink repo owns Theme/CSS. Do not mix them. """
+
+with open('README.md', 'w') as f: f.write(readme_content)
+
+print("README.md file created.")
+
+Here is the corrected, complete `README.md` file ready for download. This version cleans up the "munged" text and aligns perfectly with the new folder structure (`scripts/`, `data/`, etc.).
+
+[README.md]
+
+And here is the raw text block if you prefer to copy/paste:
+
+```markdown
+# 💎 Sugartown Content Engine
+
+**The Headless "Brain" for Sugartown.io**
+
+This repository acts as the **Source of Truth** for the Sugartown digital ecosystem. It decouples content from presentation, managing the "Golden Records" for blog posts (Gems), career history (Resume), and portfolio data.
+
+## 📂 Architecture
+
+We follow a strict separation of concerns between **Data** (this repo) and **Code** (the Theme repo).
+
+```text
+sugartown_cms/
+├── content_store.py       # THE DATABASE. All Gems & Metadata live here.
+├── publish_gem.py         # THE PUBLISHER. Syncs content_store -> WordPress API.
+├── build_resume.py        # THE FACTORY. Generates PDF-ready Markdown from JSON.
+├── export_gems.py         # THE AUDITOR. Exports WP database to CSV for analysis.
+├── config.py              # SECRETS. API keys and Auth (Not in Git).
+├── data/
+│   └── json/              # Source JSON for Resume & Structured Data.
+├── output/
+│   ├── resumes/           # Generated Resume artifacts.
+│   └── reports/           # CSV exports and logs.
+└── scripts/               # Helper utilities (Graph viz, ingestors).
+🚀 Workflows
+1. Publishing Content (Gems)
+The Python script is the "Bully." It enforces the state of content_store.py onto the WordPress database.
+
+Open content_store.py.
+
+Add a new dictionary entry to the all_gems list.
+
+Set status: 'draft' to preview or 'publish' to go live.
+
+Run the engine:
+
+Bash
+
+python3 publish_gem.py
+Note: The script uses MD5 hashing to skip unchanged posts and "Fuzzy Matching" to prevent duplicates.
+
+2. Building Resumes
+We treat the Resume as a dataset, not a document.
+
+Edit the Golden Record: data/json/master_resume_data.json.
+
+Run the builder:
+
+Bash
+
+python3 build_resume.py
+Find your formatted Markdown files in output/resumes/.
+
+3. Auditing Taxonomy
+To verify that tags and categories are syncing correctly between Local/Prod:
+
+Run the exporter:
+
+Bash
+
+python3 export_gems.py
+Check the CSV in output/reports/ to see exactly what is live.
+
+🛠 Setup & Config
+1. Dependencies
+
+Bash
+
+pip3 install requests
+2. Authentication (config.py) Create a file named config.py in the root (it is ignored by Git).
+
+Python
+
+# UNCOMMENT ONE ENVIRONMENT
+# BASE_URL = "http://localhost:10003"  # Local
+BASE_URL = "[https://sugartown.io](https://sugartown.io)"    # Prod
+
+USER = "your_username"
+PASSWORD = "your_application_password" # Get this from WP Admin > Users > Profile
+📜 Governance Rules
+Code is King: Never manually edit a Gem's title, content, or tags in WordPress. The script will overwrite your changes on the next run.
+
+Taxonomy flows Down: Create Categories/Tags in WordPress (or import XML) first. The script reads them to assign IDs.
+
+One Repo, One Job: This repo owns Data. The 2025-sugartown-pink repo owns Theme/CSS. Do not mix them.
