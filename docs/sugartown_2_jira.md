@@ -1,6 +1,6 @@
-============================================
+
 SUGARTOWN 2.0 — JIRA EPIC + STORIES (MARKDOWN)
-============================================
+
 
 # EPIC: SUG-200 — Sugartown 2.0 Content Engine & Mini Design System
 

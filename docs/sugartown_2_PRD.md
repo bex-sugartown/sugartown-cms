@@ -1,6 +1,6 @@
-============================================
+
 SUGARTOWN 2.0 — FULL PRD (MARKDOWN VERSION)
-============================================
+
 
 # Product Requirements Document (PRD)
 ## Sugartown 2.0 — Content Engine, Mini Design System, and WordPress Rendering Layer

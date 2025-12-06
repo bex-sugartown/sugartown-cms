@@ -1,3 +1,10 @@
+import sys
+import os
+
+# ✨ FIX: Add parent directory to path so we can import content_store
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+import content_store  # <--- Now this will work!
 import networkx as nx
 import matplotlib.pyplot as plt
 import textwrap
@@ -118,9 +125,16 @@ def generate_knowledge_graph():
     plt.axis('off')
     
     # 6. Save Initial High-Res Image
-    output_file = "knowledge_graph.png"
-    plt.savefig(output_file, format="PNG", dpi=300, bbox_inches='tight')
-    print(f"✨ Graph Generated: {output_file}")
+
+    # ✨ FIX: Define the output path relative to the project root
+    # Go up one level from 'scripts/' to root, then down into 'output/visuals/'
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'output', 'visuals')
+    os.makedirs(output_dir, exist_ok=True) # Create folder if missing
+
+    # Save the file
+    output_file = os.path.join(output_dir, 'knowledge_graph.png')
+    plt.savefig(output_file, dpi=120, bbox_inches='tight')
+    print(f"✅ Graph Generated: {output_file}")
 
     # 7. Resize for Web (WordPress Safety)
     try:

@@ -27,17 +27,32 @@ all_gems = [
         <h3>The Outcome: Satisfaction</h3>
         <p>The result is a system that feels alive. I can refactor my entire portfolio by changing one line of Python. The "Green Checkmark" in the terminal has become my favorite UI.</p>
         
-        <h3>Roadmap Status (Dec 2025)</h3>
-        <ul>
-        <li><strong>Q1: Migrate "Master Resume" to Code.</strong><br>✅ <strong>Shipped.</strong> Built <code>master_resume_data.json</code> and a Python builder to generate PDF/Markdown on demand.</li>
-        <li><strong>Q2: Implement "Smart Merge".</strong><br>🟡 <strong>On Hold.</strong> Decided that "Script = Source of Truth" is safer than bi-directional syncing.</li>
-        <li><strong>Q3: React Frontend (Next.js).</strong><br>🔮 <strong>Future.</strong> Current WordPress Block Theme performance is sufficient.</li>
-        <li><strong>Q4: Codify the "Mini Design System".</strong><br>✅ <strong>Shipped.</strong> Deployed "Sugartown Pink" theme with tokenized CSS for tables, terminal blocks, and pills.</li>
-        </ul>
+        <h3>Live Roadmap (Dec 2025)</h3>
+        <p>We have shifted to a 12-week launch sprint. Here is the current status of the build:</p>
+        
+<pre class="mermaid">
+gantt
+title Sugartown Launch Roadmap
+dateFormat YYYY-MM-DD
+axisFormat %m/%d
+
+section Phase 1 The Factory
+Infrastructure and Repo Split     :done,    p1_infra, 2025-11-24, 4d
+Pink Stink Theme and CSS          :done,    p1_design, after p1_infra, 4d
+Headless Resume Engine            :done,    p1_resume, after p1_design, 3d
+
+section Phase 2 Viz Ops
+Visualization Engine Python       :active,  p2_viz,    2025-12-06, 5d
+Automated Cover Letters           :         p2_cov,    after p2_viz, 5d
+Smart Merge On Hold               :crit,    p2_merge,  after p2_cov, 1w
+
+section Phase 3 Frontend
+React Nextjs Evaluation           :         p3_react,  2026-01-05, 2w
+Full Headless Migration           :         p3_mig,    after p3_react, 4w
+</pre>
         """,
         'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Refine Taxonomy Visualization', 'gem_related_project': 'Sugartown.io v2'}
     },
-
     # GEM 2: The CSV Reality Check
     {
         'id': 942,
@@ -455,6 +470,46 @@ git push origin main
             'gem_status': 'Shipped', 
             'gem_action_item': 'Generate PDF from JSON', 
             'gem_related_project': 'Job Hunt 2026'
+        }
+    },
+# GEM 18: PRD - The Visualization Engine (Phase 2)
+    {
+        # 'id': 1080, <--- Comment out until generated
+        'title': 'PRD: The Visualization Engine (Phase 2)',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'Product & Platform Strategy'],
+        'tags': ['PRD', 'requirements', 'python', 'visualization', 'data science'],
+        'content': """
+        <p><strong>Status:</strong> <code>In Progress</code> | <strong>Phase:</strong> <code>2.0</code> | <strong>Owner:</strong> <code>Product Ops</code></p>
+        
+        <h3>Executive Summary</h3>
+        <p>Phase 1 established the "Content Engine" (Text). Phase 2 establishes the "Visualization Engine" (Images). We are building a suite of Python scripts that auto-generate insights from our own data.</p>
+
+        <h3>Core Requirements</h3>
+        <figure class="wp-block-table"><table>
+        <thead><tr><th>Requirement</th><th>The "Why"</th><th>Technical Implementation</th></tr></thead>
+        <tbody>
+        <tr><td><strong>1. Source Agnosticism</strong></td><td>Scripts must work without manual file selection.</td><td>Scripts automatically scan <code>output/reports/</code> and pick the file with the latest timestamp (e.g., <code>gems_report_2025-12-05.csv</code>).</td></tr>
+        <tr><td><strong>2. Idempotent Output</strong></td><td>Links in blog posts must never break.</td><td>Scripts always overwrite a "Latest" file alias (e.g., <code>knowledge_graph_latest.png</code>). We do NOT timestamp filenames like <code>graph_v4.png</code>.</td></tr>
+        <tr><td><strong>3. Single Responsibility</strong></td><td>Debugging monoliths is painful.</td><td>One script per chart type (e.g., <code>viz_network.py</code>, <code>viz_barchart.py</code>).</td></tr>
+        </tbody></table></figure>
+
+        <h3>The Architecture</h3>
+        <pre class="wp-block-code"><code># The Flow:
+WordPress API -> export_gems.py -> CSV Report -> [Viz Scripts] -> PNG Artifacts
+
+# The Artifacts:
+output/visuals/knowledge_graph_latest.png  (The Network)
+output/visuals/category_dist_latest.png    (The Bar Chart)</code></pre>
+
+        <h3>Success Criteria</h3>
+        <p>A "Green Checkmark" run of the visualization suite automatically updates the images embedded in live Gems without requiring a WordPress edit.</p>
+        """,
+        'meta': {
+            'gem_category': 'Product Management', 
+            'gem_status': 'Draft', 
+            'gem_action_item': 'Build viz_barchart.py', 
+            'gem_related_project': 'Sugartown.io v2'
         }
     },
 

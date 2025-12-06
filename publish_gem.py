@@ -133,12 +133,22 @@ def main():
                 tid = get_term_id(t, TAGS_ENDPOINT, TAG_MAP)
                 if tid: tag_ids.append(tid)
 
+        # 3. BUILD PAYLOAD
+        # Extract meta from the Gem dictionary (default to empty strings if missing)
+        meta_data = gem.get('meta', {})
+        
         payload = {
             'title': gem['title'],
             'content': gem['content'],
             'status': gem['status'],
             'categories': cat_ids,
-            'tags': tag_ids
+            'tags': tag_ids,
+            # ✨ NEW: Inject Meta Fields
+            'meta': {
+                'gem_status': meta_data.get('gem_status', ''),
+                'gem_action_item': meta_data.get('gem_action_item', ''),
+                'gem_related_project': meta_data.get('gem_related_project', '')
+            }
         }
 
         # 3. SPEED CHECK

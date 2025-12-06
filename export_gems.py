@@ -3,19 +3,18 @@ import requests
 import json
 import base64
 from datetime import datetime
-import config  # <--- SECURE IMPORT
+import os  # <--- Needed for folder creation
+import config
 
 # ==========================================
 # CONFIGURATION
 # ==========================================
-# Pull from the secure config.py file
 WP_URL = config.BASE_URL
 WP_USER = config.USER
 WP_PASS = config.PASSWORD
 
 # Endpoints
-# Check if your custom post type is 'gem' or 'gems' based on previous success
-POSTS_ENDPOINT = f"{WP_URL}/wp-json/wp/v2/gems" 
+POSTS_ENDPOINT = f"{WP_URL}/wp-json/wp/v2/gem" 
 CATS_ENDPOINT = f"{WP_URL}/wp-json/wp/v2/categories"
 TAGS_ENDPOINT = f"{WP_URL}/wp-json/wp/v2/tags"
 
@@ -55,7 +54,7 @@ def get_taxonomy_map(endpoint):
 # ==========================================
 def main():
     print("------------------------------------------------")
-    print("📊 SUGARTOWN GEM EXPORT v2.1 (Secure + Taxonomy)")
+    print("📊 SUGARTOWN GEM EXPORT v2.2 (Fix: Filename)")
     print(f"   🎯 Target: {WP_URL}")
     print("------------------------------------------------")
 
@@ -75,7 +74,6 @@ def main():
         if response.status_code != 200:
             if page == 1:
                 print(f"❌ Error connecting to API: {response.status_code}")
-                print(f"   Check URL: {url}")
             break
             
         data = response.json()
@@ -91,11 +89,10 @@ def main():
     for post in all_posts:
         cat_names = [cat_map.get(cid, str(cid)) for cid in post.get('categories', [])]
         tag_names = [tag_map.get(tid, str(tid)) for tid in post.get('tags', [])]
-
-        # Handle cases where 'content' is protected or empty
-        content_snippet = ""
-        if 'content' in post and 'rendered' in post['content']:
-             content_snippet = post['content']['rendered'][:100] + "..."
+        
+        # Extract Meta Fields (with safety check)
+        meta = post.get('meta', {})
+        if not isinstance(meta, dict): meta = {} # Handle edge case where meta is empty/list
 
         row = {
             'id': post['id'],
@@ -104,21 +101,21 @@ def main():
             'date': post['date'].split('T')[0],
             'categories': ", ".join(cat_names),
             'tags': ", ".join(tag_names),
+            # Meta Columns
+            'project': meta.get('gem_related_project', ''),
+            'gem_status': meta.get('gem_status', ''),
+            'action_item': meta.get('gem_action_item', ''),
             'slug': post['slug'],
             'link': post['link']
         }
         csv_rows.append(row)
 
     # 4. Write to File
-    # Old:
-    # filename = f"gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
-
-    # New:
-    import os
+    # ✨ FIX: Define the filename and ensure folder exists
     os.makedirs('output/reports', exist_ok=True)
     filename = f"output/reports/gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
-
-    keys = ['id', 'title', 'status', 'date', 'categories', 'tags', 'slug', 'link']
+    
+    keys = ['id', 'title', 'status', 'date', 'categories', 'tags', 'project', 'gem_status', 'action_item', 'slug', 'link']
     
     with open(filename, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=keys)
