@@ -1,213 +1,209 @@
-import pdfplumber
+#!/usr/bin/env python3
 import pandas as pd
-import re
-import os
+import json
+from difflib import SequenceMatcher
+from pathlib import Path
+import sys
 
 # --- CONFIGURATION ---
-# Update this path if needed
-DRIVE_FOLDER = "/Users/beckyalice/Library/CloudStorage/GoogleDrive-becky.head@gmail.com/My Drive/04 Resumes & Job Search/01 Resumes/Resume 2026"
-SOURCE_FILE = "MASTER_RESUME.pdf"
-source_path = os.path.join(DRIVE_FOLDER, SOURCE_FILE)
+BASE_DIR = Path(__file__).resolve().parent.parent
+INPUT_CSV = BASE_DIR / "data" / "source" / "resume_data.csv"
+OUTPUT_JSON = BASE_DIR / "data" / "json" / "master_resume_data.json"
 
-def parse_resume_to_granular_csv(file_path):
-    all_rows = []
-    full_text = ""
-    row_id = 1  # Initialize Row ID counter
+# Column Headers
+COL_RECORD_TYPE = 'Record Type'
+COL_SLOT_ID = 'Slot_ID'
+COL_VARIANT = 'Variant Type'
+COL_CONTENT = 'Content'
+COL_ORG = 'Organization'
+COL_ROLE = 'Role/Degree'
+COL_DATES = 'Dates'
+COL_LOC = 'Location'
+COL_SKILLS_HEADER = 'Skills'
+
+# Metadata Headers (The new stuff)
+COL_ROLE_TITLE = 'Role Title'
+COL_ROLE_SUMMARY = 'Role Summary'
+COL_APP_NAME = 'Applicant Name'
+COL_APP_LOC = 'Applicant Location'
+COL_APP_EMAIL = 'Applicant Email'
+COL_APP_PHONE = 'Applicant Phone'
+COL_APP_LINKEDIN = 'Applicant LinkedIn'
+COL_APP_PORTFOLIO = 'Applicant Portfolio'
+
+SIMILARITY_THRESHOLD = 0.45
+
+def similar(a, b):
+    return SequenceMatcher(None, str(a), str(b)).ratio()
+
+def process_slots(df_subset, context_name):
+    """Cluster rows into Slots -> Variants."""
+    slots_output = []
+    manual_slots = {}
+    orphans = []
+
+    for _, row in df_subset.iterrows():
+        content = row[COL_CONTENT]
+        if pd.isna(content): continue
+
+        variant_type = row[COL_VARIANT] if pd.notna(row[COL_VARIANT]) else "CMS-DS-PDM-01"
+        slot_id = row[COL_SLOT_ID] if pd.notna(row[COL_SLOT_ID]) else None
+        
+        # Capture Skill Header if available
+        skill_header = row[COL_SKILLS_HEADER] if COL_SKILLS_HEADER in row and pd.notna(row[COL_SKILLS_HEADER]) else None
+
+        bullet_obj = {
+            "type": variant_type,
+            "content": content,
+            "manual_id": slot_id,
+            "header": skill_header 
+        }
+
+        if slot_id:
+            if slot_id not in manual_slots:
+                manual_slots[slot_id] = []
+            manual_slots[slot_id].append(bullet_obj)
+        else:
+            orphans.append(bullet_obj)
+
+    final_clusters = []
+
+    # 1. Add Manual Slots
+    for s_id, variants in manual_slots.items():
+        final_clusters.append({"id": s_id, "variants": variants})
+
+    # 2. Auto-Cluster Orphans
+    for orphan in orphans:
+        matched = False
+        for cluster in final_clusters:
+            centroid = cluster['variants'][0]['content']
+            if similar(orphan['content'], centroid) > SIMILARITY_THRESHOLD:
+                cluster['variants'].append(orphan)
+                matched = True
+                break
+        
+        if not matched:
+            slug = str(context_name).lower().split()[0].replace(',', '').replace('.', '')
+            new_id = f"{slug}_auto_{len(final_clusters)+1:02d}"
+            final_clusters.append({"id": new_id, "variants": [orphan]})
+
+    # 3. Format Output
+    for cluster in final_clusters:
+        header_title = None
+        for v in cluster['variants']:
+            if v.get('header'):
+                header_title = v['header']
+                break
+        
+        slot_obj = {
+            "id": cluster['id'], 
+            "header": header_title,
+            "variants": []
+        }
+        
+        seen_types = set()
+        for v in cluster['variants']:
+            if v['type'] not in seen_types:
+                slot_obj['variants'].append({"type": v['type'], "content": v['content']})
+                seen_types.add(v['type'])
+        slots_output.append(slot_obj)
+        
+    return slots_output
+
+def run_ingestion():
+    print(f"🏭 SUGARTOWN FACTORY: Ingestion Sequence Started")
     
-    # Applicant Info (Hardcoded as requested)
-    applicant = {
-        "Applicant Name": "Becky Prince Head",
-        "Applicant Title": "Content Management & Design Systems Product Leader",
-        "Applicant Location": "San Francisco Bay Area",
-        "Applicant Email": "bex@sugartown.io",
-        "Applicant Phone": "(510) 679-4580",
-        "Applicant LinkedIn": "https://www.linkedin.com/in/beckyhead/", # Explicitly set
-        "Applicant Portfolio": "https://sugartown.io/", # Explicitly set
-        "Applicant Summary": ""
+    if not INPUT_CSV.exists():
+        print(f"❌ ERROR: Source file not found at {INPUT_CSV}")
+        sys.exit(1)
+
+    try:
+        df = pd.read_csv(INPUT_CSV)
+    except Exception as e:
+        print(f"❌ ERROR reading CSV: {e}")
+        sys.exit(1)
+
+    # 1. Capture Static Basics (From the first valid row)
+    first_valid = df.iloc[0] # Assuming first row has contact info
+    golden_record = {
+        "basics": {
+            "name": str(first_valid[COL_APP_NAME]),
+            "location": str(first_valid[COL_APP_LOC]),
+            "email": str(first_valid[COL_APP_EMAIL]),
+            "phone": str(first_valid[COL_APP_PHONE]),
+            "linkedin": str(first_valid[COL_APP_LINKEDIN]),
+            "portfolio": str(first_valid[COL_APP_PORTFOLIO])
+        },
+        "variant_summaries": {}, # NEW: Stores Title/Summary per variant
+        "work_history": [],
+        "education": [],
+        "skills": []
     }
 
-    with pdfplumber.open(file_path) as pdf:
-        # 1. EXTRACT TEXT (We skip link extraction since we hardcoded them)
-        for page in pdf.pages:
-            full_text += page.extract_text() + "\n"
+    # 2. Capture Dynamic Summaries (Iterate all rows to find unique Variant Types)
+    if COL_ROLE_TITLE in df.columns and COL_ROLE_SUMMARY in df.columns:
+        # Group by Variant Type to get unique summaries
+        # We drop duplicates to just get one row per variant type
+        meta_df = df[[COL_VARIANT, COL_ROLE_TITLE, COL_ROLE_SUMMARY]].drop_duplicates(subset=[COL_VARIANT])
+        
+        for _, row in meta_df.iterrows():
+            v_type = row[COL_VARIANT]
+            if pd.notna(v_type):
+                golden_record['variant_summaries'][v_type] = {
+                    "title": row[COL_ROLE_TITLE] if pd.notna(row[COL_ROLE_TITLE]) else "Product Leader",
+                    "summary": row[COL_ROLE_SUMMARY] if pd.notna(row[COL_ROLE_SUMMARY]) else ""
+                }
 
-    # 2. PARSE SUMMARY
-    summary_match = re.search(r"Summary\s+(.*?)\s+Professional Experience", full_text, re.DOTALL)
-    if summary_match:
-        applicant["Applicant Summary"] = summary_match.group(1).replace("\n", " ").strip()
-
-    # 3. PARSE EXPERIENCE (With "Buffer Logic" for Bullets)
-    exp_section_match = re.search(r"Professional Experience\s+(.*?)\s+Education", full_text, re.DOTALL)
+    # --- PART 3: EDUCATION ---
+    if COL_RECORD_TYPE in df.columns:
+        edu_df = df[df[COL_RECORD_TYPE] == 'Education']
+        seen_edu = set()
+        for _, row in edu_df.iterrows():
+            inst = row[COL_ORG] if pd.notna(row[COL_ORG]) else ""
+            degree = row[COL_ROLE] if pd.notna(row[COL_ROLE]) else ""
+            unique_key = (inst, degree)
+            if unique_key not in seen_edu and (inst or degree):
+                golden_record['education'].append({
+                    "institution": inst,
+                    "area": degree,
+                    "dates": row[COL_DATES] if pd.notna(row[COL_DATES]) else "",
+                    "location": row[COL_LOC] if pd.notna(row[COL_LOC]) else ""
+                })
+                seen_edu.add(unique_key)
     
-    if exp_section_match:
-        exp_text = exp_section_match.group(1)
-        job_headers = re.split(r"([A-Z][a-zA-Z0-9\s\.]+)(?:-|–)\s+([A-Z][a-zA-Z\s]+)\n", exp_text)
+    # --- PART 4: SKILLS ---
+    if COL_RECORD_TYPE in df.columns:
+        skill_df = df[df[COL_RECORD_TYPE] == 'Skills']
+        golden_record['skills'] = process_slots(skill_df, "skills")
+
+    # --- PART 5: EXPERIENCE ---
+    if COL_RECORD_TYPE in df.columns:
+        exp_df = df[(df[COL_RECORD_TYPE] == 'Experience') | (df[COL_RECORD_TYPE].isna())]
+    else:
+        exp_df = df 
+
+    processed_jobs = 0
+    for org_name in exp_df[COL_ORG].unique():
+        if pd.isna(org_name): continue
         
-        i = 1
-        while i < len(job_headers) - 2:
-            company = job_headers[i].strip()
-            role = job_headers[i+1].strip()
-            content_block = job_headers[i+2].strip()
-            
-            lines = content_block.split('\n')
-            meta_line = lines[0]
-            
-            dates, location, work_type, currently_employed = "", "", "Hybrid", "No"
-            date_loc_match = re.match(r"(.*?)\s*\|\s*(.*)", meta_line)
-            
-            if date_loc_match:
-                dates = date_loc_match.group(1).strip()
-                location_raw = date_loc_match.group(2).strip()
-                if "PRESENT" in dates.upper(): currently_employed = "Yes"
-                if "(" in location_raw:
-                    location = location_raw.split("(")[0].strip()
-                    work_type = location_raw.split("(")[1].replace(")", "").strip()
-                else: location = location_raw
+        org_rows = exp_df[exp_df[COL_ORG] == org_name]
+        first_row = org_rows.iloc[0]
 
-            intro_text = []
-            active_bullet_text = None 
+        job_entry = {
+            "company": org_name,
+            "role": first_row[COL_ROLE] if pd.notna(first_row[COL_ROLE]) else "Product Leader",
+            "dates": first_row[COL_DATES] if pd.notna(first_row[COL_DATES]) else "",
+            "location": first_row[COL_LOC] if pd.notna(first_row[COL_LOC]) else "",
+            "slots": process_slots(org_rows, org_name)
+        }
+        golden_record['work_history'].append(job_entry)
+        processed_jobs += 1
 
-            for line in lines[1:]:
-                clean_line = line.strip()
-                if not clean_line: continue
-                
-                is_bullet_start = clean_line.startswith("•") or clean_line.startswith("-")
-                
-                if is_bullet_start:
-                    # Save previous bullet if exists
-                    if active_bullet_text is not None:
-                        all_rows.append({
-                            "Row ID": row_id,
-                            **applicant,
-                            "Record Type": "Experience",
-                            "Organization/School/Category": company,
-                            "Role/Degree": role,
-                            "Dates": dates,
-                            "Currently Employed?": currently_employed,
-                            "Location": location,
-                            "Type/Mode": work_type,
-                            "Intro": " ".join(intro_text),
-                            "Content List": active_bullet_text,
-                            "Experience Skills": ""
-                        })
-                        row_id += 1
-                    
-                    # Start NEW bullet
-                    text_part = clean_line.lstrip("•- ").strip()
-                    active_bullet_text = text_part if text_part else ""
-                        
-                elif active_bullet_text is not None:
-                    # Continuation
-                    active_bullet_text = clean_line if active_bullet_text == "" else active_bullet_text + " " + clean_line
-                else:
-                    intro_text.append(clean_line)
+    OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_JSON, 'w') as f:
+        json.dump(golden_record, f, indent=2)
+    
+    print(f"✅ SUCCESS: Ingested metadata for {len(golden_record['variant_summaries'])} variants.")
 
-            # Save the final bullet of the job
-            if active_bullet_text is not None:
-                all_rows.append({
-                    "Row ID": row_id,
-                    **applicant,
-                    "Record Type": "Experience",
-                    "Organization/School/Category": company,
-                    "Role/Degree": role,
-                    "Dates": dates,
-                    "Currently Employed?": currently_employed,
-                    "Location": location,
-                    "Type/Mode": work_type,
-                    "Intro": " ".join(intro_text),
-                    "Content List": active_bullet_text,
-                    "Experience Skills": ""
-                })
-                row_id += 1
-            
-            # Catch jobs with ONLY intro (no bullets)
-            if not any(r['Organization/School/Category'] == company for r in all_rows):
-                 all_rows.append({
-                        "Row ID": row_id,
-                        **applicant,
-                        "Record Type": "Experience",
-                        "Organization/School/Category": company,
-                        "Role/Degree": role,
-                        "Dates": dates,
-                        "Currently Employed?": currently_employed,
-                        "Location": location,
-                        "Type/Mode": work_type,
-                        "Intro": " ".join(intro_text),
-                        "Content List": " ".join(intro_text),
-                        "Experience Skills": ""
-                    })
-                 row_id += 1
-            i += 3
-
-    # 4. PARSE EDUCATION
-    edu_section_match = re.search(r"Education\s+(.*?)\s+Skills", full_text, re.DOTALL)
-    if edu_section_match:
-        edu_lines = edu_section_match.group(1).strip().split('\n')
-        for line in edu_lines:
-            if "|" in line:
-                parts = line.split("|")
-                all_rows.append({
-                    "Row ID": row_id,
-                    **applicant,
-                    "Record Type": "Education",
-                    "Organization/School/Category": parts[0].strip(),
-                    "Role/Degree": parts[1].strip(),
-                    "Dates": "", "Currently Employed?": "", "Location": "", "Type/Mode": "", "Intro": "", "Content List": "", "Experience Skills": ""
-                })
-                row_id += 1
-
-    # 5. PARSE SKILLS
-    skills_section_match = re.search(r"Skills\s+(.*)", full_text, re.DOTALL)
-    if skills_section_match:
-        skills_text = skills_section_match.group(1)
-        known_categories = [ "Content Platforms & Architecture", "Commerce & Product Data Systems", "APIs, Integrations & Architecture", "Design Systems & Experience Delivery", "Al, Personalization & Automation", "Product Leadership & Execution" ]
-        current_cat = "Skills"
-        current_content = []
-        
-        for line in skills_text.split('\n'):
-            line = line.strip()
-            if not line: continue
-            is_header = False
-            for cat in known_categories:
-                if cat in line:
-                    if current_content:
-                        all_rows.append({ 
-                            "Row ID": row_id,
-                            **applicant, 
-                            "Record Type": "Skills", 
-                            "Organization/School/Category": current_cat, 
-                            "Role/Degree": "", "Dates": "", "Currently Employed?": "", "Location": "", "Type/Mode": "", "Intro": "", 
-                            "Content List": ", ".join(current_content), 
-                            "Experience Skills": "" 
-                        })
-                        row_id += 1
-                    current_cat = line
-                    current_content = []
-                    is_header = True
-                    break
-            if not is_header: current_content.append(line)
-        if current_content:
-            all_rows.append({ 
-                "Row ID": row_id,
-                **applicant, 
-                "Record Type": "Skills", 
-                "Organization/School/Category": current_cat, 
-                "Role/Degree": "", "Dates": "", "Currently Employed?": "", "Location": "", "Type/Mode": "", "Intro": "", 
-                "Content List": ", ".join(current_content), 
-                "Experience Skills": "" 
-            })
-            row_id += 1
-
-    return pd.DataFrame(all_rows)
-
-# --- EXECUTE ---
-if os.path.exists(source_path):
-    print(f"📄 Found Master Resume at: {source_path}")
-    print("⏳ Parsing with Row IDs...")
-    df = parse_resume_to_granular_csv(source_path)
-    output_csv = "resume_data.csv"
-    df.to_csv(output_csv, index=False)
-    print(f"✅ Success! Data extracted to: {output_csv}")
-    print(f"   (Found {len(df)} rows of data)")
-else:
-    print(f"❌ ERROR: Could not find '{SOURCE_FILE}'")
+if __name__ == "__main__":
+    run_ingestion()
