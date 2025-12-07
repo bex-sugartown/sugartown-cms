@@ -512,5 +512,98 @@ output/visuals/category_dist_latest.png    (The Bar Chart)</code></pre>
             'gem_related_project': 'Sugartown.io v2'
         }
     },
+# GEM 19: The Sugartown 2.0 System Contract
+    {
+        'id': 1094, 
+        'title': 'Architecture Insight: The Sugartown 2.0 System Contract',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'Content Architecture'],
+        'tags': ['headless architecture', 'python', 'content ops', 'design systems', 'governance'],
+        'content': """
+        <p><strong>Sugartown 2.0 establishes a non-negotiable architecture:</strong> Python is the single source of truth; WordPress is a stateless rendering layer.</p>
 
+        <p>This eliminates CMS drift, enables reproducibility, and prepares the platform for a headless future.</p>
+
+        <h3>Core Principles</h3>
+        <ul>
+        <li><strong>Python as Canonical:</strong> All content, metadata, and tokens exist in <code>sugartown-cms</code>. If it is not in Python, it does not exist.</li>
+        <li><strong>WordPress as Renderer:</strong> WP holds no unique content; it displays structured data via custom templates.</li>
+        <li><strong>Structured Gem Model:</strong> Gems are topological knowledge nodes, not posts in a feed.</li>
+        <li><strong>Two-Repo Boundary:</strong> <code>sugartown-cms</code> (content, logic, tokens) vs. <code>2025-sugartown-pink</code> (presentation).</li>
+        <li><strong>Mini Design System:</strong> Tokens define a portable visual identity shared across WP, Figma, and future React front ends.</li>
+        <li><strong>Reproducible Publishing:</strong> Hashing, backups, and visualization scripts ensure deterministic builds.</li>
+        </ul>
+
+        <h3>Repository Structure</h3>
+        <p>The codebase enforces a strict separation of concerns between the Content Engine (Data) and the Rendering Layer (Theme).</p>
+
+<pre class="mermaid">
+---
+config:
+  look: neo
+  theme: neutral
+  themeVariables:
+    primaryColor: "#FE1295"
+    primaryBorderColor: "#FF2E8F"
+    primaryTextColor: "#0D1226"
+    secondaryColor: "#e6fffa" 
+    tertiaryColor: "#fff0f6"
+    lineColor: "#0D1226"
+    mainBkg: "#ffffff"
+    clusterBkg: "#F9FAFB"
+    clusterBorder: "#0D1226"
+---
+flowchart TD
+    %% Define Styles
+    classDef python fill:#fff0f6,stroke:#FE1295,stroke-width:2px,color:#0D1226
+    classDef data fill:#e6fffa,stroke:#2BD4AA,stroke-width:2px,color:#0D1226
+    classDef wp fill:#f0f2f5,stroke:#0D1226,stroke-width:2px,stroke-dasharray: 5 5,color:#0D1226
+
+    subgraph CMS["sugartown-cms (SoT)"]
+        direction TB
+        A[("content_store.py")]:::python
+        B[["publish_gem.py"]]:::python
+        C[/"sugartown.tokens.json"\]:::data
+        D[["Viz Scripts"]]:::python
+        E[["export_tokens.py"]]:::data
+
+        A --> B
+        A --> C
+        B --> D
+        C --> E
+    end
+
+    subgraph WP["2025-sugartown-pink (Renderer)"]
+        direction TB
+        F("Gem Custom Post Type"):::wp
+        G("theme.json / CSS"):::wp
+    end
+
+    %% Connections
+    B ==>|REST API| F
+    D -.->|PNG Artifacts| F
+    E -- JSON --> G
+</pre>
+
+        <h3>Reference Artifacts</h3>
+        <p>The following strategic documents govern the execution of this architecture:</p>
+        
+        <figure class="wp-block-table is-style-stripes"><table>
+        <thead><tr><th>Artifact</th><th>Format</th><th>Scope</th><th>Location</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Sugartown 2.0 Master PRD</strong></td><td>Markdown</td><td>Full requirements, user stories, and acceptance criteria.</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_2_PRD.md">View on GitHub</a></td></tr>
+        <tr><td><strong>Jira Execution Plan</strong></td><td>Markdown</td><td>Epic breakdown, ticket dependencies, and sprint waves.</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_2_jira.md">View on GitHub</a></td></tr>
+        <tr><td><strong>Content Store</strong></td><td>Python</td><td>The literal database file for this post.</td><td><code>content_store.py</code></td></tr>
+        </tbody></table></figure>
+
+        <h3>Why This Matters</h3>
+        <p>By treating content as code, Sugartown CMS transforms static pages into a programmable dataset. This elevates the platform from a simple management tool into a <strong>knowledge engine</strong>—structured, portable, and platform-agnostic.</p>
+        """,
+        'meta': {
+            'gem_category': 'Product & Platform Strategy', 
+            'gem_status': 'Active', 
+            'gem_action_item': 'Maintain Python as canonical source', 
+            'gem_related_project': 'Sugartown.io v2'
+        }
+    },
 ]
