@@ -30,26 +30,32 @@ all_gems = [
         <h3>Live Roadmap (Dec 2025)</h3>
         <p>We have shifted to a 12-week launch sprint. Here is the current status of the build:</p>
         
+<div class="wp-block-group alignwide">
 <pre class="mermaid">
 gantt
-title Sugartown Launch Roadmap
-dateFormat YYYY-MM-DD
-axisFormat %m/%d
-
-section Phase 1 The Factory
-Infrastructure and Repo Split     :done,    p1_infra, 2025-11-24, 4d
-Pink Stink Theme and CSS          :done,    p1_design, after p1_infra, 4d
-Headless Resume Engine            :done,    p1_resume, after p1_design, 3d
-
-section Phase 2 Viz Ops
-Visualization Engine Python       :active,  p2_viz,    2025-12-06, 5d
-Automated Cover Letters           :         p2_cov,    after p2_viz, 5d
-Smart Merge On Hold               :crit,    p2_merge,  after p2_cov, 1w
-
-section Phase 3 Frontend
-React Nextjs Evaluation           :         p3_react,  2026-01-05, 2w
-Full Headless Migration           :         p3_mig,    after p3_react, 4w
+    title Sugartown Launch Roadmap (12 Weeks)
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%d
+    
+    section Phase 1 The Factory
+    Infrastructure and Repo Split     :done,    p1_infra, 2025-11-24, 4d
+    Sugartown Pink Theme and CSS      :done,    p1_design, after p1_infra, 4d
+    Headless Resume Engine            :done,    p1_resume, after p1_design, 3d
+    
+    section Phase 2 Viz Ops
+    Visualization Engine Python       :active,  p2_viz,    2025-12-06, 5d
+    Web Resume Publishing             :         p2_web,    after p2_viz, 3d
+    Skills Cloud Visualization        :         p2_skills, after p2_web, 3d
+    Automated Cover Letters           :         p2_cov,    after p2_skills, 5d
+    Smart Merge On Hold               :crit,    p2_merge,  2026-04-01, 1w
+    
+    section Phase 3 Frontend
+    React Nextjs Evaluation           :         p3_react,  2026-01-05, 2w
+    Full Headless Migration           :         p3_mig,    after p3_react, 4w
 </pre>
+</div>
+
+
         """,
         'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Refine Taxonomy Visualization', 'gem_related_project': 'Sugartown.io v2'}
     },
@@ -432,10 +438,10 @@ git push origin main
             'gem_related_project': 'Sugartown.io v2'
         }
     },
-# GEM 17: The Resume Factory & Pink Stink
+# GEM 17: The Resume Factory & Sugartown Pink
     {
-        # 'id': 1070, <--- Comment out until generated
-        'title': 'Feature: The Resume Factory & The "Pink Stink" Design System',
+        'id': 1054, # Use your existing ID
+        'title': 'Feature: The Resume Factory & The "Sugartown Pink" Design System',
         'status': 'publish',
         'categories': ['Engineering & DX', 'UX, UI & Interaction'],
         'tags': ['resume builder', 'python', 'design systems', 'css', 'Sugartown'],
@@ -474,7 +480,7 @@ git push origin main
     },
 # GEM 18: PRD - The Visualization Engine (Phase 2)
     {
-        # 'id': 1080, <--- Comment out until generated
+        'id': 1079,
         'title': 'PRD: The Visualization Engine (Phase 2)',
         'status': 'publish',
         'categories': ['Engineering & DX', 'Product & Platform Strategy'],
@@ -606,4 +612,66 @@ flowchart TD
             'gem_related_project': 'Sugartown.io v2'
         }
     },
+
+# GEM 20: Resume Factory v2.0
+    {
+        'id': 1121,
+        'title': 'Architecture Update: The Resume Factory v2.0',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'ProductOps', 'Personalization'],
+        'tags': ['automation', 'ETL pipeline', 'json-schema', 'Python', 'resume-as-code', 'p13n', 'governance', 'AI safety'],
+        'content': """
+        <p><em><strong>Update:</strong> The pipeline described below is live. <a href="/cv-resume/">View the generated Resume here.</a></em></p>
+        <hr class="wp-block-separator"/>
+
+        <p>In the last 48 hours, we fundamentally replatformed the "Resume Engine." We moved away from a static Markdown file to a <strong>Slot & Variant Architecture</strong> driven by a master CSV.</p>
+        
+        <h3>The Strategy: Precision over Automation</h3>
+        <p>The goal isn't just to generate <em>more</em> resumes; it's to generate <em>precise</em> resumes. The complexity lies in the hierarchy of needs for a specific role:</p>
+        
+        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <thead><tr><th>Hierarchy</th><th>Default "Master"</th><th>"The SEO Role" Variant</th></tr></thead>
+        <tbody>
+        <tr><td><strong>1. Primary (Anchor)</strong></td><td>Headless CMS</td><td><strong>Product Leader</strong> (Level 1-5)</td></tr>
+        <tr><td><strong>2. Secondary (Domain)</strong></td><td>Design Systems</td><td><strong>SEO & Content Strategy</strong></td></tr>
+        <tr><td><strong>3. Tertiary (Hook)</strong></td><td>Product Leader</td><td><strong>Technical CMS</strong></td></tr>
+        </tbody></table></figure>
+
+        <p><strong>The Problem:</strong> A recruiter might insist I emphasize "Change Management" or "AI" above all else. If I send them my "Headless CMS" resume, I fail the keyword scan. If I manually rewrite it, I drift from my source of truth.</p>
+
+        <h3>1. The "Slot & Variant" Data Model</h3>
+        <p>We solved this by treating career history as a database of <strong>Slots</strong> (Stories). Each Slot contains multiple <strong>Variants</strong> (Vibes).</p>
+        <ul>
+            <li><strong>The Slot:</strong> A specific achievement (e.g., ID: <code>elc_migration</code>).</li>
+            <li><strong>Variant A (Technical):</strong> "Architected Python ETL pipeline..."</li>
+            <li><strong>Variant B (Strategic):</strong> "Led enterprise replatforming initiative..."</li>
+            <li><strong>Variant C (The Hook):</strong> "Automated SEO schema generation using Python..."</li>
+        </ul>
+        <p>This allows us to maintain a single "Golden Record" (CSV) that generates infinite variations without data duplication.</p>
+
+        <h3>2. Governance: The "Human-in-the-Loop"</h3>
+        <p><strong>The Risk:</strong> Generative AI often leads to <em>Achievement Hallucination</em>—inventing metrics to fit a keyword.</p>
+        <p><strong>The Solution:</strong> We restrict AI to the "Extraction Layer" (analyzing Job Descriptions). The "Assembly Layer" (Python) is strictly deterministic. It only picks pre-verified bullets from the Golden Record.</p>
+
+        <h3>3. Dynamic Metadata Injection</h3>
+        <p>The Ingestion script parses dynamic metadata to adjust the resume's "Identity" to match the target persona:</p>
+        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <thead><tr><th>Component</th><th>Logic</th><th>Outcome</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Role Title</strong></td><td>Map <code>Variant ID</code> -> <code>Title</code></td><td>"Principal PM" becomes "Technical Product Lead".</td></tr>
+        <tr><td><strong>Summary</strong></td><td>Map <code>Variant ID</code> -> <code>Summary</code></td><td>The narrative summary pivots to emphasize "Platform" vs "Growth".</td></tr>
+        </tbody></table></figure>
+
+        <h3>4. Future State</h3>
+        <p>We are building toward a "Headless Recruiter Interface"—a system where I can paste a Job Description URL, and the engine automatically assembles the highest-matching valid variants into a PDF.</p>
+        """,
+        'meta': {
+            'gem_category': 'Personalization Strategy', 
+            'gem_status': 'Active', 
+            'gem_action_item': 'Verify Mobile View', 
+            'gem_related_project': 'Job Hunt 2026'
+        }
+    },
+
+
 ]
