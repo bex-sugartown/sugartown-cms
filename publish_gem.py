@@ -96,11 +96,42 @@ def save_state(state):
 # ==========================================
 # MAIN LOOP
 # ==========================================
+
 def main():
     print("\n💎 SUGARTOWN PUBLISHER v3.7 (Draft Aware)")
     print(f"🎯 Target: {BASE_URL}\n")
 
     state = load_state()
+    
+    # MOVED UP: Define 'gems' first so the check below can read it
+    gems = content_store.all_gems 
+
+    # GOVERNANCE CHECK: Validate Project IDs
+    print("🔍 Running Governance Check...")
+    valid_projects = content_store.projects.keys()
+    
+    for gem in gems:
+        proj_id = gem.get('meta', {}).get('gem_related_project')
+        if proj_id and proj_id not in valid_projects:
+             print(f"   ⚠️  WARNING: Gem '{gem['title']}' references invalid Project ID: '{proj_id}'")
+
+    print("-" * 40)
+    
+    # 1. PRE-FETCH
+    build_cache(CATS_ENDPOINT, CATEGORY_MAP, "Categories")
+    build_cache(TAGS_ENDPOINT, TAG_MAP, "Tags")
+    build_cache(API_ENDPOINT, GEM_MAP, "Existing Gems")
+    print("-" * 40)
+
+    # (The rest of the script continues as normal...)
+    for gem in gems:
+        # ... logic ...
+        proj_id = gem.get('meta', {}).get('gem_related_project')
+        if proj_id and proj_id not in valid_projects:
+             print(f"   ⚠️  WARNING: Gem '{gem['title']}' references invalid Project ID: '{proj_id}'")
+             # Optional: raise ValueError("Strict Mode: Fix Project ID before publishing.")
+
+    print("-" * 40)
     
     # 1. PRE-FETCH (Now includes Drafts)
     build_cache(CATS_ENDPOINT, CATEGORY_MAP, "Categories")
@@ -143,8 +174,9 @@ def main():
             'status': gem['status'],
             'categories': cat_ids,
             'tags': tag_ids,
-            # ✨ NEW: Inject Meta Fields
+            # ✨ FIX: Added 'gem_category' to the payload so WP actually receives it
             'meta': {
+                'gem_category': meta_data.get('gem_category', ''), # <--- WAS MISSING
                 'gem_status': meta_data.get('gem_status', ''),
                 'gem_action_item': meta_data.get('gem_action_item', ''),
                 'gem_related_project': meta_data.get('gem_related_project', '')

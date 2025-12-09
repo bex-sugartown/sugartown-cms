@@ -1,9 +1,59 @@
 # --- SUGARTOWN CMS CONTENT STORE ---
-# All 14 Gems. 
+# content_store.py
+# ==========================================
+# 2. PROJECT DEFINITIONS (The "Hubs")
+# ==========================================
+projects = {
+    # --- PROJ-001: The Core Platform ---
+    'PROJ-001': {
+        'id': 'PROJ-001',
+        'name': 'Sugartown Headless CMS',
+        'description': 'The core Python-to-WordPress publishing engine. Replaces legacy PHP themes with a content-as-code architecture.',
+        'status': 'Live',
+        'priority': 'Critical',
+        'tags': ['python', 'wordpress-api', 'headless', 'content-ops'],
+        'kpis': ['Deployment Time < 5s', 'Zero PHP Logic in Theme']
+    },
+
+    # --- PROJ-002: The Career Engine ---
+    'PROJ-002': {
+        'id': 'PROJ-002',
+        'name': 'The Resume Factory',
+        'description': 'Automated CV generation system that renders tailored resumes from a single JSON source of truth.',
+        'status': 'Live',
+        'priority': 'High',
+        'tags': ['json', 'jinja2', 'pdf-generation', 'career-data'],
+        'kpis': ['Resume Rendering', 'Keyword Optimization']
+    },
+
+    # --- PROJ-003: The Visual Language ---
+    'PROJ-003': {
+        'id': 'PROJ-003',
+        'name': 'Atomic Design System (Pink)',
+        'description': 'A strict, utility-first CSS framework enforcing the Sugartown Pink/Cyan/Midnight palette and atomic component hierarchy.',
+        'status': 'Iterating',
+        'priority': 'Medium',
+        'tags': ['css', 'design-tokens', 'atomic-design', 'accessibility'],
+        'kpis': ['100% Brand Consistency', 'Dark Mode Support']
+    },
+
+    # --- PROJ-004: The New Visualization Layer ---
+    'PROJ-004': {
+        'id': 'PROJ-004',
+        'name': 'The Visualization Engine (Phase 2)',
+        'description': 'A suite of Python scripts transforming static content data into dynamic, "Sugartown Pink" styled visual artifacts.',
+        'status': 'Active',
+        'priority': 'High',
+        'tags': ['python', 'data-viz', 'matplotlib', 'networkx', 'automation'],
+        'kpis': ['Zero-Touch Updates', 'Automated Build Pipeline']
+    }
+}
+
+# All 20 Gems. 
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
-# GEM 1: The Hero Story (Architecture)
+    # GEM 1: The Hero Story (Architecture)
     {
         'id': 946,
         'title': 'Project: Sugartown CMS Architecture',
@@ -54,11 +104,10 @@ gantt
     Full Headless Migration           :         p3_mig,    after p3_react, 4w
 </pre>
 </div>
-
-
         """,
-        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Refine Taxonomy Visualization', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Refine Taxonomy Visualization', 'gem_related_project': 'PROJ-001'}
     },
+
     # GEM 2: The CSV Reality Check
     {
         'id': 942,
@@ -81,7 +130,7 @@ gantt
         </tbody></table><figcaption>Fig 1. The CSV export annotated with audit findings.</figcaption></figure>
         <p><strong>The Takeaway:</strong> Automation requires observability. A script can push content, but only a human (or a very good audit script) can verify truth.</p>
         """,
-        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Schedule Monthly CSV Audit', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Schedule Monthly CSV Audit', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 3: The Overwrite Problem
@@ -92,7 +141,7 @@ gantt
         'categories': ['Engineering & DX', 'Content Architecture'],
         'tags': ['headless CMS', 'Python', 'content ops', 'governance models'],
         'content': """<p>I had a realization today while trying to manually edit a post in WordPress: <strong>The Pipeline is a Bully.</strong></p><p>In a typical "Push" architecture (Python -> WordPress), the script is the Source of Truth. If I manually add a witty joke or a custom image inside the WordPress Editor, the next time I run my Python script, it will blow those changes away because it performs a <code>PUT</code> (Replace) operation, not a <code>PATCH</code> (Merge) operation.</p><h3>The Strategy: Hybrid Content Management</h3><p>To solve this, I am evaluating two patterns for "Safe Updates":</p><ul><li><strong>1. The "Protected Block" Pattern:</strong> Using HTML comments (e.g., <code>&lt;!-- manual-start --&gt;</code>) to mark zones that the script ignores.</li><li><strong>2. The "Read-Merge-Write" Pattern:</strong> The script must first GET the current content, diff it against the new payload, and intelligently merge them before pushing back.</li></ul><p><strong>Current Verdict:</strong> I have moved this feature to the <strong>Backlog</strong>. For now, the Python script owns the "Structured Data" (Tables, Lists), and I will manually sync content if needed.</p>""",
-        'meta': {'gem_category': 'HeadlessCMS', 'gem_status': 'Backlog', 'gem_action_item': 'Research Python Diff Libraries', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'HeadlessCMS', 'gem_status': 'Backlog', 'gem_action_item': 'Research Python Diff Libraries', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 4: Resume Workflow
@@ -103,7 +152,7 @@ gantt
         'categories': ['Engineering & DX', 'AI & Automation'],
         'tags': ['AI-assisted authoring', 'LLM workflows', 'structured content'],
         'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody></table></figure>""",
-        'meta': {'gem_category': 'Career Engineering', 'gem_status': 'In Progress', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'Job Hunt 2026'}
+        'meta': {'gem_category': 'Career Engineering', 'gem_status': 'In Progress', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
     },
 
     # GEM 5: Market Scan
@@ -114,7 +163,7 @@ gantt
         'categories': ['Product & Platform Strategy', 'Content Architecture'],
         'tags': ['headless CMS', 'content modeling', 'PIM / PXM', 'content migration'],
         'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody></table></figure>""",
-        'meta': {'gem_category': 'Market Research', 'gem_status': 'Active', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': '2026 Strategy'}
+        'meta': {'gem_category': 'Market Research', 'gem_status': 'Active', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 6: The Confession
@@ -125,7 +174,7 @@ gantt
         'categories': ['Content Architecture', 'Sugartown Notes'],
         'tags': ['structured content', 'taxonomy', 'metadata strategy'],
         'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table></figure><h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
-        'meta': {'gem_category': 'Content Strategy', 'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'Content Strategy', 'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 7: Data Viz
@@ -143,7 +192,7 @@ gantt
         </figure>
 
         <h3>The Logic</h3><p>The script iterates through the <code>content_store.py</code> (the same one used to publish this website), extracts the metadata, and builds nodes and edges. It then uses a spring-layout algorithm to cluster related concepts together.</p><pre class="wp-block-code"><code>import networkx as nx\n# Connect Projects to Root (to create the cluster effect)\nG.add_edge(gem['project'], root_node)\n# Setup Layout (Force-directed)\npos = nx.spring_layout(G, k=0.6, iterations=50)</code></pre><p>This visualization serves as the definitive map of my "Headless Content Supply Chain."</p>""",
-        'meta': {'gem_category': 'Data Science', 'gem_status': 'Draft', 'gem_action_item': 'Render Graph on Frontend', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'Data Science', 'gem_status': 'Draft', 'gem_action_item': 'Render Graph on Frontend', 'gem_related_project': 'PROJ-004'}
     },
 
     # GEM 8: Documentation Strategy
@@ -154,7 +203,7 @@ gantt
         'categories': ['Ways of Working', 'Product & Platform Strategy'],
         'tags': ['systemic documentation', 'governance models', 'agile workflows'],
         'content': """<p>This document serves as the strategic blueprint for capturing the intellectual property of the project. It is prioritized to ensure the most critical "Bus Factor" documentation exists immediately (Day 1), while deeper architectural references follow (Day 2).</p><h3>Documentation Status Tracker</h3><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Phase</th><th>Asset</th><th>Goal</th><th>Status</th><th>Artifact / Location</th></tr></thead><tbody><tr><td><strong>Day 1</strong><br>(Critical)</td><td><strong>README.md</strong></td><td>Repo entry point & Quick Start.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> (Git Root)</td></tr><tr><td><strong>Day 1</strong></td><td><strong>User Workflow</strong></td><td>Prevent "Overwrite" data loss.</td><td>🟡 <strong>In Progress</strong></td><td><a href="/gem/architecture-decision-the-overwrite-risk-in-sugartown-cms">Gem: Overwrite Risk</a></td></tr><tr><td><strong>Day 1</strong></td><td><strong>Tech Requirements</strong></td><td>Environment consistency.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> & <code>requirements.txt</code></td></tr><tr><td><strong>Day 2</strong><br>(Product)</td><td><strong>Content Model</strong></td><td>Define Gem structure/schema.</td><td>✅ <strong>Done</strong></td><td><code>content_store.py</code> (The Schema Source)</td></tr><tr><td><strong>Day 2</strong></td><td><strong>System Arch</strong></td><td>Visual proof of data flow.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr><tr><td><strong>Day 2</strong></td><td><strong>Feature List</strong></td><td>"Sales Sheet" of capabilities.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr></tbody></table></figure><h3>Next Actions</h3><ul><li><strong>Immediate:</strong> Create the Markdown file for "User Workflow" to formalize the manual vs. script rules.</li><li><strong>Next:</strong> Generate the Mermaid.js graph for the System Architecture visual.</li></ul>""",
-        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Draft User Workflow MD', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Draft User Workflow MD', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 9: Diagram Tools
@@ -173,7 +222,7 @@ gantt
             <figcaption>See ChatGPT Canvas in action (Video: 10 mins)</figcaption>
         </figure>
         """,
-        'meta': {'gem_category': 'Market Research', 'gem_status': 'Draft', 'gem_action_item': 'Create System Diagram in Eraser.io', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'Market Research', 'gem_status': 'Draft', 'gem_action_item': 'Create System Diagram in Eraser.io', 'gem_related_project': 'PROJ-004'}
     },
     
     # GEM 10: Sweet Upgrades
@@ -209,10 +258,10 @@ gantt
         </ul>
         <p><strong>My Recommendation:</strong> Stick to <strong>Personal Premium ($20)</strong> or <strong>Workspace Business Standard ($14 per user)</strong> for 99% of your work. Only upgrade to <strong>Ultra</strong> if you need the AI to <em>solve</em> problems, not just <em>answer</em> them.</p>
         """,
-        'meta': {'gem_category': 'AI Strategy', 'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'Tech Stack Eval'}
+        'meta': {'gem_category': 'AI Strategy', 'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'PROJ-001'}
     },
 
-# GEM 11: The Recursion (Meta-Analysis)
+    # GEM 11: The Recursion (Meta-Analysis)
     {
         'id': 977,
         'title': 'Meta-Analysis: Am I Crazy for Building This?',
@@ -227,7 +276,7 @@ gantt
         <h3>The "Cute" Result</h3>
         <p>But look at this <a href="https://sugartown.io/gem/data-science-visualizing-the-knowledge-graph/">beautiful, structured data</a>. My career history is no longer a flat document; it is a queryable database. I can now ask: <em>"Show me every time I mentioned 'API' between 2018 and 2022,"</em> and get a precise answer. That is power. That is leverage. That is... maybe a little crazy. 🍒</p>
         """,
-        'meta': {'gem_category': 'Personal Reflection', 'gem_status': 'Done', 'gem_action_item': 'Go eat leftover turkey', 'gem_related_project': 'Sugartown.io v2'}
+        'meta': {'gem_category': 'Personal Reflection', 'gem_status': 'Done', 'gem_action_item': 'Go eat leftover turkey', 'gem_related_project': 'PROJ-001'}
     },
 
     # GEM 12: The Great Re-Platforming (The Layoff Retro)
@@ -267,7 +316,7 @@ gantt
             'gem_category': 'Career Strategy', 
             'gem_status': 'Active', 
             'gem_action_item': 'Update LinkedIn Profile', 
-            'gem_related_project': 'Job Hunt 2026'
+            'gem_related_project': 'PROJ-002'
         }
     },
 
@@ -304,11 +353,11 @@ if existing_id and content_state.get(id) == current_hash:
             'gem_category': 'Engineering', 
             'gem_status': 'Shipped', 
             'gem_action_item': 'Test the Panic Button', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-001'
         }
     },
 
-# GEM 14: The Sugartown Digital Ecosystem (Architecture v1.0)
+    # GEM 14: The Sugartown Digital Ecosystem (Architecture v1.0)
     {
         # 'id': 996, # Local ID
         'title': 'Architecture: The Sugartown Digital Ecosystem (v1.0)',
@@ -360,10 +409,11 @@ git push origin main
             'gem_category': 'Engineering', 
             'gem_status': 'Shipped', 
             'gem_action_item': 'Move to Ticket B (Resume Model)', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-001'
         }
     },
-# GEM 15: The Two-Repo Solution
+    
+    # GEM 15: The Two-Repo Solution
     {
         # 'id': 1050, <--- Comment out until generated
         'title': 'Architecture Decision: The Two-Repo Solution (Theme vs. Content)',
@@ -392,10 +442,11 @@ git push origin main
             'gem_category': 'Engineering', 
             'gem_status': 'Shipped', 
             'gem_action_item': 'Verify Git Remotes', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-001'
         }
     },
-# GEM 16: The Taxonomy Strategy
+
+    # GEM 16: The Taxonomy Strategy
     {
         # 'id': 1060, <--- Comment out until generated
         'title': 'Architecture: The Unified Taxonomy Strategy',
@@ -435,10 +486,11 @@ git push origin main
             'gem_category': 'Content Strategy', 
             'gem_status': 'Shipped', 
             'gem_action_item': 'Tag all historic Case Studies', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-001'
         }
     },
-# GEM 17: The Resume Factory & Sugartown Pink
+
+    # GEM 17: The Resume Factory & Sugartown Pink
     {
         'id': 1054, # Use your existing ID
         'title': 'Feature: The Resume Factory & The "Sugartown Pink" Design System',
@@ -475,13 +527,15 @@ git push origin main
             'gem_category': 'Engineering', 
             'gem_status': 'Shipped', 
             'gem_action_item': 'Generate PDF from JSON', 
-            'gem_related_project': 'Job Hunt 2026'
+            'gem_related_project': 'PROJ-002'
         }
     },
+
 # GEM 18: PRD - The Visualization Engine (Phase 2)
     {
         'id': 1079,
         'title': 'PRD: The Visualization Engine (Phase 2)',
+        'slug': 'prd-visualization-engine-phase-2',
         'status': 'publish',
         'categories': ['Engineering & DX', 'Product & Platform Strategy'],
         'tags': ['PRD', 'requirements', 'python', 'visualization', 'data science'],
@@ -510,15 +564,20 @@ output/visuals/category_dist_latest.png    (The Bar Chart)</code></pre>
 
         <h3>Success Criteria</h3>
         <p>A "Green Checkmark" run of the visualization suite automatically updates the images embedded in live Gems without requiring a WordPress edit.</p>
+        
+        <h3>The Spec</h3>
+        <p>We are moving from "Vibes" to "Validation." Read the formal plan here:</p>
+        <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_visualization_PRD_v2.md" class="wp-block-file__button wp-element-button">📄 Read the Visualization Engine PRD (v2)</a></div>
         """,
         'meta': {
             'gem_category': 'Product Management', 
             'gem_status': 'Draft', 
             'gem_action_item': 'Build viz_barchart.py', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-004' # Linked to the new Visualization Engine Project
         }
     },
-# GEM 19: The Sugartown 2.0 System Contract
+
+    # GEM 19: The Sugartown 2.0 System Contract
     {
         'id': 1094, 
         'title': 'Architecture Insight: The Sugartown 2.0 System Contract',
@@ -609,11 +668,11 @@ flowchart TD
             'gem_category': 'Product & Platform Strategy', 
             'gem_status': 'Active', 
             'gem_action_item': 'Maintain Python as canonical source', 
-            'gem_related_project': 'Sugartown.io v2'
+            'gem_related_project': 'PROJ-001'
         }
     },
 
-# GEM 20: Resume Factory v2.0
+    # GEM 20: Resume Factory v2.0
     {
         'id': 1121,
         'title': 'Architecture Update: The Resume Factory v2.0',
@@ -669,9 +728,50 @@ flowchart TD
             'gem_category': 'Personalization Strategy', 
             'gem_status': 'Active', 
             'gem_action_item': 'Verify Mobile View', 
-            'gem_related_project': 'Job Hunt 2026'
+            'gem_related_project': 'PROJ-002'
         }
     },
 
+# GEM 21: The Pre-Design System (Pink Card & Overwrites)
+    {
+        'id': 1335,
+        'title': 'Design Ops: The "Pre-Design System" (Surviving the CSS Chaos)',
+        'status': 'publish',
+        'categories': ['UX, UI & Interaction', 'Engineering & DX'],
+        'tags': ['css', 'design-tokens', 'technical-debt', 'sugartown-pink', 'atomic-design'],
+        'content': """
+        <p>Before you build a Design System, you usually build a mess. We call this the <strong>"Pre-Design System" Phase</strong>.</p>
+        
+        <p>For Sugartown.io, I didn't start with a Figma library or a token dictionary. I started with a deadline and a color code: <code>#FE1295</code> (Sugartown Pink). The goal was "Just Get It Out The Door," but the result was a fascinating case study in specific UI patterns and the immediate pain of cascading overwrites.</p>
+        
+        <h3>The "Pink Card" Component</h3>
+        <p>The defining visual of this phase is the <strong>Pink Card</strong>—a container used for Resume entries and Case Studies. It wasn't built; it was evolved.</p>
+        
+        <figure class="wp-block-table"><table>
+        <thead><tr><th>Evolution</th><th>CSS Strategy</th><th>The Lesson</th></tr></thead>
+        <tbody>
+        <tr><td><strong>v1 (The Box)</strong></td><td>Simple <code>border: 1px solid pink</code>.</td><td>Boring. Looked like a wireframe.</td></tr>
+        <tr><td><strong>v2 (The Glow)</strong></td><td>Added <code>box-shadow</code> and <code>:hover</code> lift.</td><td>Better, but the text alignment broke on mobile.</td></tr>
+        <tr><td><strong>v3 (The Split)</strong></td><td>Flexbox <code>margin-top: auto</code> on the footer.</td><td><strong>The Winner.</strong> Forces content to top and metadata to bottom, regardless of height.</td></tr>
+        </tbody></table></figure>
+
+        <h3>Feature Images: The "Duotone" Standard</h3>
+        <p>To avoid finding stock photos that match, I enforced a strict CSS filter on all feature images. By applying a <code>grayscale(100%)</code> base with a <code>hard-light</code> gradient overlay (Pink to Seafoam), every image automatically feels "on brand," even if it’s just a screenshot of a terminal.</p>
+
+        <h3>The Pain: Cascading Overwrites</h3>
+        <p>The cost of this speed? <strong>Specificity Wars.</strong></p>
+        <p>Right now, my <code>style.css</code> is fighting my <code>theme.json</code>. I have `!important` tags protecting my dark mode backgrounds because the block theme tries to be "helpful" and overwrite them. This friction is exactly why we need the <strong>Atomic Design System</strong> (Project 003).</p>
+        
+        <h3>The Path Forward</h3>
+        <p>We are moving from "Vibes" to "Tokens." Read the formal plan here:</p>
+        <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_design_system_PRD_v1.md" class="wp-block-file__button wp-element-button">📄 Read the Design System PRD (v1.1)</a></div>
+        """,
+        'meta': {
+            'gem_category': 'Design Ops', 
+            'gem_status': 'Shipped', 
+            'gem_action_item': 'Refactor CSS to Tokens', 
+            'gem_related_project': 'PROJ-003'
+        }
+    },
 
 ]

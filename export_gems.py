@@ -3,7 +3,7 @@ import requests
 import json
 import base64
 from datetime import datetime
-import os  # <--- Needed for folder creation
+import os
 import config
 
 # ==========================================
@@ -54,7 +54,7 @@ def get_taxonomy_map(endpoint):
 # ==========================================
 def main():
     print("------------------------------------------------")
-    print("📊 SUGARTOWN GEM EXPORT v2.2 (Fix: Filename)")
+    print("📊 SUGARTOWN GEM EXPORT v3.0 (Full Meta)")
     print(f"   🎯 Target: {WP_URL}")
     print("------------------------------------------------")
 
@@ -68,7 +68,8 @@ def main():
     all_posts = []
     page = 1
     while True:
-        url = f"{POSTS_ENDPOINT}?per_page=100&page={page}"
+        # Include 'status=any' to ensure we capture Drafts too
+        url = f"{POSTS_ENDPOINT}?per_page=100&page={page}&status=any"
         response = requests.get(url, headers=headers)
         
         if response.status_code != 200:
@@ -87,35 +88,47 @@ def main():
     # 3. Prepare CSV Data
     csv_rows = []
     for post in all_posts:
+        # Map IDs to Names for human readability
         cat_names = [cat_map.get(cid, str(cid)) for cid in post.get('categories', [])]
         tag_names = [tag_map.get(tid, str(tid)) for tid in post.get('tags', [])]
         
-        # Extract Meta Fields (with safety check)
+        # Extract Meta Fields
         meta = post.get('meta', {})
-        if not isinstance(meta, dict): meta = {} # Handle edge case where meta is empty/list
+        if not isinstance(meta, dict): meta = {} 
 
         row = {
             'id': post['id'],
             'title': post['title']['rendered'],
             'status': post['status'],
-            'date': post['date'].split('T')[0],
-            'categories': ", ".join(cat_names),
-            'tags': ", ".join(tag_names),
-            # Meta Columns
-            'project': meta.get('gem_related_project', ''),
+            'modified': post['modified'].split('T')[0], # Easy to read date
+            
+            # Taxonomy (WordPress)
+            'wp_categories': ", ".join(cat_names),
+            'wp_tags': ", ".join(tag_names),
+            
+            # Meta (Sugartown Internal)
+            'project_id': meta.get('gem_related_project', ''),
+            'internal_category': meta.get('gem_category', ''), # The "ProductOps" tag
             'gem_status': meta.get('gem_status', ''),
             'action_item': meta.get('gem_action_item', ''),
+            
+            # Links
             'slug': post['slug'],
             'link': post['link']
         }
         csv_rows.append(row)
 
     # 4. Write to File
-    # ✨ FIX: Define the filename and ensure folder exists
     os.makedirs('output/reports', exist_ok=True)
+    # Timestamped filename for version control
     filename = f"output/reports/gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
     
-    keys = ['id', 'title', 'status', 'date', 'categories', 'tags', 'project', 'gem_status', 'action_item', 'slug', 'link']
+    # Define Column Order
+    keys = [
+        'id', 'title', 'status', 'project_id', 'internal_category', 
+        'gem_status', 'action_item', 'modified', 
+        'wp_categories', 'wp_tags', 'slug', 'link'
+    ]
     
     with open(filename, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=keys)
@@ -123,6 +136,7 @@ def main():
         writer.writerows(csv_rows)
 
     print(f"\n✨ Export Complete: {filename}")
+    print("   💡 Review this CSV to ensure your Project IDs mapped correctly.")
     print("------------------------------------------------")
 
 if __name__ == "__main__":
