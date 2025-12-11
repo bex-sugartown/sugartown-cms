@@ -177,7 +177,7 @@ gantt
         'meta': {'gem_category': 'Content Strategy', 'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
     },
 
-    # GEM 7: Data Viz
+# GEM 7: Data Viz
     {
         'id': 950,
         'title': 'Data Science: Visualizing the Knowledge Graph',
@@ -187,7 +187,13 @@ gantt
         'content': """<p>A Knowledge Graph isn't just a metaphor; it's a data structure. To visualize the relationships between my Projects, Categories, and Gems, I used Python's <code>networkx</code> library to generate a force-directed graph.</p>
         
         <figure class="wp-block-image size-large">
-            <img src="https://sugartown.io/wp-content/uploads/2025/11/knowledge_graph-scaled.png" alt="Sugartown Knowledge Graph Visualization" />
+           
+                <img 
+                    src="https://sugartown.io/wp-content/uploads/2025/12/knowledge_graph_dark.svg" 
+                    alt="Sugartown Knowledge Graph Visualization" 
+                    style="width: 100%; max-width: 800px; height: auto;" 
+                />
+         
             <figcaption>Fig 1. The live Sugartown content topology, generated via Python.</figcaption>
         </figure>
 

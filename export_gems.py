@@ -5,6 +5,7 @@ import base64
 from datetime import datetime
 import os
 import config
+import content_store  # <--- IMPORTED SOURCE OF TRUTH
 
 # ==========================================
 # CONFIGURATION
@@ -54,7 +55,7 @@ def get_taxonomy_map(endpoint):
 # ==========================================
 def main():
     print("------------------------------------------------")
-    print("📊 SUGARTOWN GEM EXPORT v3.0 (Full Meta)")
+    print("📊 SUGARTOWN GEM EXPORT v3.1 (Project Aware)")
     print(f"   🎯 Target: {WP_URL}")
     print("------------------------------------------------")
 
@@ -68,7 +69,6 @@ def main():
     all_posts = []
     page = 1
     while True:
-        # Include 'status=any' to ensure we capture Drafts too
         url = f"{POSTS_ENDPOINT}?per_page=100&page={page}&status=any"
         response = requests.get(url, headers=headers)
         
@@ -87,28 +87,43 @@ def main():
 
     # 3. Prepare CSV Data
     csv_rows = []
+    
+    # Load Project Definitions from Python Source
+    project_db = content_store.projects 
+
     for post in all_posts:
-        # Map IDs to Names for human readability
+        # Map IDs to Names
         cat_names = [cat_map.get(cid, str(cid)) for cid in post.get('categories', [])]
         tag_names = [tag_map.get(tid, str(tid)) for tid in post.get('tags', [])]
         
-        # Extract Meta Fields
+        # Extract Meta
         meta = post.get('meta', {})
         if not isinstance(meta, dict): meta = {} 
+        
+        # --- PROJECT LOOKUP LOGIC ---
+        proj_id = meta.get('gem_related_project', '')
+        proj_name = ''
+        
+        # If we have an ID, look up the Human Name from content_store
+        if proj_id and proj_id in project_db:
+            proj_name = project_db[proj_id]['name']
+        elif proj_id:
+            proj_name = f"Unknown Project ({proj_id})" # Safety net
 
         row = {
             'id': post['id'],
             'title': post['title']['rendered'],
             'status': post['status'],
-            'modified': post['modified'].split('T')[0], # Easy to read date
+            'modified': post['modified'].split('T')[0],
             
-            # Taxonomy (WordPress)
+            # Taxonomy
             'wp_categories': ", ".join(cat_names),
             'wp_tags': ", ".join(tag_names),
             
-            # Meta (Sugartown Internal)
-            'project_id': meta.get('gem_related_project', ''),
-            'internal_category': meta.get('gem_category', ''), # The "ProductOps" tag
+            # Meta & Project Info
+            'project_id': proj_id,
+            'project_name': proj_name,  # <--- NEW FIELD
+            'internal_category': meta.get('gem_category', ''),
             'gem_status': meta.get('gem_status', ''),
             'action_item': meta.get('gem_action_item', ''),
             
@@ -120,14 +135,14 @@ def main():
 
     # 4. Write to File
     os.makedirs('output/reports', exist_ok=True)
-    # Timestamped filename for version control
     filename = f"output/reports/gems_report_{datetime.now().strftime('%Y-%m-%d')}.csv"
     
-    # Define Column Order
+    # Define Column Order (Added project_name)
     keys = [
-        'id', 'title', 'status', 'project_id', 'internal_category', 
-        'gem_status', 'action_item', 'modified', 
-        'wp_categories', 'wp_tags', 'slug', 'link'
+        'id', 'title', 'status', 
+        'project_id', 'project_name', # Grouped together
+        'internal_category', 'gem_status', 'action_item', 
+        'modified', 'wp_categories', 'wp_tags', 'slug', 'link'
     ]
     
     with open(filename, 'w', newline='', encoding='utf-8') as f:
@@ -136,7 +151,7 @@ def main():
         writer.writerows(csv_rows)
 
     print(f"\n✨ Export Complete: {filename}")
-    print("   💡 Review this CSV to ensure your Project IDs mapped correctly.")
+    print("   💡 'project_name' column populated from content_store.py")
     print("------------------------------------------------")
 
 if __name__ == "__main__":

@@ -120,3 +120,10 @@ To prevent "Level Drift" (appearing too junior), the builder script must assembl
 
 * **Phase 3 (The Agent):** Integrate a local LLM to analyze a Job Description URL and automatically suggest the best `variant_id` config to run.
 * **Phase 4 (The Interface):** Build a simple React front-end to toggle variants and preview the PDF in real-time.
+
+---
+
+**Document Version:** 2.0.0  
+**Last Updated:** December 2025  
+**Author:** Bex, with architectural input from Gemini3  
+**Next Review:** Upon completion of v2 MVP
