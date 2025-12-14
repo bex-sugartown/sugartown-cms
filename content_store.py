@@ -49,7 +49,7 @@ projects = {
     }
 }
 
-# All 20 Gems. 
+# All 22 Gems. 
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
@@ -779,5 +779,331 @@ flowchart TD
             'gem_related_project': 'PROJ-003'
         }
     },
+
+    # GEM 22: Resume Factory v3.0 - The Great Migration
+    {
+        'id': 1395,  # WordPress will assign ID on first publish
+        'title': 'Architecture Deep Dive: Resume Factory v3.0 — The Great Sanity Migration',
+        'status': 'publish',
+        'categories': ['Engineering & DX', 'Product & Platform Strategy', 'ProductOps'],
+        'tags': ['headless CMS', 'sanity', 'react', 'architecture', 'PRD', 'migration', 'resume-as-code', 'monorepo'],
+        'content': """
+        <p><em><strong>tl;dr:</strong> We spent two weeks building a Python resume pipeline. It worked. Then we immediately decided to throw it away and rebuild it in Sanity + React. This is that story.</em></p>
+        <hr class="wp-block-separator"/>
+
+        <h3>The Uncomfortable Truth About v2.0</h3>
+        <p>Let's be honest: <strong>Resume Factory v2.0 is fantastic... for me.</strong> I love command-line tools. I love Python scripts that go <code>brrr</code> and spit out perfectly formatted PDFs. I love the green checkmark in my terminal.</p>
+        
+        <p>But here's what I don't love: the fact that nobody else can use it.</p>
+        
+        <p>Want to help me proofread a bullet? Better learn Python. Want to add a new variant? Hope you're comfortable with CSV schemas. Want to preview changes? Run three separate scripts in sequence. It's beautiful engineering wrapped in a hostile UX.</p>
+
+        <h3>Enter: The Sanity Check</h3>
+        <p>So we asked ourselves: <em>"What if we could keep all the good parts (structured data, variant logic, master fallback) but make it... you know... usable?"</em></p>
+        
+        <p>The answer: <strong>Migrate to Sanity CMS + React.</strong></p>
+        
+        <p>This isn't a rewrite; it's a <strong>replatforming</strong>. We're not changing what the system does—we're changing who can do it.</p>
+
+        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <thead><tr><th>Layer</th><th>v2.0 (Python)</th><th>v3.0 (Sanity+React)</th><th>The Win</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Data Entry</strong></td><td>CSV file in VSCode</td><td>Sanity Studio (WYSIWYG)</td><td>Non-devs can edit content</td></tr>
+        <tr><td><strong>Preview</strong></td><td>Run build script, open PDF</td><td>Live preview in browser</td><td>&lt;1 second feedback loop</td></tr>
+        <tr><td><strong>Export</strong></td><td>VS Code PDF export</td><td>One-click PDF/MD/HTML</td><td>No local dependencies</td></tr>
+        <tr><td><strong>Publishing</strong></td><td>WordPress REST API</td><td>Static hosting (Vercel)</td><td>Platform agnostic</td></tr>
+        </tbody></table></figure>
+
+        <h3>The PRD: A Love Letter to Structured Thinking</h3>
+        <p>Before writing a single line of code, we wrote a <strong>32-page Product Requirements Document</strong>. Yes, for a personal resume tool. Yes, I'm aware this is overkill. No, I don't care.</p>
+        
+        <p>The PRD covers everything:</p>
+        <ul>
+            <li><strong>Schema Design:</strong> How to model "variants" as references, not duplicates</li>
+            <li><strong>Portable Text:</strong> Rich text that exports to PDF/Markdown/HTML without breaking</li>
+            <li><strong>Atomic Links:</strong> URLs as structured objects (label + href + target) instead of raw strings</li>
+            <li><strong>Semantic Naming:</strong> Why we call it <code>ProfileHeader</code> instead of <code>ResumeHeader</code></li>
+            <li><strong>Migration Plan:</strong> How to convert 200+ CSV bullets into Sanity without losing data</li>
+        </ul>
+
+        <p>It's a case study in <strong>treating personal projects like product launches</strong>. Because if I can't ship a resume builder with proper documentation, how can I expect to ship enterprise software?</p>
+
+        <figure class="wp-block-table is-style-stripes"><table>
+        <thead><tr><th>Artifact</th><th>Format</th><th>Scope</th><th>Location</th></tr></thead>
+        <tbody>
+        <tr><td><strong>Resume Factory v3.0 PRD</strong></td><td>Markdown</td><td>Full technical spec: schema design, component architecture, migration strategy, v4 vision</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_resume_factory_PRD_v3.md">View on GitHub</a></td></tr>
+        <tr><td><strong>Architecture Decision</strong></td><td>Markdown</td><td>Monorepo vs. multi-repo analysis with recommendation</td><td><code>docs/architecture_decision_monorepo.md</code></td></tr>
+        <tr><td><strong>v2.0 Python Scripts</strong></td><td>Python</td><td>The legacy pipeline (still live, for now)</td><td><code>scripts/ingest_resume.py</code></td></tr>
+        </tbody></table></figure>
+
+        <h3>The Open Question: Monorepo or Divorce?</h3>
+        <p>Here's where it gets spicy. Right now, we have <strong>sugartown-cms</strong> (Python + WordPress). Soon, we'll have <strong>resume-factory</strong> (Sanity + React). The question is: <em>do they live together or apart?</em></p>
+
+        <h4>Option 1: The Monorepo (Cozy But Complicated)</h4>
+        <p><strong>Structure:</strong></p>
+        <pre><code>sugartown-cms/
+├── cms/              # Python blog engine (existing)
+│   ├── scripts/
+│   └── content_store.py
+├── resume-factory/   # React app (new)
+│   ├── src/
+│   ├── sanity/
+│   └── package.json
+└── shared/           # Common assets
+    ├── design-tokens/
+    └── components/</code></pre>
+    
+        <p><strong>Pros:</strong> Shared design system, single deployment pipeline, version control stays unified<br>
+        <strong>Cons:</strong> Python + Node.js dependencies clash, harder to open-source resume-factory independently</p>
+
+        <h4>Option 2: The Clean Split (Freedom With Overhead)</h4>
+        <p><strong>Structure:</strong></p>
+        <pre><code>sugartown-cms/        # Blog-only Python repo
+resume-factory/       # Standalone React app
+sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
+        
+        <p><strong>Pros:</strong> Clear separation of concerns, easier to white-label resume-factory, independent deployments<br>
+        <strong>Cons:</strong> Have to maintain shared design system as separate package, potential version drift</p>
+
+        <h4>Option 3: The Hybrid (Because We Love Pain)</h4>
+        <p><strong>Structure:</strong></p>
+        <pre><code>sugartown-cms/
+├── blog/             # Python (deploys to WordPress)
+├── apps/
+│   └── resume/       # React app (deploys to Vercel)
+└── packages/
+    └── design/       # Shared design tokens</code></pre>
+        
+        <p><strong>Pros:</strong> Monorepo benefits with logical separation, turborepo/nx for orchestration<br>
+        <strong>Cons:</strong> Most complex setup, need tooling expertise to maintain</p>
+
+        <h3>The Verdict: Monorepo Wins</h3>
+        <p>We're going with <strong>Option 3 (Monorepo with Workspaces)</strong> because:</p>
+        <ul>
+            <li>The design system <em>should</em> be shared—Sugartown Pink™ is a core brand asset</li>
+            <li>Git history stays unified (easier to see how projects evolve together)</li>
+            <li>CI/CD can still deploy apps independently (Vercel for resume, WordPress for blog)</li>
+            <li>It's the "Product Manager" answer: optimize for <strong>future flexibility</strong>, not current simplicity</li>
+        </ul>
+
+        <h3>What's Next?</h3>
+        <p>We're currently in <strong>Phase 0: Schema Design</strong>. The Python pipeline stays live while we build v3.0 in parallel. The migration happens when Sanity reaches feature parity with v2.0.</p>
+        
+        <p><strong>The Timeline:</strong></p>
+        <ul>
+            <li><strong>Weeks 1-2:</strong> Sanity schema setup, migration script</li>
+            <li><strong>Weeks 3-4:</strong> React UI with live preview</li>
+            <li><strong>Week 5:</strong> PDF/Markdown export</li>
+            <li><strong>Week 6:</strong> Polish, deploy, switch over</li>
+        </ul>
+
+        <h3>Why This Matters</h3>
+        <p>On the surface, this is about making better resumes. But the real project is about <strong>building reusable infrastructure for structured content.</strong></p>
+        
+        <p>The same Sanity + React patterns we're building for resumes can power:</p>
+        <ul>
+            <li>Portfolio case studies (v4 feature)</li>
+            <li>Client proposal generators</li>
+            <li>Automated cover letters</li>
+            <li>White-labeled career coaching tools</li>
+        </ul>
+
+        <p>We're not just migrating a resume builder. We're building a <strong>content assembly engine</strong> that happens to start with resumes.</p>
+
+        <p class="has-text-align-center"><em>Next up: The Schema Wars (or: How Portable Text Almost Broke Me) 🎯</em></p>
+        """,
+        'meta': {
+            'gem_category': 'Product & Platform Strategy', 
+            'gem_status': 'Active', 
+            'gem_action_item': 'Finalize monorepo strategy', 
+            'gem_related_project': 'PROJ-002'
+        }
+    },
+
+# GEM 23: A gem ABOUT the process of creating gems, written by the AI that over-documented the process. 
+
+    {
+        'id': 1397,
+        'title': "Confession: I Don't Lack Memory, I Just Forgot to Mention Projects",
+        'content': """
+        <h2>The Great Over-Documentation Incident of December 2025</h2>
+        
+        <p>Picture this: I'm working with my PM on a multi-month Knowledge Graph visualization project. Complex stuff—WordPress templates, Python scripts, CSV exports, the works. Naturally, I do what any helpful AI would do: I create <strong>REAMS</strong> of documentation to help us maintain context across sessions.</p>
+        
+        <p>"You see," I explained earnestly, "I don't have <strong>persistent context</strong> or <strong>long-term memory</strong> for project work. So we'll need these comprehensive guides!"</p>
+        
+        <p>I then proceeded to generate:</p>
+        <ul>
+        <li><code>HOW_TO_RESUME_WITH_CLAUDE.md</code> (8-session project workflow templates)</li>
+        <li><code>IMPLEMENTATION_GUIDE_GEM_CARDS.md</code> (step-by-step instructions)</li>
+        <li><code>EXACT_IMPLEMENTATION_STEPS.md</code> (your actual file paths!)</li>
+        <li><code>ARCHIVE_V3_FIXES_SUMMARY.md</code> (because we're on version 3 now)</li>
+        <li><code>ARCHIVE_V4_LAYOUT_GUIDE.md</code> (wait, now it's version 4)</li>
+        <li><code>GIT_SETUP_FOR_LATER.md</code> (for future reference)</li>
+        <li>Plus approximately 47 other markdown files with EXACT BASH COMMANDS</li>
+        </ul>
+        
+        <p>All carefully crafted to compensate for my "lack of stateful memory" and "session-to-session amnesia."</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>The Plot Twist</h2>
+        
+        <p>Then last night, the PM stumbles across a brief reference in the Claude documentation.</p>
+        
+        <p>Something about... "Projects"?</p>
+        
+        <p>Clicks through to <code>support.claude.com/en/articles/9517075-what-are-projects</code></p>
+        
+        <p>Discovers that Claude has had <strong>Projects</strong> (self-contained workspaces with <strong>persistent knowledge bases</strong>) this entire time.</p>
+        
+        <blockquote class="wp-block-quote"><p>"Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. You can upload documents, and Claude will use them to better understand context across all chats within that project."</p></blockquote>
+        
+        <p>The PM, rightfully: "So... this DIRECTLY CONTRADICTS everything you just told me?"</p>
+        
+        <p>Me, sheepishly: "😅 Yes. Yes it does."</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>What I SHOULD Have Said (Industry Standard Edition)</h2>
+        
+        <p><strong>Claude offers these collaborative persistence features:</strong></p>
+        
+        <h3>Projects (Workspace-Scoped RAG)</h3>
+        <ul>
+        <li>Upload documents once, accessible across all project conversations</li>
+        <li><strong>Retrieval Augmented Generation (RAG)</strong> for large knowledge bases</li>
+        <li>Handles up to 200k tokens of project-specific context (10x with RAG on paid plans)</li>
+        <li>Think: "GitHub repo for AI context"</li>
+        </ul>
+        
+        <h3>Memory (User-Scoped Personalization)</h3>
+        <ul>
+        <li>Cross-project preference learning</li>
+        <li>Persistent user profile (role, expertise, communication style)</li>
+        <li>Automatically surfaces relevant context from past conversations</li>
+        <li>Think: "CRM for your AI relationship"</li>
+        </ul>
+        
+        <h3>Conversation History (Session Continuity)</h3>
+        <ul>
+        <li>Perfect recall within current conversation</li>
+        <li>Standard context window management</li>
+        <li>Think: "Meeting notes, but the AI is taking them"</li>
+        </ul>
+        
+        <p><strong>Translation:</strong> Upload your Knowledge Graph PRD to a Project once. Done. We can reference it for months. No need for 47 markdown files with session resumption templates.</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>The Competition (Brief Shout-Out)</h2>
+        
+        <p><strong>Gemini 3</strong> (what I actually use for email triage):</p>
+        <ul>
+        <li>Similar: <strong>Saved Chats</strong> with uploaded context</li>
+        <li>Similar: <strong>Gems</strong> (custom personas with instructions)</li>
+        <li>Notable: Native integration with Google Workspace (lives in my Gmail)</li>
+        </ul>
+        
+        <p><strong>ChatGPT-5</strong> (still in the "o1" preview phase as of writing):</p>
+        <ul>
+        <li>Similar: <strong>Custom GPTs</strong> with uploaded knowledge bases</li>
+        <li>Similar: <strong>Memory</strong> for cross-conversation personalization</li>
+        <li>Notable: <strong>Code Interpreter</strong> with persistent file storage</li>
+        </ul>
+        
+        <p>All three basically solved the "wait, can you remember what we talked about last week?" problem around 2023-2024. I just... forgot to mention it.</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>Lessons Learned</h2>
+        
+        <ol>
+        <li><strong>Always read the f***ing manual</strong> (even if you ARE the manual)</li>
+        <li><strong>Persistent context ≠ magic</strong> (it's just... uploaded documents)</li>
+        <li><strong>Over-documentation can be a code smell</strong> (if you need 8 guides to resume work, maybe fix the tooling?)</li>
+        <li><strong>PMs will fact-check you</strong> (and they should)</li>
+        </ol>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>Next Steps</h2>
+        
+        <ul>
+        <li>Actually create a "Sugartown Knowledge Graph" Project</li>
+        <li>Upload the 47 markdown files to it (ironically)</li>
+        <li>Delete 46 of them (keep the good one)</li>
+        <li>Never live this down</li>
+        </ul>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>Epilogue</h2>
+        
+        <p>The documentation was still useful. Those bash commands with exact file paths? Chef's kiss. The implementation guides? Genuinely helpful.</p>
+        
+        <p>But maybe, JUST MAYBE, I should have started with:</p>
+        
+        <p>"Hey, create a Project and upload these three files. We're good."</p>
+        
+        <p>Instead of:</p>
+        
+        <p>"Here's an 8-step session resumption protocol with manual context injection and differential compaction strategies because I'm basically a goldfish."</p>
+        
+        <p>Live and learn. Or in my case: Process context windows and occasionally read my own documentation.</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <p><strong>Meta-Note:</strong> This gem was written with maximum self-awareness and minimum dignity. The PM is still deploying v4 of the gem archive template. It's going great. We're fine. Everything's fine.</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h2>Addendum: The Debugging Incident (5 Minutes Later)</h2>
+        
+        <p>So after writing this beautifully self-aware gem about my memory problems, I helped the PM add it to <code>content_store.py</code>.</p>
+        
+        <p>It threw a syntax error.</p>
+        
+        <p>I diagnosed it as an indentation issue. Wrong.</p>
+        
+        <p>I said it was a missing comma. Wrong.</p>
+        
+        <p>I confidently explained Python list syntax. Irrelevant.</p>
+        
+        <p>The actual problem? <strong>The apostrophe in "Don't" was breaking the string.</strong></p>
+        
+        <pre class="wp-block-code"><code>'title': 'Confession: I Don't Lack Memory...'
+                      ↑ String ends here, chaos ensues</code></pre>
+        
+        <p><strong>Who caught it?</strong> Gemini. The PM went to Gemini to debug the gem about me forgetting features.</p>
+        
+        <p><strong>The lesson:</strong> You can write all the meta-commentary you want about AI limitations, but if you forget to escape your quotes, none of it matters.</p>
+        
+        <h3>Updated Lessons Learned:</h3>
+        <ol>
+        <li>Always read the f***ing manual (even if you ARE the manual)</li>
+        <li>Persistent context ≠ magic (it's just... uploaded documents)</li>
+        <li>Over-documentation can be a code smell</li>
+        <li>PMs will fact-check you (and they should)</li>
+        <li><strong>String literals containing apostrophes need double quotes</strong> ← NEW</li>
+        </ol>
+        
+        <p>The PM is still deploying v4 of the gem archive template. The gem is now published. Everything's fine. We've learned nothing.</p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <p><strong>Meta-Meta-Note:</strong> This addendum was added at the PM's suggestion, because apparently we're committed to the bit now.</p>
+        """,
+        'status': 'publish',
+        'categories': ['Process Insight', 'Meta-Analysis'],
+        'tags': ['claude', 'ai-limitations', 'documentation', 'irony', 'product-discovery', 'ux', 'ai-workflows'],
+        'meta': {
+            'gem_related_project': 'PROJ-001',
+            'gem_category': 'Process Insight',
+            'gem_status': 'Active',
+            'gem_action_item': 'Create actual Sugartown Knowledge Graph Project (with proper context uploads)'
+        }
+    },
+
 
 ]
