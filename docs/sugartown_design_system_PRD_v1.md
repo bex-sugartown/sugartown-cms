@@ -3,99 +3,193 @@
 
 | Metadata | Details |
 | :--- | :--- |
-| **Version** | 1.1 (The "Pre-Design" Update) |
-| **Status** | 🟡 **In Progress** (Migrating from CSS to Tokens) |
+| **Version** | 1.2 (Semantic Convergence Update) |
+| **Status** | 🟡 In Progress |
 | **Owner** | Engineering & DX |
-| **Related Gems** | [Gem 21: The Pre-Design System](/gem/design-ops-the-pre-design-system-surviving-the-css-chaos) |
+| **Related Gems** | Gem: The Pre-Design System · Gem: Resume Factory · Gem: Knowledge Graph |
 
 ---
 
 ## 1. Executive Summary
 
-**The Sugartown Design System** is the visual operating system for the site. It is not just a UI kit; it is a strict governance model for how "Sugartown Pink" (`#FE1295`) and "Electric Cyan" (`#00E5FF`) interact with the "Deep Void" (`#0D1226`) background.
+The **Sugartown Atomic Design System** is a governed, semantic UI system designed to support a composable, content-as-code portfolio.
 
-**Phase 1 Goal:** Formalize the existing "hacked" CSS (Pink Cards, Code Blocks, Duotone Images) into reusable Tokens and Components to eliminate `!important` wars in the stylesheet.
+It is not a visual kit.  
+It is an **agreement** between humans, AI agents, and code about how structure, meaning, and presentation relate.
 
----
-
-## 2. Current State: "The Pre-Design System"
-
-We are currently in a transitional phase where the visual identity exists but is brittle.
-
-* **The Artifacts:** We have strong distinct components (The Pink Card, The Zebra Table, The Terminal Block).
-* **The Debt:** Styles are applied via a monolithic `style.css` that fights against the WordPress `theme.json`.
-* **The Friction:** "Cascading Overwrites" are common. We frequently use `!important` to force Dark Mode styles over the default theme.
+This update formalizes:
+- Semantic component naming
+- Centralized styling in `style.css`
+- Shared layout primitives (Cards, Grids, Callouts)
+- Variants instead of forks (Light, Dark, KG)
 
 ---
 
-## 3. Core Design Principles 
+## 2. Current State: The Pre-Design System
 
-1.  **Subtle Tech:** We use monospace fonts (`Menlo`, `Consolas`) for data, but distinct serifs (`Playfair Display`) for human narrative. It should feel like a terminal that went to art school.
-2.  **Duotone Reality:** Images are never raw. They are always filtered to match the brand palette (Grayscale + Hard Light Gradient).
-3.  **Data Density:** We prefer dense, information-rich layouts (Tables, Lists) over "marketing fluff."
-4.  **Dark Mode First:** The system assumes a dark canvas. Light mode is the variant, not the default.
+Sugartown currently operates with:
+- Strong visual identity
+- Multiple valid but divergent implementations
+- CSS that “works” but does not scale
+
+### 2.1 The Multi-Agent Drift Problem
+
+Multiple AI agents (and humans) have independently implemented similar UI components:
+- Pink Cards
+- Gem Archive Cards
+- Filter Notices
+- Editorial Callouts
+
+These implementations are visually aligned but **semantically disconnected**.
+
+**Risk:**  
+Visual consistency without semantic consistency creates CSS debt and blocks safe theming.
+
+**Opportunity:**  
+Introduce a semantic component layer that reconciles existing implementations without breaking markup.
+
+---
+
+## 3. Core Design Principles
+
+1. **Subtle Tech**  
+   Editorial typography for narrative, monospace for data.
+
+2. **Duotone Reality**  
+   Images are always filtered to match the system palette.
+
+3. **Data Density**  
+   Information-rich layouts over marketing abstraction.
+
+4. **Light Mode First**  
+   The system assumes a light canvas as the baseline.  
+   Dark Mode and Knowledge Graph views are variants, not defaults.
+
+5. **Semantic First**  
+   Components must have durable semantic identities, not just visual styles.
+
+6. **Variants, Not Forks**  
+   Light Mode, Dark Mode, and Knowledge Graph are variants of the same components.
 
 ---
 
 ## 4. Atomic Tokens (The DNA)
 
-These values must be extracted from `style.css` and formalized in `theme.json` or a `tokens.js` file.
+### 4.1 Color Tokens
 
-### 4.1 Colors
-| Token Name | Hex Value | Usage |
-| :--- | :--- | :--- |
-| `color.brand.primary` | `#FE1295` | **Sugartown Pink.** Borders, Links, Primary Buttons. |
-| `color.brand.secondary` | `#00E5FF` | **Electric Cyan.** Accents, Toggles, Edge lighting. |
-| `color.bg.void` | `#0D1226` | **Deep Void.** Main background for "Dark Mode" feel. |
-| `color.text.body` | `#1e1e1e` | **Charcoal.** Body text on white cards. |
-| `color.text.inverse` | `#F8F8F2` | **Ghost White.** Text on Void backgrounds. |
+| Token | Value | Usage |
+|-----|------|------|
+| color.brand.primary | #FE1295 | Sugartown Pink |
+| color.brand.secondary | #00E5FF | Electric Cyan |
+| color.bg.surface | #FFFFFF | Primary surface (Light Mode) |
+| color.bg.void | #0D1226 | Dark / KG surfaces |
+| color.text.body | #1e1e1e | Body text on light |
+| color.text.inverse | #F8F8F2 | Text on dark |
 
-### 4.2 Elevation (Shadows)
-* `elevation.card.rest`: `0 4px 12px rgba(254, 18, 149, 0.05)` (Subtle Pink Glow)
-* `elevation.card.hover`: `0 12px 30px rgba(254, 18, 149, 0.15)` (The Lift)
+### 4.2 Elevation Tokens
 
-### 4.3 Filters (The "Duotone" Effect)
-* `filter.duotone.base`: `grayscale(100%) contrast(1.1)`
-* `filter.duotone.overlay`: `linear-gradient(135deg, #FE1295, #2BD4AA)`
-* `filter.blend.mode`: `hard-light`
+- elevation.card.rest: 0 4px 12px rgba(254,18,149,0.05)
+- elevation.card.hover: 0 12px 30px rgba(254,18,149,0.15)
+
+### 4.3 Layout Tokens
+
+| Token | Value | Usage |
+|-----|------|------|
+| layout.card.radius | 8px | All cards |
+| layout.card.padding.sm | 20px | Dense views |
+| layout.card.padding.lg | 32px | Editorial views |
+| layout.grid.min | 340px | Card grids |
+| layout.grid.gap | 30px | Grid spacing |
 
 ---
 
-## 5. Component Library (The Atoms)
+## 5. Component Library
 
-### 5.1 The Pink Card (`.pink-card`)
-The signature component for "Atoms & Ecosystems."
-* **Structure:** Flex Column.
-* **Behavior:** "Sticky Footer" logic (`margin-top: auto`) forces metadata to the bottom.
-* **Variants:**
-    * **Standard:** White background, Pink Border.
-    * **Interactive:** Hover state triggers `translateY(-4px)`.
+### 5.1 Card System (`.st-card`)
 
-### 5.2 The Feature Image (`.wp-block-post-featured-image`)
-Context-aware image presentation.
-* **Archive View:** `aspect-ratio: 1/1` (Circle), `border-radius: 50%`.
-* **Single Post:** `aspect-ratio: 21/9` (Cinematic Banner), `border-radius: 16px`.
-* **Global:** Always applies `filter.duotone` overlay.
+The **Card System** is the foundational organism across the site.
 
-### 5.3 The Tech Pill (`.skill-tag`)
-Used for displaying skills, tags, and versions.
-* **Style:** Monospace font, `0.75rem` size.
-* **Theme:** Light Grey background (`#f1f2f4`) with Deep Pink text (`#b91c68`).
-* **Border:** 1px solid `#e1e3e6`.
+**Base Class:** `.st-card`  
+**Elements:**
+- `.st-card__header`
+- `.st-card__body`
+- `.st-card__meta`
+- `.st-card__footer`
+
+**Variants:**
+- `.st-card--light` (default)
+- `.st-card--dark`
+- `.st-card--kg-dark`
+
+**Behavioral Guarantees:**
+- Flex column layout
+- Sticky footer behavior
+- Grid alignment regardless of content length
+
+**Legacy Compatibility:**
+- `.pink-card` and `.gem-card` remain valid aliases
+- No breaking template changes permitted during convergence
+
+---
+
+### 5.2 Callout System (`.st-callout`)
+
+Used for:
+- Filter notices
+- Editorial asides
+- System annotations
+
+**Base Class:** `.st-callout`  
+**Variants:**
+- `.st-callout--info`
+- `.st-callout--soft`
+- `.st-callout--dark`
+- `.st-callout--kg-dark`
+
+Legacy classes (e.g. `.filter-active-notice`) map to this system.
+
+---
+
+### 5.3 Tag / Pill System (`.st-tag`)
+
+Used for:
+- Skills
+- Tags
+- Metadata
+
+**Rules:**
+- Single semantic pill component
+- Variants via modifiers only
+- No page-specific tag styling
 
 ---
 
 ## 6. Implementation Plan
 
 | Phase | Task | Deliverable | Status |
-| :--- | :--- | :--- | :--- |
-| **1. Audit** | Inventory all hard-coded HEX values in `style.css`. | `token_map.csv` | 🟡 In Progress |
-| **2. Tokenize** | Move HEX values to CSS Variables (`--color-brand-primary`). | Updated `style.css` | 🔴 To Do |
-| **3. Blockify** | Convert `.pink-card` HTML into a native WordPress Block Pattern. | `patterns/pink-card.php` | 🔴 To Do |
-| **4. Strict Mode** | Remove `!important` tags and rely on specific CSS selectors. | Clean Stylesheet | 🔴 To Do |
+|----|----|----|----|
+| 1 | Identify duplicate components | Component Drift Map | 🟡 |
+| 2 | Introduce `.st-*` semantic layer | Centralized style.css | 🟡 |
+| 3 | Migrate archive styles | Single stylesheet | 🟡 |
+| 4 | Define Dark/KG variants | Token + Variant spec | 🔴 |
+| 5 | Template cleanup | Non-breaking PRs | 🔴 |
 
 ---
 
-## 7. Risks & Dependencies
-* **WordPress Overwrites:** Theme updates (`Twenty Twenty-Five`) may reset `theme.json`. **Mitigation:** Use a Child Theme.
-* **Dark Mode Flash:** CSS loading delay causes a white flash before the "Void" background loads. **Mitigation:** Inline critical CSS.
+## 7. Risks & Mitigations
+
+**AI Drift Risk:**  
+Future AI output may reintroduce divergent components.
+
+**Mitigation:**  
+Enforce `.st-*` vocabulary in prompts, reviews, and documentation.
+
+---
+
+## 8. Success Criteria
+
+- One card system
+- One callout system
+- One grid system
+- Zero visual regressions
+- Dark Mode implemented via modifiers only
