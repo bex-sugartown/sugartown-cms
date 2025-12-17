@@ -1,4 +1,5 @@
 import content_store
+import layout_engine  # <--- NEW: Import your layout engine
 import requests
 import json
 import base64
@@ -46,7 +47,6 @@ def build_cache(endpoint, target_map, label="items"):
     page = 1
     while True:
         try:
-            # ✨ FIX: Added '&status=any' to see Drafts/Pending posts
             url = f"{endpoint}?per_page=100&page={page}&status=any"
             response = requests.get(url, headers=headers)
             
@@ -98,12 +98,11 @@ def save_state(state):
 # ==========================================
 
 def main():
-    print("\n💎 SUGARTOWN PUBLISHER v3.7 (Draft Aware)")
+    print("\n💎 SUGARTOWN PUBLISHER v3.8 (Layout Engine Ready)")
     print(f"🎯 Target: {BASE_URL}\n")
 
     state = load_state()
     
-    # MOVED UP: Define 'gems' first so the check below can read it
     gems = content_store.all_gems 
 
     # GOVERNANCE CHECK: Validate Project IDs
@@ -123,22 +122,6 @@ def main():
     build_cache(API_ENDPOINT, GEM_MAP, "Existing Gems")
     print("-" * 40)
 
-    # (The rest of the script continues as normal...)
-    for gem in gems:
-        # ... logic ...
-        proj_id = gem.get('meta', {}).get('gem_related_project')
-        if proj_id and proj_id not in valid_projects:
-             print(f"   ⚠️  WARNING: Gem '{gem['title']}' references invalid Project ID: '{proj_id}'")
-             # Optional: raise ValueError("Strict Mode: Fix Project ID before publishing.")
-
-    print("-" * 40)
-    
-    # 1. PRE-FETCH (Now includes Drafts)
-    build_cache(CATS_ENDPOINT, CATEGORY_MAP, "Categories")
-    build_cache(TAGS_ENDPOINT, TAG_MAP, "Tags")
-    build_cache(API_ENDPOINT, GEM_MAP, "Existing Gems")
-    print("-" * 40)
-
     gems = content_store.all_gems
 
     for gem in gems:
@@ -146,7 +129,6 @@ def main():
         my_key = simplify_key(gem['title'])
         target_id = GEM_MAP.get(my_key)
         
-        # Fallback check for hardcoded ID in the map values
         if not target_id and 'id' in gem:
              if gem['id'] in GEM_MAP.values():
                  target_id = gem['id']
@@ -164,32 +146,45 @@ def main():
                 tid = get_term_id(t, TAGS_ENDPOINT, TAG_MAP)
                 if tid: tag_ids.append(tid)
 
+        # ==========================================
+        # ✨ CONTENT PRE-PROCESSING (The Hook)
+        # ==========================================
+        final_content = gem.get('content', '')
+
+        # Check if this Gem has a grid definition
+        if 'card_grid_data' in gem:
+            print(f"      🎨 Generating Grid Layout for '{gem['title']}'...")
+            try:
+                grid_html = layout_engine.generate_pink_card_grid(gem['card_grid_data'])
+                # Append grid to the bottom of existing content
+                final_content += f"\n{grid_html}"
+            except Exception as e:
+                print(f"      ❌ Layout Engine Error: {e}")
+
         # 3. BUILD PAYLOAD
-        # Extract meta from the Gem dictionary (default to empty strings if missing)
         meta_data = gem.get('meta', {})
         
         payload = {
             'title': gem['title'],
-            'content': gem['content'],
+            'content': final_content, # <--- Uses the processed content
             'status': gem['status'],
             'categories': cat_ids,
             'tags': tag_ids,
-            # ✨ FIX: Added 'gem_category' to the payload so WP actually receives it
             'meta': {
-                'gem_category': meta_data.get('gem_category', ''), # <--- WAS MISSING
+                'gem_category': meta_data.get('gem_category', ''),
                 'gem_status': meta_data.get('gem_status', ''),
                 'gem_action_item': meta_data.get('gem_action_item', ''),
                 'gem_related_project': meta_data.get('gem_related_project', '')
             }
         }
 
-        # 3. SPEED CHECK
+        # 4. SPEED CHECK
         current_hash = calculate_hash(payload)
         if target_id and str(target_id) in state and state[str(target_id)] == current_hash:
             print(f"💤 Skipped: {gem['title']}")
             continue
 
-        # 4. PUSH
+        # 5. PUSH
         print(f"Processing: {gem['title']}...")
         
         if target_id:

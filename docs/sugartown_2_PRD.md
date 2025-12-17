@@ -1,7 +1,3 @@
-
-SUGARTOWN 2.0 — FULL PRD (MARKDOWN VERSION)
-
-
 # Product Requirements Document (PRD)
 ## Sugartown 2.0 — Content Engine, Mini Design System, and WordPress Rendering Layer
 
@@ -122,9 +118,7 @@ Sugartown 2.0 solves this by enforcing:
 
 ### 6.1 Token Architecture
 
-Tokens stored in:
-sugartown-cms/sugartown.tokens.json
-
+Tokens stored in: `sugartown-cms/sugartown.tokens.json`
 
 | Category | Sample Tokens | Notes |
 |----------|----------------|------|
@@ -144,19 +138,16 @@ sugartown-cms/sugartown.tokens.json
 
 ### 6.3 Components
 
-| Component | Implementation |
-|----------|----------------|
-| Headings | theme.json |
-| Code Block | CSS override |
-| Badge | CSS tokenized style |
-| Table | Block style override |
-| Card | Archive listing template |
+| Component | Implementation | Notes |
+|----------|----------------|-------|
+| **Pink Card** | **HTML Generator** | Generated via `layout_engine.py`. Decoupled from WP Blocks. |
+| **Grid** | **CSS Grid** | `.st-grid-wrapper` handles responsive flow (auto-fill). |
+| Headings | theme.json | Standard WP mapping. |
+| Code Block | CSS override | Terminal styling. |
 
 ### 6.4 Documentation
 
-Located at:
-sugartown-cms/docs/design-system/
-
+Located at: `sugartown-cms/docs/design-system/`
 
 ---
 
@@ -213,14 +204,3 @@ sugartown-cms/docs/design-system/
 | Stability | No manual WP content; rollback works |
 | Consistency | Gems render uniformly with tokens |
 | Future-proofing | Tokens map cleanly to React |
-
----
-
-## 10. Backlog & Future Considerations
-
-| Feature | Status | Notes |
-|---------|--------|-------|
-| WP Protected Blocks | Deferred | Conflicts with Python source-of-truth |
-| React/Next.js Front End | Future | Tokens designed to support migration |
-| CMS Replacement Evaluation | Future | Possible move to Sanity or Contentful |
-
