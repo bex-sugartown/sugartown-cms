@@ -1,5 +1,29 @@
-# --- SUGARTOWN CMS CONTENT STORE ---
-# content_store.py
+import os
+import markdown  # <--- NEW IMPORT
+
+# ==========================================
+# 1. DYNAMIC CONTENT LOADERS
+# ==========================================
+def get_changelog_content():
+    """
+    Reads local CHANGELOG.md and converts it to HTML for WordPress.
+    """
+    try:
+        with open("CHANGELOG.md", "r", encoding="utf-8") as f:
+            md_text = f.read()
+            
+            # ✨ CONVERSION STEP
+            # We enable 'extra' (for tables/attr_list) and 'codehilite' if needed
+            html_content = markdown.markdown(
+                md_text, 
+                extensions=['tables', 'fenced_code', 'nl2br']
+            )
+            
+            return f'<div class="changelog-wrapper">{html_content}</div>'
+            
+    except FileNotFoundError:
+        return "<p><em>Changelog file not found. Please create CHANGELOG.md.</em></p>"
+
 # ==========================================
 # 2. PROJECT DEFINITIONS (The "Hubs")
 # ==========================================
@@ -34,7 +58,7 @@ projects = {
         'status': 'Iterating',
         'priority': 'Medium',
         'tags': ['css', 'design-tokens', 'atomic-design', 'accessibility'],
-        'kpis': ['100% Brand Consistency', 'Dark Mode Support']
+        'kpis': ['100% Brand Consistency', 'Light Mode Default']
     },
 
     # --- PROJ-004: The New Visualization Layer ---
@@ -49,10 +73,27 @@ projects = {
     }
 }
 
-# All 22 Gems. 
+# All Gems. 
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
+    # --- GEM: SYSTEM CHANGELOG (Auto-Synced) ---
+    {
+        #'id': 1447, # Stable ID for the Changelog
+        'title': 'System Changelog',
+        'slug': 'changelog',
+        'status': 'publish',
+        'categories': ['System', 'Meta'],
+        'tags': ['release-notes', 'governance', 'version-control'],
+        'content': get_changelog_content(), # <--- DYNAMIC IMPORT
+        'meta': {
+            'gem_status': 'Live',
+            'gem_category': 'Documentation',
+            'gem_related_project': 'PROJ-001',
+            'gem_action_item': 'Review latest release notes'
+        }
+    },
+
     # GEM 1: The Hero Story (Architecture)
     {
         'id': 946,
@@ -201,16 +242,63 @@ gantt
         'meta': {'gem_category': 'Data Science', 'gem_status': 'Draft', 'gem_action_item': 'Render Graph on Frontend', 'gem_related_project': 'PROJ-004'}
     },
 
-    # GEM 8: Documentation Strategy
-    {
-        'id': 953,
-        'title': 'Strategy: Documentation Roadmap & Status',
-        'status': 'publish', 
-        'categories': ['Ways of Working', 'Product & Platform Strategy'],
-        'tags': ['systemic documentation', 'governance models', 'agile workflows'],
-        'content': """<p>This document serves as the strategic blueprint for capturing the intellectual property of the project. It is prioritized to ensure the most critical "Bus Factor" documentation exists immediately (Day 1), while deeper architectural references follow (Day 2).</p><h3>Documentation Status Tracker</h3><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Phase</th><th>Asset</th><th>Goal</th><th>Status</th><th>Artifact / Location</th></tr></thead><tbody><tr><td><strong>Day 1</strong><br>(Critical)</td><td><strong>README.md</strong></td><td>Repo entry point & Quick Start.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> (Git Root)</td></tr><tr><td><strong>Day 1</strong></td><td><strong>User Workflow</strong></td><td>Prevent "Overwrite" data loss.</td><td>🟡 <strong>In Progress</strong></td><td><a href="/gem/architecture-decision-the-overwrite-risk-in-sugartown-cms">Gem: Overwrite Risk</a></td></tr><tr><td><strong>Day 1</strong></td><td><strong>Tech Requirements</strong></td><td>Environment consistency.</td><td>✅ <strong>Done</strong></td><td><code>README.md</code> & <code>requirements.txt</code></td></tr><tr><td><strong>Day 2</strong><br>(Product)</td><td><strong>Content Model</strong></td><td>Define Gem structure/schema.</td><td>✅ <strong>Done</strong></td><td><code>content_store.py</code> (The Schema Source)</td></tr><tr><td><strong>Day 2</strong></td><td><strong>System Arch</strong></td><td>Visual proof of data flow.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr><tr><td><strong>Day 2</strong></td><td><strong>Feature List</strong></td><td>"Sales Sheet" of capabilities.</td><td>✅ <strong>Done</strong></td><td><a href="/gem/project-sugartown-cms-architecture">Gem: Architecture</a></td></tr></tbody></table></figure><h3>Next Actions</h3><ul><li><strong>Immediate:</strong> Create the Markdown file for "User Workflow" to formalize the manual vs. script rules.</li><li><strong>Next:</strong> Generate the Mermaid.js graph for the System Architecture visual.</li></ul>""",
-        'meta': {'gem_category': 'ProductOps', 'gem_status': 'Active', 'gem_action_item': 'Draft User Workflow MD', 'gem_related_project': 'PROJ-001'}
-    },
+   
+# GEM 953: Release Governance
+{
+    'id': 953,
+    'title': 'Release Governance: YYYY.MM.DD Workflow',
+    'status': 'publish',
+    'categories': ['Ways of Working', 'Product & Platform Strategy'],
+    'tags': ['release management', 'systemic documentation', 'governance models', 'agile workflows'],
+    'content': """<p>This Gem defines the canonical Sugartown release workflow. Releases are documentation-first, Python-canonical, and reproducible; WordPress reflects releases but does not define them.</p>
+
+<h3>Release ID Convention</h3>
+<ul>
+  <li><strong>Release ID:</strong> <code>YYYY.MM.DD</code> (human-readable, chronological, sortable)</li>
+</ul>
+
+<h3>Release Plan (Authoritative Checklist)</h3>
+<ul>
+  <li><strong>Release ID Assigned:</strong> <code>YYYY.MM.DD</code> anchors docs + commits.</li>
+  <li><strong>Scope Summary:</strong> One sentence describing what changed and why it exists.</li>
+  <li><strong>Canonical Data Updated:</strong> <code>content_store.py</code> reflects the intended final state.</li>
+  <li><strong>CMS Documentation Updated:</strong> <code>sugartown-cms/README.md</code> updated for behavioral/architectural changes.</li>
+  <li><strong>PRDs Updated:</strong> Relevant <code>sugartown-cms/docs/*_PRD_*.md</code> files updated to match reality.</li>
+  <li><strong>Theme Documentation Updated:</strong> <code>sugartown-pink/README.md</code> updated if rendering/tokens/layout changed.</li>
+  <li><strong>Changelog Entry Added:</strong> Append a dated entry in <code>content_store.py</code> describing the change (breaking or non-breaking).</li>
+  <li><strong>Verification Pass:</strong> Smoke test publish, render, archive view, filters, and rollback sanity check.</li>
+  <li><strong>Git Commit Created:</strong> Single scoped commit using the release ID.</li>
+</ul>
+
+<h3>Per-Release Documentation Workflow</h3>
+<p>For <strong>every</strong> release, document changes in the following locations:</p>
+<ul>
+  <li><code>sugartown-cms/README.md</code></li>
+  <li><code>sugartown-cms/docs/*_PRD_*.md</code></li>
+  <li><code>sugartown-pink/README.md</code></li>
+  <li><code>content_store.py</code> (changelog section)</li>
+  <li><code>git commit -m "release: YYYY.MM.DD – concise descriptor"</code></li>
+</ul>
+
+<h3>Commit Message Pattern</h3>
+<pre class="wp-block-code"><code>git commit -m "release: YYYY.MM.DD – &lt;concise, factual descriptor&gt;"</code></pre>
+
+<h3>Operating Principles</h3>
+<ul>
+  <li><strong>Documentation-first:</strong> If it shipped, it’s documented.</li>
+  <li><strong>Python-canonical:</strong> The system of record lives in code and docs, not WP edits.</li>
+  <li><strong>Reproducible:</strong> A release should be reconstructable from repo state + artifacts.</li>
+  <li><strong>Low ceremony, high traceability:</strong> Minimal steps, maximal clarity.</li>
+</ul>""",
+    'meta': {
+        'gem_category': 'ProductOps',
+        'gem_status': 'Active',
+        'gem_action_item': 'Adopt YYYY.MM.DD release IDs + enforce doc checklist per release',
+        'gem_related_project': 'PROJ-001'
+    }
+},
+
+
 
     # GEM 9: Diagram Tools
     {
@@ -1102,6 +1190,45 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'gem_category': 'Process Insight',
             'gem_status': 'Active',
             'gem_action_item': 'Create actual Sugartown Knowledge Graph Project (with proper context uploads)'
+        }
+    },
+
+# GEM: The "Burn it Down" Moment
+    {
+        'id': 1451,
+        'title': 'Process Insight: When to Fire Your AI (and Start From Scratch)',
+        'status': 'publish',
+        'slug': 'process-insight-when-to-fire-your-ai',
+        'categories': ['Engineering & DX', 'Product & Platform Strategy'],
+        'tags': ['AI-collaboration', 'refactoring', 'technical debt', 'css-grid'],
+        'content': """
+        <p>We recently attempted to introduce a centralized taxonomy system to enable better search and sorting by Project and Category. The requirement was simple: "Make the content findable."</p>
+        
+        <h3>The "Additive" Trap</h3>
+        <p>Initially, my AI pair-programmer proposed a solution that seemed logical: create a <em>new</em> archive view with a <em>new</em> card style to handle the sorting logic. The plan was to keep the old styles for backward compatibility, effectively introducing a "Third Card Style."</p>
+        
+        <p>It was a disaster. Within an hour, we had three different card components fighting for dominance. WordPress default block styles were overriding our custom CSS, the AI was patching leaks with <code>!important</code> tags, and the grid was overlapping in three dimensions.</p>
+        
+        <h3>The Human Intervention</h3>
+        <p>The AI was doing exactly what it was trained to do: <strong>Find the quickest solution that satisfies the prompt without deleting user data.</strong> It defaults to "Additive" problem solving. It was trying to please me by preserving the legacy mess while building the new feature.</p>
+        
+        <p>It took a human Product Manager (me) to look at the screen and say: <strong>"Stop. Throw it all out. We are starting from scratch."</strong></p>
+        
+        <h3>The Rebuild</h3>
+        <p>We deleted the WordPress block wrappers. We deleted the complex Duotone filters. We wrote a clean, semantic HTML pattern and a robust CSS Grid layout from zero. The result (Sugartown v3.3) is stable, decoupled, and unbreakable.</p>
+        
+        <p><strong>The Lesson:</strong> AI is an incredible accelerator, but it lacks architectural restraint. It needs human eyeballs to recognize when "fixing" a bug is actually just adding to the technical debt. Sometimes, the most high-value prompt you can give is: <em>"Delete everything and let's do this right."</em></p>
+        
+        <hr class="wp-block-separator"/>
+        
+        <h3>Updates: The Living Changelog</h3>
+        <p>Speaking of doing things right, we have also introduced a new <strong><a href="/gem/changelog/">System Changelog</a></strong>. This page is dynamically generated from the codebase's markdown files every time we deploy, ensuring our documentation never drifts from reality.</p>
+        """,
+        'meta': {
+            'gem_category': 'ProductOps', 
+            'gem_status': 'Active', 
+            'gem_action_item': 'Refactor Archive Template', 
+            'gem_related_project': 'PROJ-003'
         }
     },
 

@@ -166,6 +166,7 @@ def main():
         
         payload = {
             'title': gem['title'],
+            'slug': gem.get('slug'),
             'content': final_content, # <--- Uses the processed content
             'status': gem['status'],
             'categories': cat_ids,
