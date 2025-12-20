@@ -243,7 +243,7 @@ gantt
     },
 
    
-# GEM 953: Release Governance
+# GEM 8 953: Release Governance
 {
     'id': 953,
     'title': 'Release Governance: YYYY.MM.DD Workflow',
@@ -289,7 +289,76 @@ gantt
   <li><strong>Python-canonical:</strong> The system of record lives in code and docs, not WP edits.</li>
   <li><strong>Reproducible:</strong> A release should be reconstructable from repo state + artifacts.</li>
   <li><strong>Low ceremony, high traceability:</strong> Minimal steps, maximal clarity.</li>
-</ul>""",
+</ul>
+<h3>Versioning &amp; Changelog Rules (Locked)</h3>
+<ul>
+  <li><strong>Calendar versioning:</strong> Use <code>vYYYY.MM.DD</code> (one version per release day).</li>
+  <li><strong>No SemVer:</strong> Do not use major/minor/patch semantics for Sugartown releases.</li>
+  <li><strong>Single source of truth:</strong> <code>CHANGELOG.md</code> is authoritative for release history.</li>
+  <li><strong>Auto-import:</strong> <code>content_store.py</code> imports changelog entries on publish; do not maintain manual changelog content in code.</li>
+  <li><strong>Normalization rule:</strong> If an older changelog entry is touched, normalize it to the canonical format.</li>
+</ul>
+
+<h3>Canonical CHANGELOG Entry Format</h3>
+<pre class="wp-block-code"><code>## vYYYY.MM.DD: &lt;short, factual descriptor&gt;
+**Date:** YYYY-MM-DD
+**Status:** 🟢 Production Stable
+
+### 🎨 Design System
+* Bullet
+
+### ⚙️ CMS / Architecture
+* Bullet
+
+### 🧩 Layout &amp; Stability Fixes
+* Bullet
+
+---</code></pre>
+
+<h3>Changelog Lint Checklist (Required)</h3>
+<p><strong>Fail the release review</strong> if any check below does not pass.</p>
+
+<h4>File &amp; Format</h4>
+<ul>
+  <li>Changelog update exists in <code>CHANGELOG.md</code></li>
+  <li>Entry is written in <strong>Markdown</strong> (no HTML)</li>
+  <li>No changelog content is written directly to <code>content_store.py</code></li>
+</ul>
+
+<h4>Versioning</h4>
+<ul>
+  <li>Version follows calendar format: <code>vYYYY.MM.DD</code></li>
+  <li>Version date matches the release date</li>
+  <li>No semantic versioning (major/minor/patch)</li>
+  <li>Only one version entry per release date</li>
+</ul>
+
+<h4>Structure</h4>
+<ul>
+  <li>Entry begins with: <code>## vYYYY.MM.DD: &lt;short, factual descriptor&gt;</code></li>
+  <li>Includes <strong>Date</strong> and <strong>Status</strong> lines</li>
+  <li>Uses emoji-labeled sections (e.g., 🎨, ⚙️, 🧩)</li>
+  <li>Bullets are concise and factual</li>
+  <li>Entry ends with a horizontal rule: <code>---</code></li>
+</ul>
+
+<h4>Content Integrity</h4>
+<ul>
+  <li>Bullets reflect only shipped work</li>
+  <li>No speculative or future-tense language</li>
+  <li>No duplicated bullets across sections</li>
+  <li>No marketing language or narrative prose</li>
+</ul>
+
+<h3>Release Checklist Updates (Replace Changelog Items)</h3>
+<ul>
+  <li><strong>Replace:</strong> “Changelog Entry Added: Append a dated entry in <code>content_store.py</code> …”</li>
+  <li><strong>With:</strong> “Changelog Entry Added: Append a canonical entry to <code>CHANGELOG.md</code> (Markdown); imported automatically on publish.”</li>
+  <li><strong>Replace:</strong> “<code>content_store.py</code> (changelog section)” in the per-release workflow list</li>
+  <li><strong>With:</strong> “<code>CHANGELOG.md</code> (canonical entry; auto-imported on publish)”</li>
+</ul>
+
+""",
     'meta': {
         'gem_category': 'ProductOps',
         'gem_status': 'Active',
@@ -1193,7 +1262,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
         }
     },
 
-# GEM: The "Burn it Down" Moment
+# GEM 24: The "Burn it Down" Moment
     {
         'id': 1451,
         'title': 'Process Insight: When to Fire Your AI (and Start From Scratch)',
@@ -1231,6 +1300,78 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'gem_related_project': 'PROJ-003'
         }
     },
+
+# GEM 25: The Release That Ate the Card System
+{
+    'id': 0,  # TODO: replace with next available ID
+    'title': 'The Release That Ate the Card System',
+    'status': 'publish',
+    'categories': ['Ways of Working', 'Design System Governance', 'Release Engineering'],
+    'tags': ['st-card', 'design-system', 'release-process', 'wordpress-quirks', 'changelog', 'ai-collaboration'],
+    'content': """<p><strong>Summary</strong></p>
+<p>This release started as a visual cleanup and ended as a full system alignment: cards, tokens, changelogs, governance, and the realization that WordPress will happily turn HTML comments into paragraphs when left unsupervised.</p>
+<p>What shipped wasn’t just UI—it was a release process that can survive both humans and AI.</p>
+
+<h3>What Actually Changed</h3>
+
+<p><strong>At the surface level:</strong></p>
+<ul>
+  <li>Legacy <code>pink-card</code> components were migrated to the canonical <code>st-card</code> (light variant).</li>
+  <li>Radius rules were standardized across cards, tags, code blocks, and hero imagery.</li>
+  <li>Gradients were locked to canonical Sugartown hex values.</li>
+  <li>Tag styling and hover behavior were unified across cards and posts.</li>
+</ul>
+
+<p><strong>Under the hood:</strong></p>
+<ul>
+  <li>Card internals were restructured so headers pin to the top, footers pin to the bottom, and content flexes predictably.</li>
+  <li>Media alignment was corrected (including a single rogue SVG that refused to behave).</li>
+  <li>A subtle WordPress behavior—serializing <code>&lt;!-- --&gt;</code> comments into <code>&lt;p&gt;</code> tags—was identified and neutralized before it could quietly break layouts again.</li>
+</ul>
+
+<h3>The Unexpected Part (a.k.a. Why This Became a Governance Release)</h3>
+<p>Midway through the work, it became clear that the hard part wasn’t CSS—it was ensuring that the release itself could be:</p>
+<ul>
+  <li>Reconstructed later</li>
+  <li>Explained without folklore</li>
+  <li>Assisted by AI without inventing history</li>
+</ul>
+
+<p>That led to:</p>
+<ul>
+  <li>A locked, calendar-based versioning rule</li>
+  <li><code>CHANGELOG.md</code> becoming the single source of truth</li>
+  <li>A formal “release assistant” prompt with pass/fail lint rules</li>
+  <li>Automatic rejection conditions for malformed changelog entries</li>
+</ul>
+
+<p>In other words: the system now documents <em>how it changes</em>, not just <em>that it changed</em>.</p>
+
+<h3>Artifacts Linked</h3>
+<ul>
+  <li><strong>Release Governance Workflow:</strong> <a href="/gem/release-governance-yyyy-mm-dd-workflow/">release-governance-yyyy-mm-dd-workflow</a></li>
+  <li><strong>Design System PRD:</strong> <a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_design_system_PRD_v1.3.md">sugartown_design_system_PRD_v1.3.md</a></li>
+  <li><strong>CHANGELOG.md:</strong> Imported automatically on publish</li>
+  <li><strong>st-card (light):</strong> Canonical card primitive moving forward</li>
+</ul>
+
+<h3>Why This Matters</h3>
+<p>This release closed the loop between:</p>
+<ul>
+  <li>Design decisions</li>
+  <li>Code changes</li>
+  <li>Documentation</li>
+  <li>Historical record</li>
+</ul>
+
+<p>Future releases will be faster—not because less care is taken, but because the system now remembers how to care.</p>""",
+    'meta': {
+        'gem_category': 'ProductOps',
+        'gem_status': 'Active',
+        'gem_action_item': 'Publish narrative release GEM; link governance + PRD + changelog; tag as st-card/release-process',
+        'gem_related_project': 'PROJ-001'
+    }
+},
 
 
 ]
