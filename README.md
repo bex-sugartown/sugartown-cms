@@ -29,6 +29,9 @@ sugartown-cms/
 └── README.md              # This file
 ```
 
+CHANGELOG.md is the canonical source of release history.
+Changelog entries are imported automatically during publish; do not edit them manually.
+
 ---
 
 ## 🚀 Core Workflows
