@@ -1,262 +1,420 @@
-# Product Requirements Document (PRD)
-## Project 003: Sugartown Atomic Design System
+# Sugartown Pink Design System — Product Requirements Document (PRD)
 
 | Metadata | Details |
 | :--- | :--- |
-| **Version** | **1.4 (The Canonical Card Release)** |
-| **Status** | 🟢 **Active / Stable** |
-| **Owner** | Engineering & DX (Repo B: `2025-sugartown-pink`) |
+| **Document** | Sugartown Pink Design System PRD |
+| **PRD Version** | **1.5 — The Canonical Card Era** |
+| **PRD Status** | 🟢 Active / Stable |
+| **Owner** | Product |
+| **Primary Repo** | `2025-sugartown-pink` |
+| **Scope** | Design System (Portable, CMS-Agnostic) |
+| **Related Standards** | Design System Contracts (Appendix A), Token Architecture Spec |
 | **Related Gems** | [Gem 21: The Pre-Design System](/gem/design-ops-the-pre-design-system-surviving-the-css-chaos) |
+| **Supersedes** | PRD v1.3 |
+| **Last Reviewed** | 2025-12-21 |
 
-Note: PRD versions are semantic and track document evolution.
-Production releases follow calendar-based versioning (vYYYY.MM.DD).
-
----
-
-## 1. Executive Summary
-
-**The Sugartown Design System** is the visual operating system for the site.
-**Phase 1 Goal:** Formalize the existing "hacked" CSS into reusable Tokens and Components.
-**Strategic Pivot (v1.2):** We are moving from a "Dark Mode Default" to a **"Light Mode Default"**. The system now assumes a white background, using the "Deep Void" color only for high-impact accents (Footers, Code Blocks, Terminal Modes).
-**v1.3 Update:** We have successfully decoupled the "Pink Card" component from WordPress internals. We now use a custom "Clean HTML" pattern that ignores `wp-block-group` styles, preventing layout overlap and ensuring stability.
-**v1.4 Update:** The legacy Pink Card has been formally deprecated and replaced by the canonical `st-card` component. This release also aligns the design system with a locked, calendar-based release process and a changelog-driven governance model.
+> **Reference Implementation Note:** Known current token values and component behaviors in this PRD are grounded in the existing `sugartown-pink/style.css` theme implementation. :contentReference[oaicite:0]{index=0}
+>
+> **Versioning Note**
+> PRD versions are semantic and track the evolution of system intent and constraints.
+> Production releases follow calendar-based versioning (`vYYYY.MM.DD`) and are documented separately in `CHANGELOG.md`.
 
 ---
 
-## 2. Current State: "The Alignment"
+## 1. Overview
 
-We are stabilizing the visual identity by removing the "Cascading Overwrites" that forced Dark Mode.
+Sugartown Pink is a **portable, stateless mini design system** designed to exist independently of any single CMS, theme, or rendering runtime. Today it is incubated inside a WordPress theme (based on Twenty Twenty-Five), but the north-star architecture is a **CMS-agnostic system** with a **single source of truth** for tokens, component contracts, and documentation.
 
-* **The Artifacts:** The Pink Card (now White-on-White), The Zebra Table, The Terminal Block.
-* **The Pivot:** We no longer fight the browser's default white background. We embrace it.
-* **The Fix:** We replaced `!important` wars with standard CSS specificity, relying on Borders and Shadows for contrast rather than background color.
-
----
-
-## 3. Core Design Principles
-
-1.  **Subtle Tech:** We use monospace fonts (`Menlo`, `Consolas`) for data, but distinct serifs (`Playfair Display`) for human narrative. It feels like a terminal that went to art school.
-2.  **Duotone Reality:** Images are never raw. They are filtered to match the brand palette, using `hard-light` blend modes to sit correctly on white backgrounds.
-3.  **Data Density:** We prefer dense, information-rich layouts (Tables, Lists) over "marketing fluff."
-4.  **Light Mode Default:** The system assumes a clean, high-contrast light canvas. Dark Mode is an opt-in context (e.g., Code Blocks), not the page default.
+Architectural philosophy:
+- **Single Source of Truth:** Tokens and contracts are authoritative; renderers are implementation details.
+- **Stateless Components:** Components render deterministically from input; no hidden platform dependencies.
+- **Canonical + Idempotent:** Canonical component structures produce stable markup, enabling predictable styling and easy migration.
+- **Subtle Tech:** Quiet precision, restrained color usage, standardized elevation, and interaction consistency.
 
 ---
 
-## 4. Design Tokens (Canonical)
+## 2. Problem Statement
 
-Design tokens are the single source of truth for visual consistency across Sugartown.
-They must be referenced—not redefined—by components.
-
-### 4.1 Colors (Corrected)
-
-Replace the previous secondary brand color entry with the following:
-
-| Token                   | Value     | Usage Description                                      |
-|------------------------|-----------|--------------------------------------------------------|
-| 'color.brand.primary'    | '#FE1295'   | **Sugartown Pink** (primary accent, links, emphasis)       |
-| 'color.brand.secondary'  | '#2AD4A9'   | **Teal** accent (used in gradients and overlays)            |
-| `color.bg.page` | `#ffffff` | **Paper White.** The default page background (New in v1.2). |
-| `color.bg.void` | `#0D1226` | **Deep Void.** Now used strictly for **Footers** and **Code Blocks**. |
-| `color.text.body` | `#1e1e1e` | **Charcoal.** Standard body text on white pages. |
-| `color.text.inverse` | `#F8F8F2` | **Ghost White.** Text on Void accents (Buttons, Code). |
-
-**Note:**  
-Opacity is applied contextually (e.g. ~45% in gradients and duotone overlays).  
-Do not encode opacity directly into token values.
+- The current state blends **theme styling** and **design system rules**, creating ambiguous ownership.
+- Component behavior can drift across surfaces without a single canonical contract.
+- Light mode needs explicit governance to avoid **contrast failures**, especially for brand pink usage.
+- Token usage is partially standardized, but not fully enforced across all UI primitives.
+- Lack of standardized scales (spacing, typography, radius) leads to one-off values and inconsistent rhythm.
+- Migration risk increases when markup/styling depends on WordPress block wrappers or editor-generated DOM.
 
 ---
 
-### 4.2 Radius Rules (Locked)
+## 3. Goals & Non-Goals
 
-Border radius values are standardized and must not be overridden ad-hoc.
+| Goal | Description |
+|---|---|
+| Portability | System can be extracted from WordPress with minimal refactor; components do not require WP block classes. |
+| Token Governance | Enforce a three-layer token architecture with restricted, documented scales (spacing, typography, radius). |
+| Accessibility (a11y) | Light mode defaults meet contrast requirements via explicit color governance (decouple brand color from text color). |
+| Atomic Components | Define a small set of atomic components (Card, Pill/Tag, Button, Callout, Media) with clear contracts. |
+| Standardized Interaction & Elevation | Define canonical hover/focus/elevation patterns; avoid surface-specific interaction hacks. |
+| Documentation First | Maintain authoritative documentation in Figma and Storybook; README/PRD provide contract summaries. |
 
-| Context                 | Radius Value |
-|-------------------------|--------------|
-| Code, buttons, tags     | 4px (0.25rem)|
-| .wp-block-code          | 8px          |
-| Cards                   | 12px (0.75rem)|
-| Hero / feature images   | 35px         |
-
-
-Any deviation requires a documented exception in the PRD.
-
-
-### 4.3 Elevation (The "Lift")
-*Crucial for White-on-White contrast.*
-* `elevation.card.rest`: `0 4px 12px rgba(254, 18, 149, 0.05)` (Subtle Pink Glow)
-* `elevation.card.hover`: `0 12px 30px rgba(254, 18, 149, 0.15)` (The Lift)
-
-### 4.4 Filters (The Light Mode Duotone)
-* `filter.duotone.base`: `grayscale(100%) contrast(1.1)`
-* `filter.duotone.overlay`: `linear-gradient(135deg, #FE1295, #2BD4AA)`
-* `filter.blend.mode`: **`hard-light`** 
-
-### 4.5 Typography Usage
-
-Typography establishes hierarchy and semantic clarity.
-
-- **Card Titles**
-  - Font: Playfair Display
-  - Weight: 700
-  - Color: `#FE1295`
-  - Decoration: underline with controlled thickness and offset
-
-- **Card Subtitles**
-  - Font: Fira Sans
-  - Weight: 400
-  - Color: neutral gray
-  - Spacing intentionally reduced for compact hierarchy
-
-- **Citations / Metadata**
-  - Font: monospace
-  - Color: muted gray
-  - Links are non-underlined by default
-
-Typography decisions must reinforce structure, not decoration.
-
+| Goal | Description |
+|---|---|
+| Non-Goal: Full Enterprise DS | This is not intended to become a multi-product enterprise-scale system (Material/Carbon class). |
+| Non-Goal: CMS API Abstraction | The system will not attempt to unify CMS APIs or content workflows across platforms. |
+| Non-Goal: Pixel-Perfect WP Parity | WordPress editor quirks are not a design system feature; parity is not guaranteed. |
+| Non-Goal: Dark Mode Default | Dark mode exists as a variant; light mode is the default canvas. |
 
 ---
-## 5. Component Library 
 
-### 5.1 Canonical Primitive: System Card (`.st-card`)
+## 4. User Stories
 
-The `st-card` is the canonical **layout-stable card primitive** for Sugartown.
+| Story ID | Title | User Story ("As a... I want... So that...") | Acceptance Criteria | Priority |
+|---|---|---|---|---|
+| DS-001 | Three-Layer Tokens | As a designer, I want base/semantic/component tokens so that system decisions are consistent and portable. | Token files exist, mapping is documented, and components consume semantic/component tokens only. | P0 |
+| DS-002 | Canonical Card Contract | As a developer, I want a canonical card structure so that all card surfaces render consistently across platforms. | `st-card` contract exists, structure is validated, and no surface-specific variants are required. | P0 |
+| DS-003 | Light Mode Governance | As a user, I want readable UI in light mode so that the interface is accessible and comfortable. | Text never uses raw brand pink on white; deep pink text token is enforced. | P0 |
+| DS-004 | Restricted Scales | As a contributor, I want standardized scales for spacing/type/radius so that UI has consistent rhythm and fewer one-offs. | A single approved scale exists; off-scale values require explicit exception approval. | P0 |
+| DS-005 | Interaction & Focus Standard | As a keyboard user, I want consistent focus states so that navigation is predictable. | Focus ring, offsets, and hover transforms are standardized; no component disables focus visibility. | P1 |
+| DS-006 | Component Documentation | As a team member, I want Storybook + Figma docs so that components are discoverable and buildable without reverse-engineering. | All core components documented with anatomy, tokens used, and usage examples. | P1 |
+| DS-007 | Migration Readiness | As a platform owner, I want phased migration so that we can decouple without breaking production. | Migration phases exist; each phase has exit criteria and a measurable adoption target. | P1 |
 
-It does not replace existing components immediately.
-It defines the **structural contract** that future components must follow.
+---
 
-**Design goals:**
-- Semantic HTML
-- Predictable layout behavior
-- CMS-agnostic rendering
-- Safe for AI-assisted generation and mutation
+## 5. Technical Architecture
 
-#### Required Structure
+### 5.1 Data Flow (North Star)
 
-```html
-<div class="st-card [variant]">
-  <div class="st-card__bg"></div>
+- **Tokens** are the canonical source of visual truth (base → semantic → component).
+- **Components** consume semantic/component tokens and produce canonical DOM structures.
+- **Documentation** (Figma/Storybook) describes and validates component contracts.
+- **Host platforms** (WordPress today, future CMS later) provide content and routing, not structure.
 
-  <div class="st-card__inner">
-    <header class="st-card__header">
-      <p class="st-card__eyebrow"></p>
-      <h2 class="st-card__title"></h2>
-      <h3 class="st-card__subtitle"></h3>
-    </header>
+### 5.2 Tech Stack (Target)
 
-    <div class="st-card__content">
-      <p></p>
-    </div>
+- **Tokens:** JSON token files (base/semantic/component) designed to be tool-agnostic.
+- **Styling:** CSS built from tokens (manually at first; eventually generated).
+- **Components:** Canonical HTML structures; optional framework wrappers must not change DOM contracts.
+- **Documentation:** Figma + Storybook as the authoritative reference.
 
-    <footer class="st-card__footer">
-      <div class="st-card__citation"></div>
-      <div class="st-card__tags"></div>
-    </footer>
-  </div>
+### 5.3 Repository Structure (Target State)
 
-  <div class="st-card__media"></div>
-</div>
+```text
+sugartown-pink/
+├── tokens/
+│   ├── base.json
+│   ├── semantic.json
+│   └── components.json
+├── components/
+│   ├── card/
+│   ├── pill/
+│   ├── button/
+│   ├── callout/
+│   └── media/
+├── styles/
+│   ├── tokens.css        (generated or curated)
+│   └── components.css    (component rules)
+└── docs/
+    ├── figma/
+    └── storybook/
 ```
 
-#### Behavioral Guarantees
+### 5.4 Standards & Restricted Scales (Authoritative)
 
-- Header is pinned to the top
-- Footer is pinned to the bottom
-- Content flexes naturally between
-- Media aligns center-bottom
-- Layout does not depend on WordPress block classes
-- No reliance on `!important` for stability
+These standards are required to reduce variance and enable portability.
 
-#### Variants
+#### Typography Standards
 
-- `st-card` (default, light)
-- `st-card--illustrative` (background imagery enabled)
+Approved typefaces:
+- **Narrative / Editorial:** Playfair Display (headings, titles)
+- **UI / Body:** Fira Sans (body, subtitles, UI prose)
+- **Data / Code:** Menlo / Monaco / Consolas (labels, pills/tags, code)
 
-Future variants (e.g. dark) must **extend this structure without mutation**.
+Restricted type scale (recommended):
+- `xs` = 0.75rem (pills, eyebrow labels)
+- `sm` = 0.875rem (metadata, helper text)
+- `md` = 1rem (body)
+- `lg` = 1.125rem (subtitle)
+- `xl` = 1.4rem (card titles)
+- `2xl` = 1.75rem (feature titles)
+- `display` = 3rem (archive headers / hero headings)
 
-### 5.2 Supported Component: Pink Card (`.pink-card`) [Stable]
-The pink-card remains a supported, production-stable component.
-It is visually opinionated and optimized for editorial density.
-Internally, it is being gradually aligned to the st-card structural model where possible, without breaking existing layouts.
+#### Radius Standards (Known)
 
-* **Structure:** Decoupled from WP. Must use the `.st-grid-wrapper` parent.
-    * **Wrapper:** `<div class="st-grid-wrapper">` (Grid Context)
-    * **Container:** `<div class="pink-card">` (Visual Boundary)
-    * **Content:** `.pink-card__content` (Text/Tags) + `.pink-card__media` (Icon Strip)
-* **Grid Logic:** Uses `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))` to prevent collapsing.
-* **Box Model:** Enforces `box-sizing: border-box !important` to prevent padding from causing overlap.
-* **Visual Layers:**
-    1.  **Texture:** `.pink-card__bg` (z-0, opacity 0.15, grayscale).
-    2.  **Canvas:** White background (z-1).
-    3.  **Content:** Text and Media (z-2).
+Radius must come from tokens only. Known current values: :contentReference[oaicite:1]{index=1}
+- `radius.xs` = 4px (buttons, tags)
+- `radius.sm` = 8px (code, callouts)
+- `radius.md` = 12px (cards)
+- `radius.lg` = 16px (reserved / large containers)
+- `radius.xl` = 35px (hero, featured media)
 
-### 5.3 Supporting Components
+#### Spacing Standards (Restricted Scale)
 
-#### 5.3.1 Callouts / Notes (`st-callout`, `st-note`)
+All spacing must use a restricted scale (px-equivalent shown):
+- `space.1` = 4
+- `space.2` = 8
+- `space.3` = 12
+- `space.4` = 16
+- `space.5` = 24
+- `space.6` = 32
+- `space.7` = 40
+- `space.8` = 60
 
-Callout components must align with global design system rules:
+Off-scale values require explicit rationale and should be treated as temporary debt.
 
-- Use canonical radius tokens
-- Respect color and typography tokens
-- Avoid layout dependencies on CMS-specific wrappers
+#### Aspect Ratio Standards (Encouraged)
 
-Callouts are supporting components and must not introduce new visual primitives.
+Establish canonical ratios for media surfaces:
+- `media.hero` = 3:1 (page hero)
+- `media.article` = 21:9 (single-post feature)
+- `media.cardIconStrip` = fixed height strip (48px) for card media row
 
-#### 5.3.2 The Feature Image
-* **Card Icons:** **Native SVGs.** No filters applied. Centered via `object-fit: contain` in a 48px strip.
-* **Blog Headers:** **Duotone.** Applies `hard-light` blend mode (Pink/Teal) over grayscale images.
+(These align with current theme behavior and should become explicit DS standards.) :contentReference[oaicite:2]{index=2}
 
-#### 5.3.3 The Tech Pill (`.skill-tag`)
-* **Style:** Monospace font, `0.75rem` size.
-* **Theme:** Light Grey background (`#f1f2f4`) with Deep Pink text (`#b91c68`).
-* **Border:** 1px solid `#e1e3e6`.
+#### Interaction & Elevation Standards
 
-
-### 5.4 WordPress Adaptation Layer (Non-Negotiable)
-
-Sugartown components must render correctly inside WordPress block contexts.
-
-Known behaviors accounted for:
-
-- WordPress serializes `<!-- -->` comments into `<p>` elements
-- Inline media may be wrapped in unexpected `<p>` or `<br>` tags
-- Global block styles may leak into nested markup
-
-Mitigations:
-- Component layouts must not rely on block wrapper classes
-- Media containers must defensively normalize child elements
-- Grid systems must tolerate injected nodes without collapsing
-
-These constraints are considered **part of the system**, not edge cases.
+- Hover transforms must be subtle and standardized (e.g., translateY(-2px to -4px)).
+- Shadows must come from tokens, not ad hoc values.
+- Focus styles must be visible, consistent, and never removed.
 
 ---
 
-## 6. Implementation Plan
-This plan reflects the current hybrid Python + CMS architecture already in production.
+## 6. Dependencies & Risks
 
-| Phase | Task | Status |
-| :--- | :--- | :--- |
-| **1. Cleanse** | Remove WP-specific class dependencies. | ✅ Done |
-| **2. Grid Fix** | Implement `auto-fill` and `box-sizing` fixes. | ✅ Done |
-| **3. Automation** | Create `layout_engine.py` for HTML generation. | ✅ Done |
-| **4. Integration** | Update `publish_gem.py` to utilize layout engine. | 🟡 Ready |
----
-
-## 7. Risks & Dependencies
-* **Repo Separation:** Styles live in `2025-sugartown-pink`, but HTML structure lives in `sugartown-cms` (Python). Both must be synced for cards to render.
+| Risk | Impact | Mitigation |
+|---|---|---|
+| Brand color contrast failures in light mode | Accessibility violations, poor readability | Enforce “Deep Pink for text” semantic token; lint for violations. |
+| Token drift / sprawl | Inconsistent UI, harder migration | Restricted scales; token review gate; ban hard-coded values in components. |
+| WordPress DOM coupling | Migration becomes expensive | Prohibit dependency on WP block wrappers for component internals. |
+| Incomplete documentation | Contributors reverse-engineer behavior | Storybook/Figma are required for core components; PR checklist enforces docs updates. |
+| Parallel component implementations | Conflicting behavior across surfaces | Canonical components only; deprecate legacy patterns with a migration plan. |
 
 ---
-## Appendix A: Canonical Design Tokens & Style Rules
 
-## Appendix B: Canonical Component Contracts
+## 7. Success Criteria
 
-## Appendix C: Release Lint Rules (Enforced)
+| Area | Metric (e.g., Performance: <90% API calls) |
+|---|---|
+| Accessibility | 100% compliance with minimum contrast thresholds for text in light mode (automated checks where possible). |
+| Token Adoption | 0 hard-coded color/radius/spacing values inside canonical components. |
+| Portability | Canonical components render correctly without WordPress-specific markup. |
+| Consistency | >95% UI surfaces use canonical components (cards, pills/tags, callouts, buttons). |
+| Documentation Coverage | 100% of core components documented in Figma + Storybook with anatomy and token references. |
 
-A release must not ship if:
+---
 
-- Canonical components are modified without PRD updates
-- Component structure deviates from documented contracts
-- Changelog entries do not follow calendar-based versioning
-- Documentation reflects intent rather than shipped reality
+# Appendix A: Light Mode Default Logic (Governed)
 
-This design system documents **what exists**, not what is planned.
+### Default Canvas (Light Mode is the baseline)
+
+- Default Background: `#FFFFFF` (White)  
+- Default Text: `#1e1e1e` (Charcoal)  
+- Dark Mode Variant (“Deep Void”): `#0D1226` (Explicitly not default) :contentReference[oaicite:3]{index=3}
+
+### Contrast Mitigation: The “Deep Pink Rule”
+
+This PRD acknowledges that bright pink/cyan on white can fail accessibility. The system decouples **brand identity color** from **readable text color**:
+
+Constraint:
+- Do **not** use `color.brand.primary` (`#FE1295`) for text on light backgrounds.
+
+Solution:
+- Use `color.text.brand` (`#b91c68`) for text elements.
+
+Semantic token mapping (known intent + current usage alignment):
+| Intent | Token Name | Value (Light Mode) |
+|---|---|---|
+| Brand Identity | `color.brand.primary` | `#FE1295` |
+| Readable Text | `color.text.brand` | `#b91c68` |
+| Background | `color.bg.canvas` | `#FFFFFF` |
+| Pill Background | `color.bg.subtle` | `#f1f2f4` |
+
+---
+
+# Appendix B: Core Component Constraints (North Star)
+
+## B.1 ST Card
+
+- Must render on a white canvas using `color.bg.canvas`.
+- Must use a **physical border** for definition (not glow-first separation).
+- Must standardize elevation and hover behavior via tokens.
+- Must not assume WordPress wrappers for layout or spacing.
+
+## B.2 Tech Pill
+
+- Typeface: Menlo/Consolas
+- Size: 0.75rem
+- Background: `color.bg.subtle` (`#f1f2f4`)
+- Text: `color.text.brand` (`#b91c68`)
+- Border: `1px solid` tokenized border value (known current: `#e1e3e6`) :contentReference[oaicite:4]{index=4}
+
+---
+
+# Appendix C: Migration Phases (Planned)
+
+Migration is phased to preserve production stability while increasing portability.
+
+## Phase 0 — Incubation (Current)
+- System primitives exist inside the WordPress theme.
+- Token values live in CSS variables and WP presets.
+- Canonical component structures begin to standardize.
+
+Exit criteria:
+- Token inventory documented (base/semantic/component).
+- Core components have written contracts (Card, Pill/Tag, Button, Callout, Media).
+
+## Phase 1 — Contract Hardening
+- Canonical DOM structures are enforced for core components.
+- Hard-coded values are removed from canonical components.
+- Storybook is established as the component contract validator.
+
+Exit criteria:
+- Token files exist in JSON (base/semantic/component).
+- Storybook contains at least Card + Pill + Button docs with anatomy and token references.
+
+## Phase 2 — Extraction
+- Tokens and component CSS are separated from WP theme-specific CSS.
+- WordPress becomes a consumer of the design system, not the owner.
+- Theme-specific overrides are isolated and minimized.
+
+Exit criteria:
+- `styles/tokens.css` and `styles/components.css` can be consumed outside WP.
+- A non-WP render proof exists (static page or small demo app) with parity.
+
+## Phase 3 — Platform Migration Enablement
+- Design system can be consumed by a new CMS/frontend with minimal translation.
+- WordPress theme becomes one of multiple possible render targets.
+
+Exit criteria:
+- New platform can render core pages using the system contracts and tokens.
+- Decommissioning plan exists for WP-coupled patterns.
+
+---
+
+# Appendix D: Token JSON (Known Tokens + Standards)
+
+> These JSON snippets represent the **known** tokens and standards currently visible in `style.css` plus the PRD’s governance intent for semantic mapping. :contentReference[oaicite:5]{index=5}
+
+## D.1 `tokens/base.json`
+
+```json
+{
+  "color": {
+    "pink": { "500": "#FE1295" },
+    "void": { "900": "#0D1226" },
+    "charcoal": { "900": "#1e1e1e" },
+    "grey": {
+      "600": "#666666",
+      "050": "#f8f8fa",
+      "040": "#f1f2f4",
+      "030": "#e1e3e6"
+    }
+  },
+  "radius": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "35px"
+  },
+  "font": {
+    "family": {
+      "narrative": "Playfair Display, serif",
+      "ui": "Fira Sans, sans-serif",
+      "mono": "Menlo, Monaco, Consolas, monospace"
+    }
+  },
+  "space": {
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "24px",
+    "6": "32px",
+    "7": "40px",
+    "8": "60px"
+  },
+  "shadow": {
+    "card": "0 4px 12px rgba(254, 18, 149, 0.05)"
+  }
+}
+```
+
+## D.2 `tokens/semantic.json`
+
+```json
+{
+  "color": {
+    "brand": {
+      "primary": "{color.pink.500}"
+    },
+    "bg": {
+      "canvas": "#FFFFFF",
+      "subtle": "{color.grey.040}",
+      "void": "{color.void.900}",
+      "surface": "#FFFFFF",
+      "surfaceAlt": "{color.grey.050}"
+    },
+    "text": {
+      "default": "{color.charcoal.900}",
+      "muted": "{color.grey.600}",
+      "brand": "#b91c68"
+    },
+    "border": {
+      "default": "rgba(0,0,0,0.08)",
+      "subtle": "{color.grey.030}"
+    }
+  },
+  "radius": {
+    "button": "{radius.xs}",
+    "tag": "{radius.xs}",
+    "callout": "{radius.sm}",
+    "code": "{radius.sm}",
+    "card": "{radius.md}",
+    "hero": "{radius.xl}"
+  },
+  "font": {
+    "narrative": "{font.family.narrative}",
+    "ui": "{font.family.ui}",
+    "mono": "{font.family.mono}"
+  }
+}
+```
+
+## D.3 `tokens/components.json`
+
+```json
+{
+  "card": {
+    "bg": "{color.bg.surface}",
+    "text": "{color.text.default}",
+    "muted": "{color.text.muted}",
+    "border": "{color.brand.primary}",
+    "radius": "{radius.card}",
+    "shadow": "0 10px 30px rgba(0,0,0,0.06)",
+    "hover": {
+      "translateY": "-4px",
+      "shadow": "0 12px 40px rgba(254, 18, 149, 0.15)"
+    },
+    "media": {
+      "height": "48px"
+    }
+  },
+  "pill": {
+    "bg": "{color.bg.subtle}",
+    "text": "{color.text.brand}",
+    "border": "{color.border.subtle}",
+    "radius": "{radius.tag}",
+    "font": "{font.mono}",
+    "size": "0.75rem"
+  },
+  "callout": {
+    "radius": "{radius.callout}"
+  },
+  "code": {
+    "radius": "{radius.code}",
+    "bg": "{color.text.default}"
+  }
+}
+```
+
+---
+
+**End of PRD**

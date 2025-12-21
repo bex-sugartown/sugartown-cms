@@ -1307,10 +1307,10 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
     'title': 'The Release That Ate the Card System',
     'status': 'publish',
     'categories': ['Ways of Working', 'Design System Governance', 'Release Engineering'],
-    'tags': ['st-card', 'design-system', 'release-process', 'wordpress-quirks', 'changelog', 'ai-collaboration'],
+    'tags': ['governance', 'design-system', 'release-process', 'prd', 'changelog', 'ai-collaboration'],
     'content': """<p><strong>Summary</strong></p>
-<p>This release started as a visual cleanup and ended as a full system alignment: cards, tokens, changelogs, governance, and the realization that WordPress will happily turn HTML comments into paragraphs when left unsupervised.</p>
-<p>What shipped wasn’t just UI—it was a release process that can survive both humans and AI.</p>
+<p>This release started as a visual cleanup and ended as a full system alignment: cards, tokens, changelogs, governance—and a hard-earned reminder that WordPress will happily turn HTML comments into paragraphs when left unsupervised.</p>
+<p>What shipped wasn’t just UI. It was a release discipline that can survive humans, platforms, and AI.</p>
 
 <h3>What Actually Changed</h3>
 
@@ -1329,49 +1329,71 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
   <li>A subtle WordPress behavior—serializing <code>&lt;!-- --&gt;</code> comments into <code>&lt;p&gt;</code> tags—was identified and neutralized before it could quietly break layouts again.</li>
 </ul>
 
-<h3>The Unexpected Part (a.k.a. Why This Became a Governance Release)</h3>
-<p>Midway through the work, it became clear that the hard part wasn’t CSS—it was ensuring that the release itself could be:</p>
+<h3>The Governance Pivot</h3>
+<p>Midway through the work, it became clear that the hard part wasn’t CSS—it was ensuring the system could explain itself later without folklore.</p>
+<p>This release forced a separation between <em>intent</em> and <em>reality</em>:</p>
+
 <ul>
-  <li>Reconstructed later</li>
-  <li>Explained without folklore</li>
-  <li>Assisted by AI without inventing history</li>
+  <li>The PRD defines what the system is trying to become.</li>
+  <li>The release documents what actually shipped.</li>
 </ul>
 
-<p>That led to:</p>
+<p>That distinction is now explicit—and enforced.</p>
+
+<h3>How to Read a PRD vs a Release</h3>
+
+<p><strong>The PRD</strong> describes <em>intent</em>.</p>
 <ul>
-  <li>A locked, calendar-based versioning rule</li>
-  <li><code>CHANGELOG.md</code> becoming the single source of truth</li>
-  <li>A formal “release assistant” prompt with pass/fail lint rules</li>
-  <li>Automatic rejection conditions for malformed changelog entries</li>
+  <li>Aspirational and forward-looking</li>
+  <li>Semantic-versioned to track evolving constraints and north-star architecture</li>
+  <li>Defines canonical standards, not deployment facts</li>
 </ul>
 
-<p>In other words: the system now documents <em>how it changes</em>, not just <em>that it changed</em>.</p>
+<p><strong>The Release</strong> describes <em>reality</em>.</p>
+<ul>
+  <li>Factual and backward-looking</li>
+  <li>Calendar-versioned (<code>vYYYY.MM.DD</code>)</li>
+  <li>Records only what shipped and is now true in production</li>
+</ul>
+
+<p>If something exists only in the PRD, it is a goal.<br/>
+If it exists only in a release, it is a fact.<br/>
+When it appears in both, it becomes a standard.</p>
+
+<h3>What This Enabled</h3>
+<ul>
+  <li>A locked, calendar-based release versioning rule</li>
+  <li><code>CHANGELOG.md</code> as the single source of truth</li>
+  <li>A formal Release Assistant with pass/fail lint rules</li>
+  <li>Automatic rejection of malformed or speculative release entries</li>
+</ul>
+
+<p>The system now documents <em>how it changes</em>, not just <em>that it changed</em>.</p>
 
 <h3>Artifacts Linked</h3>
 <ul>
   <li><strong>Release Governance Workflow:</strong> <a href="/gem/release-governance-yyyy-mm-dd-workflow/">release-governance-yyyy-mm-dd-workflow</a></li>
-  <li><strong>Design System PRD:</strong> <a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_design_system_PRD_v1.3.md">sugartown_design_system_PRD_v1.3.md</a></li>
-  <li><strong>CHANGELOG.md:</strong> Imported automatically on publish</li>
+  <li><strong>Design System PRD:</strong> <a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_design_system_PRD.md">sugartown_design_system_PRD.md</a></li>
+  <li><strong><a href="/gem/changelog/">CHANGELOG.md</a>:</strong> Imported automatically on publish</li>
   <li><strong>st-card (light):</strong> Canonical card primitive moving forward</li>
 </ul>
 
 <h3>Why This Matters</h3>
 <p>This release closed the loop between:</p>
 <ul>
-  <li>Design decisions</li>
-  <li>Code changes</li>
+  <li>Design intent</li>
+  <li>Code behavior</li>
   <li>Documentation</li>
   <li>Historical record</li>
 </ul>
 
 <p>Future releases will be faster—not because less care is taken, but because the system now remembers how to care.</p>""",
     'meta': {
-        'gem_category': 'ProductOps',
+        'gem_category': 'Governance',
         'gem_status': 'Active',
-        'gem_action_item': 'Publish narrative release GEM; link governance + PRD + changelog; tag as st-card/release-process',
+        'gem_action_item': 'Publish governance explainer GEM; reinforce PRD vs Release separation; link Release Assistant, PRD, and CHANGELOG',
         'gem_related_project': 'PROJ-001'
     }
 },
-
 
 ]

@@ -1,5 +1,25 @@
 # Sugartown Release Notes
 
+## v2025.12.21: Canonical st-card adoption for Gem archive search
+**Date:** 2025-12-21  
+**Status:** 🟢 Production Stable
+
+### 🎨 Design System
+* Replaced archive-specific gem cards with canonical `st-card` component
+* Standardized card anatomy, spacing, and hover behavior across archive views
+* Unified tag, badge, and metadata presentation with system tokens
+
+### ⚙️ CMS / Architecture
+* No content model or CMS logic changes
+* Rendering aligned with existing design system primitives
+
+### 🧩 Layout & Stability Fixes
+* Standardized archive grid using shared `st-grid` / wrapper pattern
+* Removed legacy grid overrides and conflicting layout rules
+* Eliminated background and z-index collisions in archive cards
+
+---
+
 ## v2025.12.19: st-card migration and design system alignment
 **Date:** 2025-12-19  
 **Status:** 🟢 Production Stable
