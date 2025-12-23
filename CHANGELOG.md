@@ -1,5 +1,30 @@
 # Sugartown Release Notes
 
+## v2025.12.23: Taxonomy v4 — Archive Stability + Single Category Migration
+**Date:** 2025-12-23  
+**Status:** 🟢 Production Stable
+
+### ⚙️ CMS / Architecture
+* Completed Taxonomy v4 migration: eliminated duplicate category storage (gem_category meta), WordPress categories now single source of truth
+* Publisher v4.1: dynamic category handling with runtime ID lookup, environment-agnostic deployment (no hardcoded IDs)
+* Removed gem_category from functions.php registration and archive template queries
+* Content store: migrated all 24 gems from plural `categories` to singular `category` format
+* Archive query hygiene: unified WP_Query for rendering and counting, accurate pagination and result counts
+* Removed client-side filtering JavaScript (archive-gem-filter.js), server-side only via WP_Query
+
+### 🎨 Design System
+* Archive card footer: two-column layout (action stacked left, date right-aligned) with proper baseline alignment
+* Category subtitles now clickable—clicking filters archive by that category
+* Fixed character encoding throughout (em-dashes, bullets, checkmarks, emojis)
+
+### 🧩 Layout & Stability Fixes
+* Fixed archive result counter accuracy: "Showing X-Y of Z gems" now reflects actual displayed cards
+* Proper pagination display: only shown when max_num_pages > 1
+* Removed duplicate counter displays on filtered archives
+* Mobile footer layout: stacks vertically but maintains date right-alignment for visual balance
+
+---
+
 ## v2025.12.21: Canonical st-card adoption for Gem archive search
 **Date:** 2025-12-21  
 **Status:** 🟢 Production Stable
@@ -8,6 +33,7 @@
 * Replaced archive-specific gem cards with canonical `st-card` component
 * Standardized card anatomy, spacing, and hover behavior across archive views
 * Unified tag, badge, and metadata presentation with system tokens
+* New st-card--dark variant: Tag-driven behavior (system tag ⇒ dark card). Intent: signals system / infrastructure gems, not dark mode
 
 ### ⚙️ CMS / Architecture
 * No content model or CMS logic changes

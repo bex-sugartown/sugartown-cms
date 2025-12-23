@@ -29,9 +29,7 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-# ==========================================
-# CACHE & FUZZY MATCHING
-# ==========================================
+# Dynamic category/tag cache (environment-specific)
 CATEGORY_MAP = {}
 TAG_MAP = {}
 GEM_MAP = {} 
@@ -43,7 +41,7 @@ def simplify_key(text):
     return re.sub(r'[^a-z0-9]', '', text)
 
 def build_cache(endpoint, target_map, label="items"):
-    print(f"   🔄 Caching {label}...")
+    print(f"   📄 Caching {label}...")
     page = 1
     while True:
         try:
@@ -98,7 +96,7 @@ def save_state(state):
 # ==========================================
 
 def main():
-    print("\n💎 SUGARTOWN PUBLISHER v3.8 (Layout Engine Ready)")
+    print("\n💎 SUGARTOWN PUBLISHER v4.1 (Dynamic Categories + Layout Engine)")
     print(f"🎯 Target: {BASE_URL}\n")
 
     state = load_state()
@@ -116,7 +114,7 @@ def main():
 
     print("-" * 40)
     
-    # 1. PRE-FETCH
+    # 1. PRE-FETCH (environment-specific IDs)
     build_cache(CATS_ENDPOINT, CATEGORY_MAP, "Categories")
     build_cache(TAGS_ENDPOINT, TAG_MAP, "Tags")
     build_cache(API_ENDPOINT, GEM_MAP, "Existing Gems")
@@ -133,13 +131,33 @@ def main():
              if gem['id'] in GEM_MAP.values():
                  target_id = gem['id']
 
-        # 2. PREPARE DATA
+        # 2. PREPARE DATA - Single Category (handles both old and new formats)
         cat_ids = []
-        if 'categories' in gem:
-            for c in gem['categories']:
-                cid = get_term_id(c, CATS_ENDPOINT, CATEGORY_MAP)
-                if cid: cat_ids.append(cid)
+        category_name = None
+        
+        # NEW FORMAT: singular 'category'
+        if 'category' in gem:
+            category_name = gem['category']
+        # OLD FORMAT: plural 'categories' (use first one)
+        elif 'categories' in gem and gem['categories']:
+            category_name = gem['categories']
+        
+        # DEFENSIVE: Ensure category_name is a string
+        if category_name:
+            if isinstance(category_name, list):
+                if len(category_name) > 1:
+                    print(f"   ⚠️  Multiple categories found for '{gem['title']}', using first: '{category_name[0]}'")
+                category_name = category_name[0]  # Take first element
+            
+            # Now category_name is definitely a string, get or create it
+            if isinstance(category_name, str):
+                cid = get_term_id(category_name, CATS_ENDPOINT, CATEGORY_MAP)
+                if cid:
+                    cat_ids.append(cid)
+            else:
+                print(f"   ❌ Invalid category type for '{gem['title']}': {type(category_name)}")
 
+        # 3. PREPARE TAGS
         tag_ids = []
         if 'tags' in gem:
             for t in gem['tags']:
@@ -161,31 +179,30 @@ def main():
             except Exception as e:
                 print(f"      ❌ Layout Engine Error: {e}")
 
-        # 3. BUILD PAYLOAD
+        # 4. BUILD PAYLOAD
         meta_data = gem.get('meta', {})
         
         payload = {
             'title': gem['title'],
             'slug': gem.get('slug'),
-            'content': final_content, # <--- Uses the processed content
+            'content': final_content,
             'status': gem['status'],
             'categories': cat_ids,
             'tags': tag_ids,
             'meta': {
-                'gem_category': meta_data.get('gem_category', ''),
                 'gem_status': meta_data.get('gem_status', ''),
                 'gem_action_item': meta_data.get('gem_action_item', ''),
                 'gem_related_project': meta_data.get('gem_related_project', '')
             }
         }
 
-        # 4. SPEED CHECK
+        # 5. SPEED CHECK
         current_hash = calculate_hash(payload)
         if target_id and str(target_id) in state and state[str(target_id)] == current_hash:
             print(f"💤 Skipped: {gem['title']}")
             continue
 
-        # 5. PUSH
+        # 6. PUSH
         print(f"Processing: {gem['title']}...")
         
         if target_id:
