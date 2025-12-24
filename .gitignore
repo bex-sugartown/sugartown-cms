@@ -6,6 +6,7 @@ config.py
 # --- STATE & LOGS ---
 .content_state.json
 .system_state.json
+.RELEASE_STATE.json
 logs/
 backups/
 __pycache__/

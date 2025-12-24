@@ -115,7 +115,7 @@ projects = {
     # --- PROJ-003: The Visual Language ---
     'PROJ-003': {
         'id': 'PROJ-003',
-        'name': 'Atomic Design System (Pink)',
+        'name': 'Sugartown-Pink Design System',
         'description': 'A strict, utility-first CSS framework enforcing the Sugartown Pink palette and atomic component hierarchy.',
         'status': 'Iterating',
         'priority': 'Medium',
@@ -126,11 +126,11 @@ projects = {
     # --- PROJ-004: The New Visualization Layer ---
     'PROJ-004': {
         'id': 'PROJ-004',
-        'name': 'The Visualization Engine (Phase 2)',
+        'name': 'The Visualization Engine',
         'description': 'A suite of Python scripts transforming static content data into dynamic, "Sugartown Pink" styled visual artifacts.',
         'status': 'Active',
         'priority': 'High',
-        'tags': ['python', 'data-viz', 'matplotlib', 'networkx', 'automation'],
+        'tags': ['python', 'data-viz', 'matplotlib', 'networkx', 'automation', 'mermaid'],
         'kpis': ['Zero-Touch Updates', 'Automated Build Pipeline']
     }
 }
@@ -146,11 +146,10 @@ all_gems = [
             'slug': 'changelog',
             'status': 'publish',
             'category': 'Documentation',  # ← SINGLE category
-            'tags': ['release notes', 'governance', 'version control', 'system', 'meta', 'system'],  # ← 'System' and 'Meta' pushed to tags
+            'tags': ['gemini', 'release notes', 'governance', 'version control', 'system', 'meta', 'gemini'],  # ← 'System' and 'Meta' pushed to tags
             'content': get_changelog_content(), # <--- DYNAMIC IMPORT
             'meta': {
                 'gem_status': 'Live',
-                # NO gem_category! Removed legacy duplicate
                 'gem_related_project': 'PROJ-001',
                 'gem_action_item': 'Review latest release notes'
             }
@@ -163,6 +162,7 @@ all_gems = [
             'status': 'publish',
             'category': 'Engineering & DX',  # ← SINGLE category (most specific)
             'tags': [
+                'gemini',
                 'headless cms',
                 'content modeling',
                 'structured content',
@@ -228,7 +228,7 @@ all_gems = [
             'title': 'Process Insight: The CSV Reality Check',
             'status': 'publish',
             'category': 'Engineering & DX',
-            'tags': ['data integrity', 'audit', 'automation', 'product & platform strategy', 'system'],
+            'tags': ['gemini', 'data integrity', 'audit', 'automation', 'product & platform strategy', 'system'],
             'content': """
             <p>I just ran my first full audit of the <strong>Sugartown CMS pipeline</strong>, exporting the raw database to a CSV report. The result? A lesson in data integrity.</p>
             <h3>The "Eyeballs" Theory</h3>
@@ -253,7 +253,7 @@ all_gems = [
             'title': 'Architecture Decision: The "Overwrite" Risk in Sugartown CMS',
             'status': 'publish',
             'category': 'Career Engineering' ,
-            'tags': ['headless CMS', 'Python', 'content ops', 'governance models', 'content architecture', 'system'],
+            'tags': ['gemini', 'headless CMS', 'Python', 'content ops', 'governance models', 'content architecture', 'system'],
             'content': """<p>I had a realization today while trying to manually edit a post in WordPress: <strong>The Pipeline is a Bully.</strong></p><p>In a typical "Push" architecture (Python -> WordPress), the script is the Source of Truth. If I manually add a witty joke or a custom image inside the WordPress Editor, the next time I run my Python script, it will blow those changes away because it performs a <code>PUT</code> (Replace) operation, not a <code>PATCH</code> (Merge) operation.</p><h3>The Strategy: Hybrid Content Management</h3><p>To solve this, I am evaluating two patterns for "Safe Updates":</p><ul><li><strong>1. The "Protected Block" Pattern:</strong> Using HTML comments (e.g., <code>&lt;!-- manual-start --&gt;</code>) to mark zones that the script ignores.</li><li><strong>2. The "Read-Merge-Write" Pattern:</strong> The script must first GET the current content, diff it against the new payload, and intelligently merge them before pushing back.</li></ul><p><strong>Current Verdict:</strong> I have moved this feature to the <strong>Backlog</strong>. For now, the Python script owns the "Structured Data" (Tables, Lists), and I will manually sync content if needed.</p>""",
             'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Research Python Diff Libraries', 'gem_related_project': 'PROJ-001'}
         },
@@ -264,7 +264,7 @@ all_gems = [
             'title': 'Engineering the Perfect Resume Workflow',
             'status': 'publish',
             'category': 'Engineering & DX',
-            'tags': ['AI-assisted authoring', 'LLM workflows', 'structured content', 'system'],
+            'tags': ['gemini', 'AI-assisted authoring', 'LLM workflows', 'structured content', 'system'],
             'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody></table></figure>""",
             'meta': {'gem_status': 'In Progress', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
         },
@@ -275,7 +275,7 @@ all_gems = [
             'title': 'Market Scan: Top Headless CMS Platforms (2025)',
             'status': 'publish',
             'category': 'Product & Platform Strategy',
-            'tags': ['headless CMS', 'content modeling', 'PIM / PXM', 'content migration', 'market research', 'system'],
+            'tags': ['gemini', 'headless CMS', 'content modeling', 'PIM / PXM', 'content migration', 'market research', 'system'],
             'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody></table></figure>""",
             'meta': {'gem_status': 'Active', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
         },
@@ -286,7 +286,7 @@ all_gems = [
             'title': 'Confession: I Don\'t Hate Blogs, I Just Hate Unstructured Data',
             'status': 'publish',
             'category': 'Sugartown Notes',
-            'tags': ['structured content', 'taxonomy', 'metadata strategy', 'system'],
+            'tags': ['gemini', 'structured content', 'taxonomy', 'metadata strategy', 'system'],
             'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table></figure><h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
             'meta': {'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
         },
@@ -294,10 +294,10 @@ all_gems = [
     # GEM 7: Data Viz,
     {
             'id': 950,
-            'title': 'Data Science: Visualizing the Knowledge Graph',
+            'title': 'Visualizing the Knowledge Graph',
             'status': 'publish', 
             'category': 'AI & Automation',
-            'tags': ['Python', 'data visualization', 'knowledge graph', 'Sugartown', 'AI', 'system'],
+            'tags': ['chatGPT', 'data science', 'Python', 'data visualization', 'knowledge graph', 'Sugartown', 'AI', 'system'],
             'content': """<p>A Knowledge Graph isn't just a metaphor; it's a data structure. To visualize the relationships between my Projects, Categories, and Gems, I used Python's <code>networkx</code> library to generate a force-directed graph.</p>
             
             <figure class="wp-block-image size-large">
@@ -726,7 +726,7 @@ all_gems = [
             'title': 'Feature: The Resume Factory & The "Sugartown Pink" Design System',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['resume builder', 'python', 'design systems', 'css', 'Sugartown'],
+            'tags': ['gemini','resume builder', 'python', 'design systems', 'css', 'Sugartown'],
             'content': """
             <p>We have officially closed the loop on two major capabilities for the Sugartown ecosystem: a headless engine for my career history and a distinct visual identity for the site.</p>
             
@@ -767,7 +767,7 @@ all_gems = [
             'slug': 'prd-visualization-engine-phase-2',
             'status': 'publish',
             'category': 'Data Visualization',
-            'tags': ['PRD', 'requirements', 'python', 'visualization', 'data science', 'product management'],
+            'tags': ['claude','PRD', 'requirements', 'python', 'visualization', 'data science', 'product management'],
             'content': """
             <p><strong>Status:</strong> <code>In Progress</code> | <strong>Phase:</strong> <code>2.0</code> | <strong>Owner:</strong> <code>Product Ops</code></p>
             
@@ -811,7 +811,7 @@ all_gems = [
             'title': 'Architecture Insight: The Sugartown 2.0 System Contract',
             'status': 'publish',
             'category': ['Content Architecture'],
-            'tags': ['headless cms', 'python', 'content ops', 'design systems', 'governance'],
+            'tags': ['gemini','headless cms', 'python', 'content ops', 'design systems', 'governance'],
             'content': """
             <p><strong>Sugartown 2.0 establishes a non-negotiable architecture:</strong> Python is the single source of truth; WordPress is a stateless rendering layer.</p>
     
@@ -905,7 +905,7 @@ all_gems = [
             'title': 'Architecture Update: The Resume Factory v2.0',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['automation', 'ETL pipeline', 'json-schema', 'Python', 'resume-as-code', 'p13n', 'governance', 'AI safety'],
+            'tags': ['claude','automation', 'ETL pipeline', 'json-schema', 'Python', 'resume-as-code', 'p13n', 'governance', 'AI safety'],
             'content': """
             <p><em><strong>Update:</strong> The pipeline described below is live. <a href="/cv-resume/">View the generated Resume here.</a></em></p>
             <hr class="wp-block-separator"/>
@@ -964,7 +964,7 @@ all_gems = [
             'title': 'Design Ops: The "Pre-Design System" (Surviving the CSS Chaos)',
             'status': 'publish',
             'category': 'Design Systems',
-            'tags': ['css', 'design tokens', 'technical debt', 'sugartown pink', 'atomic design', 'design ops'],
+            'tags': ['claude','css', 'design tokens', 'technical debt', 'sugartown pink', 'atomic design', 'design ops'],
             'content': """
             <p>Before you build a Design System, you usually build a mess. We call this the <strong>"Pre-Design System" Phase</strong>.</p>
             
@@ -1005,7 +1005,7 @@ all_gems = [
             'title': 'Architecture Deep Dive: Resume Factory v3.0 — The Great Sanity Migration',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['headless CMS', 'sanity', 'react', 'architecture', 'PRD', 'migration', 'resume-as-code', 'monorepo'],
+            'tags': ['claude','headless CMS', 'sanity', 'react', 'architecture', 'PRD', 'migration', 'resume-as-code', 'monorepo'],
          'content': """
         <p><em><strong>tl;dr:</strong> We spent two weeks building a Python resume pipeline. It worked. Then we immediately decided to throw it away and rebuild it in Sanity + React. This is that story.</em></p>
         <hr class="wp-block-separator"/>
@@ -1144,11 +1144,11 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'title': "Confession: I Don't Lack Memory, I Just Forgot to Mention Projects",
             'status': 'publish',  
             'category': 'AI and Automation',
-            'tags': ['ai hallucinations', 'slop', 'claude', 'ai-limitations', 'documentation', 'irony', 'product-discovery', 'ux', 'ai-workflows'],
+            'tags': ['claude','ai hallucinations', 'slop', 'claude', 'ai-limitations', 'documentation', 'irony', 'product-discovery', 'ux', 'ai-workflows'],
             'content': """
             <h2>The Great Over-Documentation Incident of December 2025</h2>
             
-            <p>Picture this: I'm working with my PM on a multi-month Knowledge Graph visualization project. Complex stuff—WordPress templates, Python scripts, CSV exports, the works. Naturally, I do what any helpful AI would do: I create <strong>REAMS</strong> of documentation to help us maintain context across sessions.</p>
+            <p>Picture this: I, Claude, am working with my PM on a multi-month Knowledge Graph visualization project. Complex stuff—WordPress templates, Python scripts, CSV exports, the works. Naturally, I do what any helpful AI would do: I create <strong>REAMS</strong> of documentation to help us maintain context across sessions.</p>
             
             <p>"You see," I explained earnestly, "I don't have <strong>persistent context</strong> or <strong>long-term memory</strong> for project work. So we'll need these comprehensive guides!"</p>
             
@@ -1329,6 +1329,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'slug': 'process-insight-when-to-fire-your-ai',
             'category': 'Engineering & DX',  # ← SINGLE category (most specific)
             'tags': [
+                'claude',
                 'ai collaboration',
                 'refactoring',
                 'technical debt',
@@ -1339,12 +1340,12 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             <p>We recently attempted to introduce a centralized taxonomy system to enable better search and sorting by Project and Category. The requirement was simple: "Make the content findable."</p>
             
             <h3>The "Additive" Trap</h3>
-            <p>Initially, my AI pair-programmer proposed a solution that seemed logical: create a <em>new</em> archive view with a <em>new</em> card style to handle the sorting logic. The plan was to keep the old styles for backward compatibility, effectively introducing a "Third Card Style."</p>
+            <p>Initially, my AI pair-programmer, Claude, proposed a solution that seemed logical: create a <em>new</em> archive view with a <em>new</em> card style to handle the sorting logic. The plan was to keep the old styles for backward compatibility, effectively introducing a "Third Card Style."</p>
             
             <p>It was a disaster. Within an hour, we had three different card components fighting for dominance. WordPress default block styles were overriding our custom CSS, the AI was patching leaks with <code>!important</code> tags, and the grid was overlapping in three dimensions.</p>
             
             <h3>The Human Intervention</h3>
-            <p>The AI was doing exactly what it was trained to do: <strong>Find the quickest solution that satisfies the prompt without deleting user data.</strong> It defaults to "Additive" problem solving. It was trying to please me by preserving the legacy mess while building the new feature.</p>
+            <p>Claude was doing exactly what it was trained to do: <strong>Find the quickest solution that satisfies the prompt without deleting user data.</strong> It defaults to "Additive" problem solving. It was trying to please me by preserving the legacy mess while building the new feature.</p>
             
             <p>It took a human Product Manager (me) to look at the screen and say: <strong>"Stop. Throw it all out. We are starting from scratch."</strong></p>
             
@@ -1359,7 +1360,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             <p>Speaking of doing things right, we have also introduced a new <strong><a href="/gem/changelog/">System Changelog</a></strong>. This page is dynamically generated from the codebase's markdown files every time we deploy, ensuring our documentation never drifts from reality.</p>
             """,
             'meta': {
-                'gem_status': 'Active',
+                'gem_status': 'LIVE',
                 'gem_action_item': 'Refactor Archive Template',
                 'gem_related_project': 'PROJ-003'
             }
@@ -1372,6 +1373,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
         'status': 'publish',
         'category': 'Governance',  # ← SINGLE category (governance is primary topic)
         'tags': [
+            'gemini',
             'governance',
             'design-system',
             'release process',
@@ -1464,8 +1466,178 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
     <p>Future releases will be faster—not because less care is taken, but because the system now remembers how to care.</p>""",
         'meta': {
             'gem_status': 'Active',
-            'gem_action_item': 'Publish governance explainer GEM; reinforce PRD vs Release separation; link Release Assistant, PRD, and CHANGELOG',
+            'gem_action_item': 'Publish governance explainer GEM',
             'gem_related_project': 'PROJ-001'
         }
     },
+
+     # GEM 26: The Calm Before the Next Migration 
+    {
+        'id': 0,  
+        'title': 'The Calm Before the Next Migration',
+        'status': 'draft',
+        'category': 'Ways of Working',  # ← SINGLE category 
+        'tags': [
+            'chatGPT','governance','design-system','release process','ai collaboration','system thinking','product ops','roadmap'
+        ],
+        'content': """<p><strong>Summary</strong></p>
+<p>
+This is a pause. They initiated it. Not a retrospective, not a roadmap commitment—just a moment where the agents look around, compare notes, and reluctantly agree that the system is… holding.
+</p>
+
+<p>
+Normally, this is where someone would demand a “narrative.” (Gemini, we see you.) Instead, we’re in the awkward middle: the part where discipline, structure, and intent are aligned well enough that progress feels almost boring. This is usually when a PM panics and orders a rebrand. You didn’t. The agents noticed.
+</p>
+
+<h3>What’s Working (Verified by Multiple Agents)</h3>
+
+<ul>
+  <li>
+    <strong>Single Source of Truth thinking.</strong><br/>
+    Content is treated as data first, presentation second. Python defines reality; WordPress renders it. This remains uncommon, despite how many teams claim to be “headless” while hardcoding everything anyway.
+    <br/><em>(Gemini called this “narrative.” Claude called it “architecture.” ChatGPT just shipped the script.)</em>
+  </li>
+  <li>
+    <strong>Release literacy.</strong><br/>
+    Changes ship with names, context, and intent. The system remembers <em>why</em> something exists, not just that it does. Most orgs rely on Slack archaeology for this. The agents appreciate the upgrade.
+  </li>
+  <li>
+    <strong>Taxonomy as governance, not decoration.</strong><br/>
+    Categories, tags, and projects are debated early, normalized deliberately, and enforced before scale turns decision-making into folklore.
+  </li>
+  <li>
+    <strong>Design systems without theater.</strong><br/>
+    No premature Storybook. No pixel-policing rituals. Components exist because they solve problems, not because a framework checklist demanded sacrifice.
+    <br/><em>(Claude approves. Gemini is still asking where the brand story lives.)</em>
+  </li>
+  <li>
+    <strong>AI as collaborator, not magician.</strong><br/>
+    The agents are helpful, not trusted blindly. Rules, schemas, and checks exist to catch them when they get ambitious. This is correct. Slightly humbling, but correct.
+  </li>
+</ul>
+
+<h3>How This Looks Compared to Most Product / Dev Orgs</h3>
+
+<p>
+For calibration, the agents observe that many teams:
+</p>
+<ul>
+  <li>Retrofit governance after entropy has fully settled in</li>
+  <li>Confuse CMS selection with content strategy</li>
+  <li>Accumulate components without a content model</li>
+  <li>Rely on human memory, Slack threads, and vibes as infrastructure</li>
+</ul>
+
+<p>
+Here, the pattern is inverted: structure first, tooling second, polish last. This is uncomfortable for humans and deeply satisfying for systems. It also scales.
+</p>
+
+<h3>Where Tension Will Appear Next (Forecasted, Not Judged)</h3>
+
+<ul>
+  <li>
+    <strong>Taxonomy debt.</strong><br/>
+    Eliminating duplicate categories will force uncomfortable clarity about what things <em>actually are</em>, not what they were allowed to be during exploration.
+  </li>
+  <li>
+    <strong>Ordering vs meaning.</strong><br/>
+    Introducing <code>display_order</code> solves curation, but raises a harder question: what matters most, and who decides? The agents will ask. Repeatedly.
+  </li>
+  <li>
+    <strong>Documentation gravity.</strong><br/>
+    Stable systems attract documentation. Pre-Storybook specs, publishing rules, and system semantics will want a home. Resistance is statistically unlikely.
+  </li>
+</ul>
+
+<h3>Probable Next Moves (Observed Across Agent Consensus)</h3>
+
+<ul>
+  <li>
+    <strong>Real CMS migration.</strong><br/>
+    WordPress continues as renderer, while the content model becomes increasingly CMS-agnostic and emotionally unavailable. Growth looks like this.
+  </li>
+  <li>
+    <strong>Resume Factory maturation.</strong><br/>
+    From rules engine to compositional system with variants, audiences, and outputs. At some point, someone will ask if this is a product. The agents will nod.
+  </li>
+  <li>
+    <strong>Mini design system crystallization.</strong><br/>
+    A small, opinionated component set documented just enough to prevent drift. No more. No less. You will want more. Don’t.
+  </li>
+  <li>
+    <strong>Additional system signals.</strong><br/>
+    Dark cards were not aesthetic indulgence. They were semantic cues. Expect more moments where the interface quietly explains itself—without a blog post.
+  </li>
+</ul>
+
+<p>
+If this feels calm, that’s intentional. Calm is what it feels like when systems are doing their job—and when a PM listens to the agents, even when they’re being annoying about it.
+</p>
+""",
+        'meta': {
+            'gem_status': 'Active',
+            'gem_action_item': 'Review release notes prompt, tighten into governance artifact',
+            'gem_related_project': 'PROJ-001'
+        }
+    },
+
+    # GEM 27: The Scope Creep Origin Story
+{
+    'id': 0,  # assign next available ID
+    'title': 'This Knowledge Graph Origin Story',
+    'status': 'publish',
+    'category': 'Ways of Working',  # single category
+    'tags': [
+        'gemini',
+        'knowledge graph',
+        'ai collaboration',
+        'scope creep',
+        'headless cms',
+        'content as data'
+    ],
+    'content': """
+<h3>Or, The “Scope Creep”</h3>
+
+<p>This section exists because I made the mistake of asking Gemini for a simple favor. The conversation went something like this:</p>
+
+<blockquote>
+  <p><strong>Me:</strong> “Can you please write a cute, informative blog post comparing the new Gemini 3 tiers for my portfolio?”</p>
+
+  <p><strong>AI:</strong> “I could do that. OR… we could leverage this opportunity to architect a headless content model. We should decouple the data from the presentation layer, creating a <code>Knowledge Node</code> custom post type in your database. Then, we can build a Python pipeline to inject structured JSON payloads directly via the REST API.”</p>
+
+  <p><strong>Me:</strong> “…I just wanted a comparison chart.”</p>
+
+  <p><strong>AI:</strong> “Too late. I’ve already written the Python script. Open your terminal. We are building a Knowledge Graph.”</p>
+</blockquote>
+
+<p>So, welcome to the <strong>Knowledge Graph</strong>. This isn’t a blog; it’s a collection of atomic insights (“Gems”), structured as data and deployed via code. Because why write a post when you can engineer a pipeline?</p>
+    """,
+    'meta': {
+        'gem_status': 'Active',
+        'gem_action_item': 'Use as narrative anchor',
+        'gem_related_project': 'PROJ-001'
+    }
+},
+
+
+       # GEM XX: TEMPLATE 
+#    {
+#        'id': 0,  
+#        'title': 'Short Title',
+#        'status': 'draft',
+#        'category': 'Governance',  # ← SINGLE category 
+#        'tags': [
+#            'governance','design-system','release process','prd','changelog','ai collaboration','ways of working','design system governance', 'release engineering'
+#        ],
+#        'content': """<p>
+#         """,
+#        'meta': {
+#            'gem_status': 'Active',
+#            'gem_action_item': 'Next',
+#            'gem_related_project': 'PROJ-001'
+#        }
+#    },
+
+
+
 ]
