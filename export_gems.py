@@ -92,14 +92,20 @@ def main():
     project_db = content_store.projects 
 
     for post in all_posts:
-        # Map IDs to Names
+        # Taxonomy
         cat_names = [cat_map.get(cid, str(cid)) for cid in post.get('categories', [])]
         tag_names = [tag_map.get(tid, str(tid)) for tid in post.get('tags', [])]
-        
-        # Extract Meta
+
+        # Meta
         meta = post.get('meta', {})
-        if not isinstance(meta, dict): meta = {} 
-        
+        if not isinstance(meta, dict):
+            meta = {}
+
+        # Internal category: prefer legacy meta, else fall back to the WP category (single-category model)
+        internal_category = meta.get('gem_category', '')
+        if not internal_category and cat_names:
+            internal_category = cat_names[0]
+
         # --- PROJECT LOOKUP LOGIC ---
         proj_id = meta.get('gem_related_project', '')
         proj_name = ''
@@ -123,13 +129,14 @@ def main():
             # Meta & Project Info
             'project_id': proj_id,
             'project_name': proj_name,  # <--- NEW FIELD
-            'internal_category': meta.get('gem_category', ''),
+            'internal_category': internal_category,
             'gem_status': meta.get('gem_status', ''),
             'action_item': meta.get('gem_action_item', ''),
             
-            # Links
-            'slug': post['slug'],
-            'link': post['link']
+            # Links (make semantics explicit)
+            'post_slug': post.get('slug', ''),
+            'single_url': post.get('link', ''),
+            'archive_url': f"{WP_URL.rstrip('/')}/knowledge-graph/"
         }
         csv_rows.append(row)
 
@@ -139,11 +146,12 @@ def main():
     
     # Define Column Order (Added project_name)
     keys = [
-        'id', 'title', 'status', 
-        'project_id', 'project_name', # Grouped together
-        'internal_category', 'gem_status', 'action_item', 
-        'modified', 'wp_categories', 'wp_tags', 'slug', 'link'
-    ]
+    'id', 'title', 'status',
+    'project_id', 'project_name',
+    'internal_category', 'gem_status', 'action_item',
+    'modified', 'wp_categories', 'wp_tags',
+    'post_slug', 'single_url', 'archive_url'
+]
     
     with open(filename, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=keys)

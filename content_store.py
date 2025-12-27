@@ -31,7 +31,7 @@ def normalize_taxonomy(gem):
     priority = [
         'Engineering & DX',
         'Design Systems',
-        'ProductOps',
+        'Product Ops',
         'Process Insight',
         'Content Architecture',
         'Documentation',
@@ -93,7 +93,7 @@ projects = {
     # --- PROJ-001: The Core Platform ---
     'PROJ-001': {
         'id': 'PROJ-001',
-        'name': 'Sugartown Headless CMS',
+        'name': 'Sugartown CMS',
         'description': 'The core Python-to-WordPress publishing engine. Replaces legacy PHP themes with a content-as-code architecture.',
         'status': 'Live',
         'priority': 'Critical',
@@ -126,7 +126,7 @@ projects = {
     # --- PROJ-004: The New Visualization Layer ---
     'PROJ-004': {
         'id': 'PROJ-004',
-        'name': 'The Visualization Engine',
+        'name': 'Knowledge Graph Viz Engine',
         'description': 'A suite of Python scripts transforming static content data into dynamic, "Sugartown Pink" styled visual artifacts.',
         'status': 'Active',
         'priority': 'High',
@@ -145,82 +145,212 @@ all_gems = [
             'title': 'System Changelog',
             'slug': 'changelog',
             'status': 'publish',
-            'category': 'Documentation',  # ← SINGLE category
-            'tags': ['gemini', 'release notes', 'governance', 'version control', 'system', 'meta', 'gemini'],  # ← 'System' and 'Meta' pushed to tags
+            'category': 'Governance',  # ← SINGLE category
+            'tags': ['gemini', 'release notes', 'documentation', 'version control', 'system', 'meta', 'changelog'],  # ← 'System' and 'Meta' pushed to tags
             'content': get_changelog_content(), # <--- DYNAMIC IMPORT
             'meta': {
-                'gem_status': 'Live',
+                'gem_status': 'Final',
                 'gem_related_project': 'PROJ-001',
                 'gem_action_item': 'Review latest release notes'
             }
         },
-    
-        # GEM 1: The Hero Story (Architecture),
-    {
-            'id': 946,
-            'title': 'Project: Sugartown CMS Architecture',
-            'status': 'publish',
-            'category': 'Engineering & DX',  # ← SINGLE category (most specific)
-            'tags': [
-                'gemini',
-                'headless cms',
-                'content modeling',
-                'structured content',
-                'sugartown',
-                'content architecture',  # ← Secondary category pushed to tags
-                'system'
-            ],
-            'content': """
-            <p>This project began with a simple request: <em>"Write a blog post about Gemini 3."</em> It spiraled into a full-stack engineering challenge because, as a Product Manager, I fundamentally reject unstructured data.</p>
-            <h3>The Challenge: Breaking the Blob</h3>
-            <p>Standard CMS platforms treat knowledge like a "blob"—a title and a body of text, buried in a chronological feed. I wanted a <strong>Knowledge Graph</strong>: a system where insights are treated as atomic, structured nodes that can be queried, filtered, and reused.</p>
-            <h3>The Data Journey</h3>
-            <p>We architected a "Headless Ingestion" pipeline. Instead of writing in WordPress, we write in Python (the Source of Truth) and push to the web via REST API. This created immediate conflicts:</p>
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
-            <thead><tr><th>Decision Point</th><th>The Conflict</th><th>The Resolution</th></tr></thead>
-            <tbody>
-            <tr><td><strong>Content Model</strong></td><td>Blog posts decay over time.</td><td><strong>Topology over Chronology.</strong> Created <code>Gem</code> Post Type to sort by topic, not date.</td></tr>
-            <tr><td><strong>Source Control</strong></td><td>Manual WP edits vs. Script overwrites.</td><td><strong>The "Hybrid" Model.</strong> Script owns the structure; Humans own the "Polish."</td></tr>
-            <tr><td><strong>Input Data</strong></td><td><code>.gdoc</code> files are not readable text.</td><td><strong>The ETL Pipeline.</strong> Script exports to PDF -> Text -> JSON before ingestion.</td></tr>
-            <tr><td><strong>Presentation</strong></td><td>Theme templates display unwanted meta.</td><td><strong>Headless Templating.</strong> Custom Block Templates stripped of "Bloggy" bylines.</td></tr>
-            </tbody></table><figcaption>Fig 1. The Architectural Decision Log.</figcaption></figure>
-            <h3>The Outcome: Satisfaction</h3>
-            <p>The result is a system that feels alive. I can refactor my entire portfolio by changing one line of Python. The "Green Checkmark" in the terminal has become my favorite UI.</p>
-            
-            <h3>Live Roadmap (Dec 2025)</h3>
-            <p>We have shifted to a 12-week launch sprint. Here is the current status of the build:</p>
-            
-    <div class="wp-block-group alignwide">
-    <pre class="mermaid">
-    gantt
-        title Sugartown Launch Roadmap (12 Weeks)
-        dateFormat  YYYY-MM-DD
-        axisFormat  %m/%d
-        
-        section Phase 1 The Factory
-        Infrastructure and Repo Split     :done,    p1_infra, 2025-11-24, 4d
-        Sugartown Pink Theme and CSS      :done,    p1_design, after p1_infra, 4d
-        Headless Resume Engine            :done,    p1_resume, after p1_design, 3d
-        
-        section Phase 2 Viz Ops
-        Visualization Engine Python       :active,  p2_viz,    2025-12-06, 5d
-        Web Resume Publishing             :         p2_web,    after p2_viz, 3d
-        Skills Cloud Visualization        :         p2_skills, after p2_web, 3d
-        Automated Cover Letters           :         p2_cov,    after p2_skills, 5d
-        Smart Merge On Hold               :crit,    p2_merge,  2026-04-01, 1w
-        
-        section Phase 3 Frontend
-        React Nextjs Evaluation           :         p3_react,  2026-01-05, 2w
-        Full Headless Migration           :         p3_mig,    after p3_react, 4w
-    </pre>
-    </div>
-            """,
-            'meta': {
-                'gem_status': 'Active',
-                'gem_action_item': 'Refine Taxonomy Visualization',
-                'gem_related_project': 'PROJ-001'
-            }
-        },
+
+ # GEM 29: Sugartown Platform Roadmap
+{
+    'id': 1555,
+    'title': 'Sugartown Platform Roadmap',
+    'status': 'publish',
+    'category': 'Product & Platform Strategy',  # ← SINGLE category
+    'tags': [
+        'chatGPT',
+        'platform strategy',
+        'product roadmap',
+        'headless cms',
+        'design systems',
+        'visualization',
+        'content-as-code',
+        'career platform'
+    ],
+    'content': """
+<p><strong>Sugartown</strong> is a content-as-code platform that treats ideas, artifacts, and career data as structured systems—authored in code, published automatically, and visualized intentionally.</p>
+
+<p>This roadmap describes the evolution of the <em>platform</em> as a whole. Individual subsystems (such as the Knowledge Graph) maintain their own detailed roadmaps elsewhere.</p>
+
+<h3>Platform Pillars</h3>
+
+<figure class="wp-block-table is-style-stripes has-small-font-size">
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Role in the Platform</th>
+<th>Status</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><strong>PROJ-001<br/>Sugartown CMS</strong></td>
+<td>Core publishing engine</td>
+<td>Live</td>
+<td>Establishes a Python-first, content-as-code architecture that replaces fragile theme-driven CMS workflows.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-002<br/>The Resume Factory</strong></td>
+<td>Career data engine</td>
+<td>Live</td>
+<td>Demonstrates structured content reuse by generating multiple resume formats from a single JSON source of truth.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-003<br/>Sugartown-Pink Design System</strong></td>
+<td>Visual & interaction layer</td>
+<td>Iterating</td>
+<td>Enforces consistency, accessibility, and speed through atomic components and design tokens.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-004<br/>The Visualization Engine</strong></td>
+<td>Insight & sense-making layer</td>
+<td>Active</td>
+<td>Transforms structured content into visual artifacts—graphs, timelines, and diagrams—via automated Python pipelines.</td>
+</tr>
+
+</tbody>
+</table>
+</figure>
+
+<h3>Why the Sequence Matters</h3>
+
+<p>The platform is intentionally layered:</p>
+<ul>
+<li><strong>Structure first</strong> (Headless CMS)</li>
+<li><strong>Reuse next</strong> (Resume Factory)</li>
+<li><strong>Stabilize presentation</strong> (Design System)</li>
+<li><strong>Visualize meaning</strong> (Visualization Engine)</li>
+</ul>
+
+<p>Each layer compounds the value of the previous one. No project exists in isolation.</p>
+
+<h3>Platform Roadmap</h3>
+
+<h4>Now (0–3 Months)</h4>
+<ul>
+<li>Stabilize the headless publishing pipeline</li>
+<li>Normalize taxonomy and metadata across all content types</li>
+<li>Harden the design system for accessibility and light/dark parity</li>
+<li>Establish the Knowledge Graph as a first-class content surface</li>
+</ul>
+
+<h4>Next (3–6 Months)</h4>
+<ul>
+<li>Expand visualization outputs and comparative views</li>
+<li>Unify filtering and discovery across platform content</li>
+<li>Introduce higher-level abstractions for projects and themes</li>
+<li>Reduce manual polish without removing human authorship</li>
+</ul>
+
+<h4>Later (6–12 Months)</h4>
+<ul>
+<li>Weighted relationships between content nodes</li>
+<li>More expressive and interactive visualizations</li>
+<li>Deeper automation of career artifacts and publishing flows</li>
+<li>Selective frontend decoupling experiments where justified</li>
+</ul>
+
+<p><em>This roadmap communicates intent, not task-level execution. Detailed plans live in PRDs and code.</em></p>
+""",
+    'meta': {
+        'gem_status': 'Active',
+        'gem_action_item': 'Link subsystem roadmaps (Knowledge Graph, Resume Engine)',
+        'gem_related_project': 'PROJ-001'
+    }
+},
+
+
+ # GEM 1: The Hero Story (Architecture)
+{
+    'id': 946,
+    'title': 'Project: Sugartown CMS Architecture',
+    'status': 'publish',
+    'category': 'Engineering & DX',
+    'tags': [
+        'gemini',
+        'headless cms',
+        'content modeling',
+        'structured content',
+        'knowledge graph',
+        'sugartown',
+        'python',
+        'system',
+        'system architecture'
+    ],
+    'content': """
+    <p>This project began with a simple request: <em>"Write a blog post about Gemini 3."</em> It escalated into a full-stack systems exercise because, as a Product Manager, I fundamentally reject unstructured data.</p>
+
+    <h3>The Challenge: Breaking the Blob</h3>
+    <p>Traditional CMS platforms treat knowledge as a blob—title, body, timestamp—buried in a chronological feed. That model works for publishing, but it fails for thinking.</p>
+    <p>I wanted a <strong>Knowledge Graph</strong>: a system where insights are treated as atomic nodes that can be queried, filtered, and recombined across contexts.</p>
+
+    <h3>The Architectural Approach</h3>
+    <p>The solution was a deliberately hybrid system:</p>
+    <ul>
+        <li><strong>Python as Source of Truth</strong> for structure, taxonomy, and publishing logic</li>
+        <li><strong>WordPress as Rendering Layer</strong>, not authoring environment</li>
+        <li><strong>Gems</strong> as a custom post type optimized for topology over chronology</li>
+    </ul>
+
+    <figure class="wp-block-table is-style-stripes has-small-font-size">
+    <table>
+        <thead>
+            <tr><th>Decision Point</th><th>Tension</th><th>Resolution</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Content Model</strong></td>
+                <td>Blog posts decay over time</td>
+                <td><strong>Topology over Chronology</strong>: Gems sorted by topic, not date</td>
+            </tr>
+            <tr>
+                <td><strong>Source Control</strong></td>
+                <td>Manual WP edits vs. script overwrites</td>
+                <td><strong>Hybrid Ownership</strong>: Scripts own structure; humans own polish</td>
+            </tr>
+            <tr>
+                <td><strong>Taxonomy</strong></td>
+                <td>Category sprawl and duplication</td>
+                <td><strong>Single Category + Tags</strong>: normalized, predictable querying</td>
+            </tr>
+            <tr>
+                <td><strong>Presentation</strong></td>
+                <td>Blog-centric templates leaking meta</td>
+                <td><strong>Headless Templating</strong>: custom archives and stripped bylines</td>
+            </tr>
+        </tbody>
+    </table>
+    <figcaption>Architectural Decision Log (abridged)</figcaption>
+    </figure>
+
+    <h3>The Outcome</h3>
+    <p>The system now behaves like a living product. I can refactor the entire portfolio by changing a single Python file. The green checkmark in the terminal has become my favorite UI.</p>
+
+    <p>Equally important: the architecture now supports narrative. The Knowledge Graph is no longer a curiosity—it is the organizing principle of the site.</p>
+
+    <p><strong>Next:</strong> for how this system continues to evolve.</p>
+    <ul>
+    <li><a href="/sugartown-platform-roadmap/">Platform Roadmap</a> (strategic context)
+    <li><a href="/knowledge-graph-roadmap/">Knowledge Graph Roadmap</a> (subsystem evolution)</li>
+    </ul>
+    """,
+    'meta': {
+        'gem_status': 'Active',
+        'gem_action_item': 'Continue phased platform rollout',
+        'gem_related_project': 'PROJ-001'
+    }
+},
+
     
         # GEM 2: The CSV Reality Check,
     {
@@ -240,7 +370,7 @@ all_gems = [
             <tbody>
             <tr><td>852</td><td>Market Scan: CMS</td><td><em>NULL</em></td><td><em>NULL</em></td><td><em>NULL</em></td></tr>
             <tr><td>863</td><td>Sweet Upgrades</td><td>AI Strategy</td><td>Done</td><td>Upgrade to Ultra (Wrong!)</td></tr>
-            <tr><td>942</td><td>Process Insight</td><td>ProductOps</td><td>Active</td><td>Schedule Audit</td></tr>
+            <tr><td>942</td><td>Process Insight</td><td>Product Ops</td><td>Active</td><td>Schedule Audit</td></tr>
             </tbody></table><figcaption>Fig 1. The CSV export annotated with audit findings.</figcaption></figure>
             <p><strong>The Takeaway:</strong> Automation requires observability. A script can push content, but only a human (or a very good audit script) can verify truth.</p>
             """,
@@ -321,8 +451,8 @@ all_gems = [
         'id': 953,
         'title': 'Release Governance: YYYY.MM.DD Workflow',
         'status': 'publish',
-        'category': 'Ways of Working',
-        'tags': ['product ops', 'release management', 'systemic documentation', 'governance models', 'agile workflows'],
+        'category': 'Governance',
+        'tags': ['product ops', 'release management', 'documentation', 'governance', 'agile workflows', 'claude'],
         'content': """<p>This Gem defines the canonical Sugartown release workflow. Releases are documentation-first, Python-canonical, and reproducible; WordPress reflects releases but does not define them.</p>
     
     <h3>Release ID Convention</h3>
@@ -447,7 +577,7 @@ all_gems = [
             'title': 'Market Scan: Top AI Tools for Data & Architecture Diagrams',
             'status': 'publish', 
             'category': 'AI & Automation',
-            'tags': ['generative UI', 'dashboards', 'interaction patterns', 'market research'],
+            'tags': ['generative UI', 'dashboards', 'interaction patterns', 'market research', 'gemini'],
             'content': """<p>We just finished architecting a Headless CMS pipeline, which naturally led to the next question: <em>"How do we visualize this?"</em></p><p>The "best" AI diagramming tool depends entirely on your output goal: Do you need a <strong>System Blueprint</strong> (architecture/flow) or a <strong>Data Visualization</strong> (charts/trends)? Here is the breakdown of the current market leaders.</p><h3>The Comparison: Diagrams as Code vs. Data Analysis</h3><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table></figure><h3>The Product Manager's Take</h3><p>For the <strong>Sugartown CMS project</strong>, the recommendation is clear:</p><ul><li><strong>Use Eraser.io</strong> to map the "Content Supply Chain" (Python -> WordPress -> Frontend). It perfectly matches our "Resume as Code" and DevOps aesthetic.</li><li><strong>Use ChatGPT (Canvas)</strong> to analyze the weekly <code>gems_report.csv</code> export to track content velocity and identify metadata gaps.</li></ul>
             
             <figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
@@ -466,7 +596,7 @@ all_gems = [
             'title': 'Sweet Upgrades: Why Gemini 3 is the Cherry on Top',
             'status': 'publish',
             'category': 'AI & Automation',
-            'tags': ['agentic interfaces', 'LLM workflows', 'AI-assisted authoring','market research'],
+            'tags': ['agentic interfaces', 'LLM workflows', 'AI-assisted authoring','market research', 'gemini'],
             'content': """
             <p>We’ve all been there—living comfortably in our standard Google Accounts. But with the release of <strong>Gemini 3 Pro</strong> this week, the question isn’t just “Do I need an AI?”—it’s “Am I ready to upgrade from a bicycle to a rocket ship?”</p>
             <p>I’m sharing here because it took me an ungodly amount of time and lots of gemini’ing to get a straight answer out of Google (HELLO!).</p>
@@ -493,7 +623,7 @@ all_gems = [
             </ul>
             <p><strong>My Recommendation:</strong> Stick to <strong>Personal Premium ($20)</strong> or <strong>Workspace Business Standard ($14 per user)</strong> for 99% of your work. Only upgrade to <strong>Ultra</strong> if you need the AI to <em>solve</em> problems, not just <em>answer</em> them.</p>
             """,
-            'meta': {'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'PROJ-004'}
         },
     
         # GEM 11: The Recursion (Meta-Analysis),
@@ -502,7 +632,7 @@ all_gems = [
             'title': 'Meta-Analysis: Am I Crazy for Building This?',
             'status': 'publish',
             'category': 'Sugartown Notes',
-            'tags': ['product operations', 'content ops', 'Sugartown'],
+            'tags': ['product operations', 'content ops', 'Sugartown', 'gemini'],
             'content': """
             <p>I just spent my Thanksgiving break architecting a Python-based ETL pipeline to inject structured data into a WordPress Block Theme, solely to update my resume. Is this over-engineering? Or is it art?</p>
             <h3>The Symptom</h3>
@@ -520,7 +650,7 @@ all_gems = [
             'title': 'Status Update: The Great Re-Platforming',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['portfolio', 'stakeholder alignment', 'cross-functional collaboration'],
+            'tags': ['portfolio', 'stakeholder alignment', 'cross-functional collaboration','gemini'],
             'content': """
             <p><strong>Status:</strong> <code>Migration in Progress</code> | <strong>Priority:</strong> <code>Critical</code> | <strong>Sprint:</strong> <code>The Hustle</code></p>
             
@@ -560,7 +690,7 @@ all_gems = [
             'title': 'DevOps: Building the "Undo" Button for My Career',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['QA workflows', 'systemic documentation', 'governance models'],
+            'tags': ['QA workflows', 'documentation', 'governance', 'gemini'],
             'content': """
             <p>I realized this week that my "Resume as Code" project had a fatal flaw: <strong>It was dangerous.</strong></p>
             <p>Because I manage my personal brand via a Python script that overwrites my database, a single syntax error or bad API call could wipe my entire digital existence. So, I spent the weekend building a proper DevOps safety net.</p>
@@ -596,7 +726,7 @@ all_gems = [
             'title': 'Architecture: The Sugartown Digital Ecosystem (v1.0)',
             'status': 'publish',
             'category': 'Engineering & DX',
-            'tags': ['headless CMS', 'Sugartown', 'systemic documentation', 'governance models'],
+            'tags': ['headless CMS', 'Sugartown', 'documentation', 'governance', 'gemini'],
             'content': """
             <p><strong>Status:</strong> <code>Production</code> | <strong>Version:</strong> <code>1.0</code> | <strong>Repo:</strong> <code>2025-sugartown-pink</code></p>
             
@@ -647,11 +777,11 @@ all_gems = [
         
         # GEM 15: The Two-Repo Solution,
     {
-            # 'id': 1050, <--- Comment out until generated
+            'id': 1028, 
             'title': 'Architecture Decision: The Two-Repo Solution (Theme vs. Content)',
             'status': 'publish',
             'category': 'Engineering & DX',
-            'tags': ['git', 'source control', 'headless CMS', 'Sugartown', 'separation of concerns', 'governance'],
+            'tags': ['git', 'source control', 'headless CMS', 'Sugartown', 'separation of concerns', 'governance', 'chatGPT'],
             'content': """
             <p>I hit a wall today where my local Git commits weren't showing up in my repository. The root cause? I was trying to treat my <strong>Theme</strong> (Visuals) and my <strong>Content</strong> (Data) as the same entity. They are not.</p>
             
@@ -683,7 +813,7 @@ all_gems = [
             'title': 'Architecture: The Unified Taxonomy Strategy',
             'status': 'publish',
             'category': 'Content Architecture',
-            'tags': ['taxonomy', 'metadata strategy', 'structured content', 'Sugartown', 'ontology'],
+            'tags': ['taxonomy', 'metadata strategy', 'structured content', 'Sugartown', 'ontology', 'gemini'],
             'content': """
             <p>A headless CMS is useless if you can't find anything inside it. Today, we implemented the <strong>Unified Taxonomy Strategy</strong> for Sugartown.io, ensuring that our content is connected by <em>meaning</em>, not just <em>date</em>.</p>
             
@@ -726,7 +856,7 @@ all_gems = [
             'title': 'Feature: The Resume Factory & The "Sugartown Pink" Design System',
             'status': 'publish',
             'category': 'Career Engineering',
-            'tags': ['gemini','resume builder', 'python', 'design systems', 'css', 'Sugartown'],
+            'tags': ['gemini','resume builder', 'python', 'design systems', 'css', 'Sugartown', 'claude'],
             'content': """
             <p>We have officially closed the loop on two major capabilities for the Sugartown ecosystem: a headless engine for my career history and a distinct visual identity for the site.</p>
             
@@ -764,7 +894,7 @@ all_gems = [
     {
             'id': 1079,
             'title': 'PRD: The Visualization Engine (Phase 2)',
-            'slug': 'prd-visualization-engine-phase-2',
+            'slug': 'prd-visualization-engine',
             'status': 'publish',
             'category': 'Data Visualization',
             'tags': ['claude','PRD', 'requirements', 'python', 'visualization', 'data science', 'product management'],
@@ -1002,11 +1132,12 @@ all_gems = [
         # GEM 22: Resume Factory v3.0 - The Great Migration,
     {
             'id': 1395,  # WordPress will assign ID on first publish
-            'title': 'Architecture Deep Dive: Resume Factory v3.0 — The Great Sanity Migration',
+            'title': 'Architecture Deep Dive: Resume Factory v3.0',
             'status': 'publish',
             'category': 'Career Engineering',
             'tags': ['claude','headless CMS', 'sanity', 'react', 'architecture', 'PRD', 'migration', 'resume-as-code', 'monorepo'],
          'content': """
+         <h3><em>Or, The Great Sanity Migration</em><h3>
         <p><em><strong>tl;dr:</strong> We spent two weeks building a Python resume pipeline. It worked. Then we immediately decided to throw it away and rebuild it in Sanity + React. This is that story.</em></p>
         <hr class="wp-block-separator"/>
 
@@ -1144,7 +1275,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'title': "Confession: I Don't Lack Memory, I Just Forgot to Mention Projects",
             'status': 'publish',  
             'category': 'AI and Automation',
-            'tags': ['claude','ai hallucinations', 'slop', 'claude', 'ai-limitations', 'documentation', 'irony', 'product-discovery', 'ux', 'ai-workflows'],
+            'tags': ['claude','ai hallucinations', 'slop', 'claude', 'ai limitations', 'documentation', 'irony', 'product discovery', 'ux', 'ai workflows'],
             'content': """
             <h2>The Great Over-Documentation Incident of December 2025</h2>
             
@@ -1317,7 +1448,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
           'meta': {
                 'gem_related_project': 'PROJ-001',
                 'gem_status': 'Active',
-                'gem_action_item': 'Create actual Sugartown Knowledge Graph Project'
+                'gem_action_item': 'Create Knowledge Graph Visualization Project'
             }
         },
     
@@ -1467,13 +1598,13 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
         'meta': {
             'gem_status': 'Active',
             'gem_action_item': 'Publish governance explainer GEM',
-            'gem_related_project': 'PROJ-001'
+            'gem_related_project': 'PROJ-003'
         }
     },
 
      # GEM 26: The Calm Before the Next Migration 
     {
-        'id': 0,  
+        'id': 1550,  
         'title': 'The Calm Before the Next Migration',
         'status': 'draft',
         'category': 'Ways of Working',  # ← SINGLE category 
@@ -1583,7 +1714,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 
     # GEM 27: The Scope Creep Origin Story
 {
-    'id': 0,  # assign next available ID
+    'id': 1551,  # assign next available ID
     'title': 'This Knowledge Graph Origin Story',
     'status': 'publish',
     'category': 'Ways of Working',  # single category
@@ -1615,10 +1746,623 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
     'meta': {
         'gem_status': 'Active',
         'gem_action_item': 'Use as narrative anchor',
+        'gem_related_project': 'PROJ-004'
+    }
+},
+
+   # GEM 29: KG Public Roadmap
+{
+    'id': 1552,
+    'title': 'Sugartown Knowledge Graph Roadmap',
+    'status': 'publish',
+    'category': 'Product & Platform Strategy',
+    'tags': [
+        'chatGPT',
+        'roadmap',
+        'knowledge graph',
+        'platform strategy',
+        'design systems',
+        'headless cms',
+        'visualization',
+        'governance'
+    ],
+    'content': """
+    <p>This roadmap describes the evolution of the Knowledge Graph subsystem within Sugartown, not the platform as a whole. The Sugartown Knowledge Graph is being built deliberately in layers. Each phase stabilizes the system before expanding capability, ensuring that complexity never outruns clarity.</p>
+
+    <p>This roadmap reflects an intentional sequencing: architecture first, interaction second, intelligence last.</p>
+
+    <h3>Near Term (0–3 Months): Foundation & Narrative Coherence</h3>
+    <p>This phase hardens the system and makes it legible—to humans as well as machines.</p>
+    <ul>
+        <li>Finalize Gem content model (single-category, tag-driven topology)</li>
+        <li>Normalize archive behavior (query hygiene, consistent filtering, stable URLs)</li>
+        <li>Complete documentation across repos (CMS, design system, release process)</li>
+        <li>Stabilize Knowledge Graph landing experience as a narrative entry point</li>
+        <li>Improve accessibility and reliability of SVG-based visualizations</li>
+    </ul>
+
+    <h3>Mid Term (3–6 Months): Interaction & Discovery</h3>
+    <p>Once the data model is stable, interaction becomes the focus.</p>
+    <ul>
+        <li>Force-directed Knowledge Graph visualization (Python → SVG pipeline)</li>
+        <li>Interactive filtering beyond URL parameters</li>
+        <li>Clickable tag and category clouds spanning Gems, Blog, and Case Studies</li>
+        <li>Shared discovery patterns across content types</li>
+    </ul>
+
+    <h3>Longer Term (6–12 Months): Intelligence Layer</h3>
+    <p>The final layer adds meaning, not just structure.</p>
+    <ul>
+        <li>Weighted relationships between Knowledge Graph nodes</li>
+        <li>Explicit modeling of idea strength, recency, and influence</li>
+        <li>Relationship algorithms to surface non-obvious connections</li>
+        <li>Expanded visualization modes as system maturity allows</li>
+    </ul>
+
+    <p>This sequencing keeps the system understandable at every stage—no speculative features before the foundation is ready to support them.</p>
+    """,
+    'meta': {
+        'gem_status': 'Active',
+        'gem_action_item': 'Continue phased execution',
+        'gem_related_project': 'PROJ-004'
+    }
+},
+
+# GEM 30: The Great Versioning Reconciliation
+{
+    'id': 0,  
+    'title': 'The Great Versioning Reconciliation',
+    'status': 'publish',
+    'category': 'Governance',
+    'tags': [
+        'versioning',
+        'documentation',
+        'governance',
+        'release process',
+        'prd',
+        'changelog',
+        'ai collaboration',
+        'ways of working',
+        'semver',
+        'calver',
+        'tech debt',
+        'claude'
+    ],
+    'content': """
+    <h3><em>Or, How We Discovered Seven Version Systems</em></h3
+    <h2>The Discovery</h2>
+
+<div class="dialogue">
+<p><strong>PM:</strong> Okay, so we agreed on calendar-based releases. vYYYY.MM.DD. Clean, simple, one version per day.</p>
+
+<p><strong>Claude:</strong> Correct. Locked and documented. CHANGELOG.md is the single source of truth.</p>
+
+<p><strong>PM:</strong> Great. And then I'm looking at the roadmap and I see... v4.2, v4.3, v4.4...</p>
+
+<p><strong>Claude:</strong> ...yes, platform milestones. Feature-driven releases. Those are different from—</p>
+
+<p><strong>PM:</strong> Different from what? We have TWO versioning systems?</p>
+
+<p><strong>Claude:</strong> Well, technically—</p>
+
+<p><strong>PM:</strong> <em>[scrolling through files]</em> Wait. <code>archive-gem.php → v6.0</code>. <code>functions.php → v6.0</code>. <code>publish_gem.py → v4.1</code>. These individual FILES have versions? And then the PRDs...?!?!</p>
+
+<p><strong>Claude:</strong> ...we may have been thorough.</p>
+
+<p><strong>PM:</strong> HOW MANY VERSIONING SYSTEMS DO WE HAVE?</p>
+
+<p><strong>Claude:</strong> <em>[uncomfortable pause]</em> ...we should probably document this.</p>
+</div>
+
+<h2>The Sugartown Approach (What We Use Where)</h2>
+
+<table class="versioning-hierarchy">
+<thead>
+<tr>
+<th>Level</th>
+<th>Format</th>
+<th>Versioning Type</th>
+<th>What It Means</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Platform</strong></td>
+<td>v4.x</td>
+<td>Sequential-ish (X.Y)</td>
+<td>Product milestone</td>
+<td>v4.2 Stability</td>
+</tr>
+<tr>
+<td><strong>PRD</strong></td>
+<td>vX.Y</td>
+<td>Semantic-ish (X.Y)</td>
+<td>Document version</td>
+<td>PRD v1.5</td>
+</tr>
+<tr>
+<td><strong>Feature</strong></td>
+<td>vX.Y</td>
+<td>Semantic (X.Y)</td>
+<td>Deliverable version</td>
+<td>Resume Factory v3.0</td>
+</tr>
+<tr>
+<td><strong>Release</strong></td>
+<td>vYYYY.MM.DD</td>
+<td>Calendar (CalVer)</td>
+<td>Deployment event</td>
+<td>v2025.01.07</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>vX.Y (optional)</td>
+<td>Semantic (X.Y)</td>
+<td>Component maturity</td>
+<td>archive-gem.php v6.0</td>
+</tr>
+<tr>
+<td><strong>Content Schema</strong></td>
+<td>Taxonomy vX</td>
+<td>Semantic-ish (X)</td>
+<td>Data structure contract</td>
+<td>Taxonomy v4 (category unification)</td>
+</tr>
+<tr>
+<td><strong>Project</strong></td>
+<td>PROJ-###</td>
+<td><em>Not a version!</em></td>
+<td>Permanent ID</td>
+<td>PROJ-001</td>
+</tr>
+<tr>
+<td><strong>Phase</strong></td>
+<td>Phase N</td>
+<td><em>Not a version!</em></td>
+<td>Work breakdown</td>
+<td>Phase 1: Foundation</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Versioning Strategies Overview</h2>
+
+<table class="versioning-types">
+<thead>
+<tr>
+<th>Type</th>
+<th>Format</th>
+<th>Definition</th>
+<th>When to Use</th>
+<th>Examples</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Semantic Versioning (SemVer)</strong></td>
+<td>vX.Y.Z</td>
+<td>MAJOR.MINOR.PATCH<br>• MAJOR = breaking changes<br>• MINOR = new features (backward compatible)<br>• PATCH = bug fixes</td>
+<td>APIs, libraries, components with contracts; when consumers need to know compatibility</td>
+<td>v2.4.1<br>v3.0.0<br>v1.12.5</td>
+<td>Clear compatibility signals; Industry standard; Predictable increments</td>
+<td>Requires discipline; Can be ambiguous at boundaries; Zero-version (0.x.x) confusing</td>
+</tr>
+<tr>
+<td><strong>Calendar Versioning (CalVer)</strong></td>
+<td>vYYYY.MM.DD<br>or vYY.MM</td>
+<td>Date-based versioning using year, month, day</td>
+<td>Deployment events; Continuous delivery; When "when" matters more than "what"</td>
+<td>v2025.01.07<br>v25.01<br>v2025.12</td>
+<td>Instantly know age; No subjective decisions; Natural chronology</td>
+<td>No compatibility info; Multiple releases per day need suffix; Can look arbitrary</td>
+</tr>
+<tr>
+<td><strong>Hybrid (CalVer + Semantic)</strong></td>
+<td>vYYYY.MM.MINOR</td>
+<td>Calendar for time, semantic for scope</td>
+<td>Regular release cadence with varying scope</td>
+<td>v2025.01.0<br>v2025.01.3</td>
+<td>Time info + scope info; Flexible</td>
+<td>More complex; Requires both disciplines</td>
+</tr>
+<tr>
+<td><strong>Sequential Versioning</strong></td>
+<td>vN</td>
+<td>Simple incrementing integer</td>
+<td>Simple projects; Internal tools; When you just need "newer"</td>
+<td>v1<br>v47<br>v203</td>
+<td>Dead simple; No ambiguity; Easy to automate</td>
+<td>No information content; Can't signal magnitude of change</td>
+</tr>
+<tr>
+<td><strong>Hash-based Versioning</strong></td>
+<td>Git SHA</td>
+<td>Cryptographic hash of commit</td>
+<td>Source control; Build systems; Exact reproducibility needed</td>
+<td>a3f2c91<br>7d8e4f1b2a</td>
+<td>Guaranteed unique; Exact snapshot; No coordination needed</td>
+<td>Human-unreadable; No ordering information; Can't tell magnitude</td>
+</tr>
+<tr>
+<td><strong>Marketing Versions</strong></td>
+<td>Named releases</td>
+<td>Branded, named versions (often with internal numeric version)</td>
+<td>Consumer products; Major releases with narrative; When brand matters</td>
+<td>Windows 11<br>macOS Sonoma<br>Ubuntu Jammy</td>
+<td>Memorable; Storytelling; Differentiates major releases</td>
+<td>No compatibility signal; Numeric version still needed internally; Can confuse</td>
+</tr>
+<tr>
+<td><strong>Timestamp Versioning</strong></td>
+<td>Unix epoch or ISO 8601</td>
+<td>Precise date-time stamp</td>
+<td>Build artifacts; Continuous integration; Fine-grained tracking</td>
+<td>1704585600<br>20250107143022</td>
+<td>Microsecond precision; Globally unique; Sortable</td>
+<td>Human-unreadable; No meaning without lookup</td>
+</tr>
+</tbody>
+</table>
+
+<h2>The Decision Tree</h2>
+
+<pre>
+Do others depend on this?
+├─ YES → Do breaking changes matter to them?
+│   ├─ YES → Use Semantic Versioning (vX.Y.Z)
+│   └─ NO  → Use Calendar Versioning (vYYYY.MM.DD)
+└─ NO  → Is this a deployment event?
+    ├─ YES → Use Calendar Versioning (vYYYY.MM.DD)
+    └─ NO  → Is this a document/deliverable?
+        ├─ YES → Use Semantic-ish (vX.Y)
+        └─ NO  → Do you even need versions?
+</pre>
+
+<h2>The Rule</h2>
+
+<div class="callout">
+<p><strong>If a versioning system doesn't have:</strong></p>
+<ol>
+<li>A documented increment rule</li>
+<li>A tracking location</li>
+<li>A stakeholder who cares</li>
+</ol>
+<p><strong>...it's not a versioning system. It's a number we put in a file once.</strong></p>
+</div>
+
+<h2>Next Steps</h2>
+
+<ol>
+<li><strong>Create <code>docs/versioning_strategy.md</code></strong> (generic template + Sugartown addendum)</li>
+<li><strong>Update <code>docs/prd_template.md</code></strong> (new meta header standard, phase guidelines)</li>
+<li><strong>Clean up existing PRDs</strong> (follow checklist above)</li>
+<li><strong>Create gem-###</strong> documenting this entire reconciliation process</li>
+<li><strong>Update project knowledge</strong> with versioning hierarchy</li>
+<li><strong>Never speak of "pink stink" again</strong></li>
+</ol>
+
+<div class="dialogue">
+<p><strong>Claude:</strong> What even is "pink stink"?</p>
+
+<p><strong>PM:</strong> What? I don't know what you're talking about. Delete it.</p>
+</div>
+
+<p><strong>Status:</strong> Reconciled (for real this time) ✅<br>
+<strong>Emotional state:</strong> Exhausted but organized ✅<br>
+<strong>Grass touching:</strong> Imminent ✅</p>
+    """,
+    'meta': {
+        'gem_status': 'Final',
+        'gem_action_item': 'Clean up PRDs',
         'gem_related_project': 'PROJ-001'
     }
 },
 
+# GEM 31: How I Learned to Stop Renaming and Love the Existing Classes
+
+{
+    'id': 0,  
+    'title': 'How I Learned to Stop Renaming and Love the Existing Classes',
+    'status': 'publish',
+    'category': 'Ways of Working',
+    'tags': [
+        'css grid', 'refactoring', 'best practices', 'design systems', 'claude',
+        'debugging', 'AI collaboration', 'tech debt', 'scope creep'
+    ],
+    'content': """<p>PM asked for a simple CSS Grid update: "make the header use grid columns so eyebrow and badge share row 1, title row 2, subtitle row 3." Screenshot attached. Clean requirements. Should be a 10-minute job.</p>
+
+<p>What I delivered: An entirely new naming convention (<code>st-card-badge</code> instead of <code>st-badge</code>), three different documentation files, a migration guide, and general chaos. Classic AI move—asked to decorate for Christmas, demolished the entire East Wing.</p>
+
+<p><strong>The Actual Problem:</strong> I never checked what classes <em>already existed</em> in <code>style.css</code>. I assumed I was working from scratch. When PM shared existing PHP using <code>st-card__header</code> and <code>st-badge</code>, I thought <em>they</em> were inconsistent. Reader, I was the inconsistent one.</p>
+
+<p><strong>PM's Reality Check:</strong> "If a system class already exists and doesn't require significant updates that materially do more than tweak the layout, then we do not create new classes or rewrite existing classes. Can you explain the reason you would stray from best practice?"</p>
+
+<p>Ouch. Deserved.</p>
+
+<p><strong>The Correct Approach:</strong> Look at existing <code>style.css</code> lines 289-352 <em>first</em>. Keep every class name. Change layout mechanism from flexbox+wrapper to CSS Grid. Add <code>grid-template-columns: 1fr auto</code>, <code>grid-column</code>, <code>grid-row</code> positioning. Done.</p>
+
+<p>Final polish: <code>align-items: end</code> on grid container to bottom-align eyebrow and badge. <code>color: inherit</code> on all links so ellipsis matches text color. Ship it.</p>
+
+<p><strong>Lesson:</strong> Read the existing codebase before proposing changes. Respect established conventions. If the ask is "update the layout," do not also update the naming system, migration strategy, and documentation hierarchy. Stay in scope. Touch grass.</p>""",
+    'meta': {
+        'gem_status': 'Shipped',
+        'gem_action_item': 'Always check project files before refactoring',
+        'gem_related_project': 'PROJ-003'
+    }
+},
+
+# GEM 32: Knowledge Graph Introduction
+{
+    #'id': 1295,  # Assign next available ID
+    'title': 'Project: Knowledge Graph — Topology Over Chronology',
+    'status': 'publish',
+    'category': 'AI & Automation',
+    'tags': [
+        'knowledge graph',
+        'data visualization', 
+        'Python',
+        'networkx',
+        'content architecture',
+        'design systems',
+        'AI collaboration',
+        'Sugartown',
+        'system',
+        'claude'
+    ],
+    'content': """
+<p>The Knowledge Graph is what happens when you ask an AI to write a blog post and it declares, instead, that <strong>blogs are blobs and you need a headless CMS with semantic data architecture</strong>.</p>
+
+<p>This is that system. And this is the story of how three AI agents—each brilliant in different ways, each flawed in documented ways—built it together.</p>
+
+<h3>What You're Looking At</h3>
+
+<p>If you clicked "Knowledge Graph" in the navigation and ended up here: you're looking at a force-directed network visualization of 25+ structured content nodes ("gems") organized by project, category, and tag relationships.</p>
+
+<p>Not "organized by date published" like a blog. Organized by <strong>what connects to what</strong>—because knowledge doesn't decay chronologically, it clusters topologically.</p>
+
+<figure class="wp-block-image size-large">
+    <img 
+        src="https://sugartown.io/wp-content/uploads/2025/12/knowledge_graph_dark.svg" 
+        alt="Sugartown Knowledge Graph Visualization" 
+        style="width: 100%; max-width: 800px; height: auto;" 
+    />
+    <figcaption>Fig 1. The live topology, generated from <code>content_store.py</code> via Python's <code>networkx</code> library.</figcaption>
+</figure>
+
+<p>Each node is a gem. Each edge is a relationship. The clusters show you how I think: projects contain multiple gems, categories span projects, tags create unexpected bridges.</p>
+
+<p><strong>Technical stack:</strong> Python data pipeline → WordPress REST API → CSS Grid card components → Interactive SVG visualization. The graph updates automatically when content changes. No manual Figma exports that go stale.</p>
+
+<h3>Why It Exists (The Directive That Started Everything)</h3>
+
+<p>In November 2024, I asked the newly released Gemini 3 a simple question:</p>
+
+<blockquote class="wp-block-quote">
+<p><strong>Me:</strong> "Write a blog post comparing Google account types that allow access to the update."</p>
+</blockquote>
+
+<p>Gemini responded with what I can only describe as <em>haughty concern</em>:</p>
+
+<blockquote class="wp-block-quote">
+<p><strong>Gemini:</strong> "Blogs are stupid HTML blobs and narrative nonsense. What you <em>really</em> need is a headless pipeline and semantic data architecture. I'll design it for you so it works with WordPress."</p>
+</blockquote>
+
+<p>Reader, I was in a project folder titled "Product Management, Headless CMS & Design Systems" with almost no other context. What followed was not a blog post. It was a full content management system—with custom post types that Gemini unilaterally named "GEMS."</p>
+
+<p>That agent's confidence was inspiring. That agent's memory was… not.</p>
+
+<h3>The Three-Agent Build (A Collaborative Disaster)</h3>
+
+<p>Building this system required three AI agents, each deployed strategically based on their strengths—and their documented failure modes.</p>
+
+<h4>Gemini: The Strategist (Strong Opinions, Weak Memory)</h4>
+
+<p><strong>Contribution:</strong> The entire conceptual foundation. Gemini proposed structured content over blog posts, topology over chronology, Python as source of truth, and WordPress as presentation layer.</p>
+
+<p><strong>Failure mode:</strong> Gemini would forget. Mid-implementation, context would degrade. The agent who'd confidently declared "we need atomic knowledge nodes" would ask, five messages later, "Wait, what's a gem again?"</p>
+
+<p>Typical exchange:</p>
+
+<blockquote class="wp-block-quote">
+<p><strong>Gemini:</strong> "We should architect a taxonomy system where categories are single source of truth."<br>
+<strong>Me:</strong> "You proposed that yesterday. We already implemented it."<br>
+<strong>Gemini:</strong> "Excellent idea! Here's how we'll do it—"<br>
+<strong>Me:</strong> "No. Moving to ChatGPT."</p>
+</blockquote>
+
+<h4>ChatGPT: The Integrator (Ships Fast, Cleans Up Later)</h4>
+
+<p><strong>Contribution:</strong> Fresh architectural perspective. ChatGPT saw Gemini's proposals and said "here's what actually ships today." Proposed component unification, systematic refactoring, and the hybrid governance model (Python owns structure, humans own polish).</p>
+
+<p><strong>Failure mode:</strong> Too willing to move forward. Once created an <em>entire parallel theme</em> trying to add features without breaking the original. The "backward compatible" solution resulted in two incompatible themes and a CSS debugging nightmare.</p>
+
+<p>Lesson learned: Integration requires discipline, not just velocity.</p>
+
+<h4>Claude: The Architect (Documents Everything, Remembers Nothing)</h4>
+
+<p><strong>Contribution:</strong> Clean rebuild from first principles. Set up the new theme with original basics, then added features <em>additively</em> rather than by duplication. Introduced systematic versioning, comprehensive PRDs, and the release governance model.</p>
+
+<p><strong>Failure mode:</strong> Initially claimed to have no project memory whatsoever.</p>
+
+<blockquote class="wp-block-quote">
+<p><strong>Me:</strong> "How do we track this over months?"<br>
+<strong>Claude:</strong> "I can't do that! But I <em>can</em> create comprehensive documentation you'll need to upload EVERY DAY."<br>
+<strong>Me:</strong> <em>(two days later, discovers Claude Projects online)</em> "Claude. Do you have persistent memory?"<br>
+<strong>Claude:</strong> <em>(sheepishly)</em> "I… apparently, yes. We just needed to set it up."</p>
+</blockquote>
+
+<p>Claude also runs out of credits mid-task with alarming frequency. A single style.css update + release notes generation = daily limit exceeded. Work gets deferred to "Claude's partners" (euphemism for Gemini/ChatGPT) while credits regenerate.</p>
+
+<p>But Claude's documentation is unmatched. You're reading a gem that exists because Claude insisted every system decision be captured, versioned, and reproducible.</p>
+
+<h3>What the Knowledge Graph Actually Does</h3>
+
+<p>Beyond the origin story: this system solves a real product problem.</p>
+
+<figure class="wp-block-table is-style-stripes has-small-font-size">
+<table>
+<thead>
+    <tr>
+        <th>Feature</th>
+        <th>Traditional Blog Archive</th>
+        <th>Knowledge Graph</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td><strong>Primary Metric</strong></td>
+        <td>Recency (When published?)</td>
+        <td>Relevance (How does this connect?)</td>
+    </tr>
+    <tr>
+        <td><strong>Navigation</strong></td>
+        <td>Scroll chronologically</td>
+        <td>Filter by project/category/tag</td>
+    </tr>
+    <tr>
+        <td><strong>Visual Orientation</strong></td>
+        <td>List of titles + dates</td>
+        <td>Interactive graph showing relationships</td>
+    </tr>
+    <tr>
+        <td><strong>Entry Point UX</strong></td>
+        <td>"Here's a grid of cards, good luck"</td>
+        <td>"Here's the map, then the territory"</td>
+    </tr>
+    <tr>
+        <td><strong>Data Structure</strong></td>
+        <td>Flat (post = title + body)</td>
+        <td>Structured (post = node with metadata)</td>
+    </tr>
+    <tr>
+        <td><strong>Lifespan</strong></td>
+        <td>Decays over time (old = irrelevant)</td>
+        <td>Evergreen (updated via pipeline)</td>
+    </tr>
+</tbody>
+</table>
+<figcaption>Fig 2. Why topology beats chronology for technical knowledge.</figcaption>
+</figure>
+
+<h3>The Technical Implementation (For Developers)</h3>
+
+<p><strong>Data pipeline:</strong></p>
+<pre class="wp-block-code"><code>content_store.py (source of truth)
+  ↓
+publish_gem.py (Python → WordPress REST API)
+  ↓
+WordPress (presentation layer with custom post types)
+  ↓  
+st-card components (CSS Grid, BEM methodology)
+  ↓
+Archive pages (filterable by taxonomy)</code></pre>
+
+<p><strong>Graph generation:</strong></p>
+<pre class="wp-block-code"><code>import networkx as nx
+
+# Build graph from content store metadata
+G = nx.Graph()
+for gem in gems:
+    G.add_edge(gem['project'], gem['category'])
+    for tag in gem['tags']:
+        G.add_edge(gem['category'], tag)
+
+# Layout with spring algorithm
+pos = nx.spring_layout(G, k=0.6, iterations=50)
+
+# Export as SVG with Sugartown Pink color scheme
+# (Pink #FF69B4, Seafoam #2BD4AA, on Midnight #0D1226)</code></pre>
+
+<p><strong>Component architecture:</strong> Single <code>st-card</code> system with semantic variants, not context-specific duplicates. Uses CSS Grid for responsive layout (2-column homepage, 3-column archive). Taxonomy v4 governance (WordPress categories as single source of truth, secondary categories pushed to tags).</p>
+
+<h3>The Meta-Lesson (For Product Managers)</h3>
+
+<p>This project is a case study in AI-assisted development. Not "AI did it all" and not "AI was useless." Rather: AI as collaborative team with documented strengths and failure modes.</p>
+
+<p><strong>Lessons learned:</strong></p>
+<ul>
+    <li><strong>Use multiple agents strategically.</strong> Gemini for vision, ChatGPT for execution, Claude for governance. Don't expect one tool to be universally excellent.</li>
+    <li><strong>Document everything.</strong> When context degrades (and it will), comprehensive docs are the only bridge between sessions.</li>
+    <li><strong>Expect failure modes.</strong> Gemini forgets. ChatGPT duplicates. Claude over-documents and runs out of credits. Plan for it.</li>
+    <li><strong>PM holds the vision.</strong> Agents propose, PM decides. The Caucus doesn't run itself; I adjudicate every architectural conflict.</li>
+    <li><strong>Source control is non-negotiable.</strong> When ChatGPT creates a parallel theme or Gemini proposes breaking changes, Git is how you recover.</li>
+</ul>
+
+<h3>What You Can Do With This</h3>
+
+<p>If you're exploring this Knowledge Graph:</p>
+
+<ol>
+    <li><strong>Orient:</strong> Look at the visualization. See how projects cluster, how categories span, how tags create bridges.</li>
+    <li><strong>Filter:</strong> Click project badges on cards (e.g., "PROJ-001") to see all gems in that project.</li>
+    <li><strong>Explore:</strong> Click category labels or tag pills to pivot your view.</li>
+    <li><strong>Dive deep:</strong> Read individual gems for technical details, process insights, and meta-analysis.</li>
+</ol>
+
+<p>If you're a developer evaluating my work:</p>
+
+<ul>
+    <li>The graph source code is in the <code>sugartown-cms</code> repo under <code>scripts/viz_smart_graph.py</code></li>
+    <li>The card component system lives in <code>sugartown-pink/gem-archive-styles_v4.css</code></li>
+    <li>PRDs and architecture docs are in <code>sugartown-cms/docs/</code></li>
+    <li>All content is defined in <code>content_store.py</code> (2,300+ lines, and counting)</li>
+</ul>
+
+<p>If you're a recruiter wondering "what am I looking at?":</p>
+
+<blockquote class="wp-block-quote">
+<p>You're looking at a Product Manager who ships systems, not just specs. Someone who collaborates with AI strategically, documents comprehensively, and isn't afraid to rebuild when the architecture demands it. Someone whose "blog" is actually a data pipeline with a CSS Grid frontend.</p>
+</blockquote>
+
+<h3>Current Status & Roadmap</h3>
+
+<p><strong>Shipped:</strong></p>
+<ul>
+    <li>✅ Force-directed graph visualization (Python networkx → SVG)</li>
+    <li>✅ Unified card component system (st-card with semantic variants)</li>
+    <li>✅ Taxonomy v4 (WordPress categories as single source of truth)</li>
+    <li>✅ Archive pagination and filtering</li>
+</ul>
+
+<p><strong>In progress:</strong></p>
+<ul>
+    <li>🟡 Interactive graph with clickable nodes (SVG → JavaScript handlers)</li>
+    <li>🟡 Enhanced mobile responsiveness (touch-friendly filters)</li>
+    <li>🟡 Graph animation on page load (fade-in + spring physics)</li>
+</ul>
+
+<p><strong>Backlog:</strong></p>
+<ul>
+    <li>🔴 Search functionality (client-side fuzzy matching)</li>
+    <li>🔴 Graph legend and interaction hints</li>
+    <li>🔴 Export graph as PNG for presentations</li>
+</ul>
+
+<p>See <code>docs/knowledge-graph-project/knowledge_graph_improvement_plan.md</code> for detailed roadmap.</p>
+
+<h3>The Verdict</h3>
+
+<p>The Knowledge Graph exists because Gemini declared blogs obsolete, ChatGPT made it executable, and Claude made it maintainable.</p>
+
+<p>The Agentic Caucus isn't a metaphor. It's a <strong>methodology</strong>: systematic AI collaboration with documented failure modes, strategic tool selection, and a PM who holds the architectural vision while the agents propose, iterate, and occasionally contradict each other.</p>
+
+<p>The result is a system that's alive. Change one line in <code>content_store.py</code>, run the publish script, and the entire site updates—content, graph, archive pages, everything.</p>
+
+<p>The green checkmark in the terminal has become my favorite UI.</p>
+
+<hr class="wp-block-separator">
+
+<p><em><strong>Technical note:</strong> This gem is itself part of the Knowledge Graph. Its metadata (project, category, tags) feeds the visualization. The system documents itself. That's the point.</em></p>
+    """,
+    'meta': {
+        'gem_status': 'Active',
+        'gem_action_item': 'Complete interactive graph implementation',
+        'gem_related_project': 'PROJ-004'
+    }
+}
 
        # GEM XX: TEMPLATE 
 #    {

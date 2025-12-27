@@ -152,7 +152,7 @@ The script reads them to assign IDs.
 
 ### PROJ-001: Sugartown Headless CMS
 **Status:** Active  
-**Gems:** 14  
+**Gems:** 21  
 **Focus:** Content architecture, governance, Python automation
 
 ### PROJ-002: Resume Factory
@@ -163,32 +163,45 @@ The script reads them to assign IDs.
 
 ### PROJ-003: Atomic Design System (Pink)
 **Status:** Shipped  
-**Gems:** 1  
+**Gems:** 3  
 **Focus:** Sugartown Pink™ design tokens, CSS architecture
+**Next:** Design System framework in progress (see PRD in `docs/`)
 
 ### PROJ-004: Knowledge Graph Visualization
-**Status:** Planning  
-**Gems:** 2  
+**Status:** 🟡 Phase 1 Complete, Visualization Pending  
+**Gems:** 3  
 **Focus:** Interactive graph of gems by project/category/tag  
+**Shipped:** Landing page architecture, content model separation  
+**Next:** Force-directed graph visualization (v4.3)  
 **See:** `docs/knowledge-graph-project/`
 
 ---
 
-## 📊 Knowledge Graph Project (In Progress)
+## 📊 Knowledge Graph Project
 
 **Goal:** Transform static gem cards into interactive, filterable knowledge graph.
 
 **Planning Documents:**
 - `docs/knowledge-graph-project/knowledge_graph_improvement_plan.md` — Master plan
 - `docs/knowledge-graph-project/visualization_options_comparison.md` — Graph viz options
-- `docs/knowledge-graph-project/HOW_TO_RESUME_WITH_CLAUDE.md` — AI collaboration guide
 
-**Features:**
-1. Display Project ID + Name on gem cards
-2. Clickable project/category/tag filters → archive pages
-3. Dynamic force-directed graph visualization
+**Phase 1: Landing Page & Content Model (✅ Shipped v2025.12.24)**
+1. ✅ Migrated from generic CPT archive (`/gem/`) to intentional section landing (`/knowledge-graph/`)
+2. ✅ Established content model rule: narrative content lives as Gems, not templates
+3. ✅ Routing: `/knowledge-graph/` shows landing + grid; `?tag=X` shows filtered cards
+4. ✅ Fixed template integration (Block Theme parts render correctly in archive)
 
-**Status:** Planning phase (see docs for details)
+**Phase 2: Enhanced Filtering (Planned v4.3)**
+1. ⏳ Clickable project/category/tag filters on cards
+2. ⏳ Dynamic archive state updates without page reload
+3. ⏳ Filter persistence via URL parameters
+
+**Phase 3: Graph Visualization (Planned v4.3+)**
+1. ⏳ Force-directed graph layout (D3.js or Python → SVG)
+2. ⏳ Interactive node exploration
+3. ⏳ Visual relationship mapping (project ↔ gems ↔ tags)
+
+**Current Status:** Landing page architecture complete; visualization implementation deferred to v4.3
 
 ---
 

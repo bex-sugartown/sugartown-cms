@@ -1,5 +1,39 @@
 # Sugartown Release Notes
 
+## v2025.12.27: Taxonomy v4 + Interactive Filter System
+**Date:** 2025-12-27
+**Status:** 🟢 Production Stable
+**Scope:** Archive, Taxonomy, Publisher, Design System
+
+### 🎨 Design System
+* Refactored archive filters to use st-chip interactive primitives
+* Implemented floating multi-column dropdowns for Topic filtering
+* Normalized mobile filter behavior (full-width overlay, single column)
+* Created st-label primitive for consistent metadata typography
+* Deprecated kg-filter-bar__label and uppercase filter labels
+* Implemented st-chip-row utility for uniform chip layouts
+* Converted Hero "Start Here" links to st-chip components
+* Aligned filter bar and hero elements with 800px content container
+* CSS Grid refactoring for st-card header: baseline-aligned eyebrow and badge positioning
+* Archive footer layout: two-column design (action left, date right) in archive context
+* Mobile footer: vertical stack with right-aligned date
+
+### ⚙️ CMS / Architecture
+* Taxonomy v4 migration complete: WordPress categories now single source of truth, eliminated gem_category meta field duplication
+* Content store: converted 24/24 gems from plural categories to singular category format
+* Publisher v4.1: dynamic category ID lookup replaces hardcoded mappings, auto-creates missing categories
+* Archive query hygiene: unified WP_Query for rendering and counting, fixed pagination accuracy
+* Removed gem_category from functions.php registration and archive template queries
+* Deleted archive-gem-filter.js (server-side filtering only via WP_Query)
+
+### 🧩 Layout & Stability Fixes
+* Archive result counter: "Showing X-Y of Z gems" now reflects actual filtered results
+* Removed duplicate gem count display from JavaScript filter
+* Category subtitles now clickable for filtering by category
+* Character encoding fixes throughout (em-dashes, bullets, checkmarks, emojis)
+
+---
+
 ## v2025.12.24: Knowledge Graph Landing Page + Template Integration
 **Date:** 2025-12-24  
 **Status:** 🟢 Production Stable  
