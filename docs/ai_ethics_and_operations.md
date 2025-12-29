@@ -15,7 +15,7 @@ AI is a tool, not a teammate. Humans stay accountable. Transparency beats magic.
 
 ## Table of Contents
 
-- [AI Ethics \& Operations (A.K.A. How Not To Build Skynet)](#ai-ethics--operations-aka-how-not-to-build-skynet)
+- [AI Ethics & Operations (A.K.A. How Not To Build Skynet)](#ai-ethics-operations-aka-how-not-to-build-skynet)
   - [TL;DR (The 30-Second Version)](#tldr-the-30-second-version)
   - [Table of Contents](#table-of-contents)
   - [What This Is (And Isn't)](#what-this-is-and-isnt)
