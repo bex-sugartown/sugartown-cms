@@ -40,14 +40,18 @@ def convert_markdown_to_html(markdown_text):
     code_language = ''
     list_stack = []  # Track nested list levels
     metadata_buffer = []  # Buffer for metadata lines
+    metadata_buffer_closed = False  # Track if metadata section has ended
     
     for i, line in enumerate(lines):
         # Code blocks
         if line.startswith('```'):
             # Flush any metadata buffer
             if metadata_buffer:
-                html_lines.append('<p>' + '<br>\n'.join(metadata_buffer) + '</p>')
+                html_lines.append('<dl class="st-metadata">')
+                html_lines.extend(metadata_buffer)
+                html_lines.append('</dl>')
                 metadata_buffer = []
+                metadata_buffer_closed = True
             
             if in_code_block:
                 html_lines.append('</code></pre>')
@@ -63,15 +67,21 @@ def convert_markdown_to_html(markdown_text):
             continue
         
         # Detect metadata block (lines starting with **Key:** value)
+        # Continue until we hit horizontal rule or other content
         metadata_match = re.match(r'^\*\*([^:]+):\*\*\s+(.+)$', line)
-        if metadata_match and i < 5:  # Only first 5 lines can be metadata
-            metadata_buffer.append(f'<strong>{metadata_match.group(1)}:</strong> {convert_inline_markdown(metadata_match.group(2))}')
+        if metadata_match and not metadata_buffer_closed:
+            key = metadata_match.group(1)
+            value = convert_inline_markdown(metadata_match.group(2))
+            metadata_buffer.append(f'<dt>{key}</dt><dd>{value}</dd>')
             continue
         
-        # Flush metadata buffer if we hit non-metadata content
-        if metadata_buffer:
-            html_lines.append('<p class="st-metadata">' + '<br>\n'.join(metadata_buffer) + '</p>')
+        # Flush metadata buffer if we hit non-metadata content or horizontal rule
+        if metadata_buffer and (line.strip() == '---' or (line.strip() and not metadata_match)):
+            html_lines.append('<dl class="st-metadata">')
+            html_lines.extend(metadata_buffer)
+            html_lines.append('</dl>')
             metadata_buffer = []
+            metadata_buffer_closed = True  # Don't capture any more metadata
         
         # Calculate indentation level for nested lists
         indent_match = re.match(r'^(\s*)', line)
@@ -178,17 +188,18 @@ def fetch_github_markdown(repo, file_path):
 def publish_to_wordpress(html_content, page_slug='ai-ethics'):
     """Publish or update WordPress page"""
     
-    # Add Sugartown styling wrapper (hide WP page title since we use markdown H1)
+    # Wrap in Sugartown components with CSS to hide WP auto-title
     styled_html = f'''
 <style>
-    /* Hide WordPress auto-generated page title when this content exists */
-    body:has(.st-ethics-page) h1.wp-block-post-title {{
-        display: none !important;
-    }}
+  /* Hide WordPress auto-generated page title */
+  .entry-title,
+  .wp-block-post-title {{
+    display: none !important;
+  }}
 </style>
-<div class="st-ethics-page st-github-content">
+<div class="st-content-constrained st-prose">
     {html_content}
-    <footer class="st-ethics-footer">
+    <footer class="st-content-footer">
         <p><em>Last synced from GitHub: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</em></p>
         <p><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/ai_ethics_and_operations.md" target="_blank">View source on GitHub</a></p>
     </footer>
