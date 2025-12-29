@@ -63,7 +63,7 @@ Here's how that works.
 - **A promise that we're perfect** (we are not)
 - **Permission to be reckless if you follow the rules** (rules ≠ ethics autopilot)
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -75,7 +75,7 @@ AI can suggest, draft, summarize, remix, and hallucinate politely. Humans own de
 
 **In practice:** Every published node has a human author. Every deployment has a human who clicked "merge." Every user-facing decision traces back to a name, not a model version.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -85,7 +85,7 @@ Use AI because it reduces toil, improves clarity, or unlocks creativity—not be
 
 **In practice:** If you're using AI to solve a problem that `grep` handles in 3 seconds, you're cosplaying innovation.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -95,7 +95,7 @@ People should know when AI is involved, at least at a conceptual level. You don'
 
 **In practice:** If AI writes a draft, we say "drafted with AI, edited by human." If AI generates an image, alt text says so. No sock puppets.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -112,7 +112,7 @@ If you wouldn't paste it into a public doc, don't feed it to a model.
 
 **In practice:** Client work stays in client contexts. Personal data never trains models. Scraped content gets side-eyed before use.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -122,7 +122,7 @@ AI reflects the internet, history, and power structures—none of which are neut
 
 **In practice:** Test outputs with diverse inputs. Challenge assumptions. If a model's answer feels *off*, trust your instincts and dig deeper.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -144,7 +144,7 @@ Treat it like a very fast intern with perfect recall, zero lived experience, and
 
 **In practice:** AI can draft the spec. Humans decide if it ships. AI can suggest copy. Humans verify it's not confidently wrong.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -159,7 +159,7 @@ No silent automation cliffs. No "oops, the model decided" moments.
 
 **In practice:** Every automated publish has a rollback mechanism. Every AI-generated output has a human checkpoint. Logs capture everything.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -171,7 +171,7 @@ Logs, versioning, audits, prompts-as-artifacts, and clear ownership are not bure
 
 **In practice:** Prompts live in version control. API calls log to structured storage. Every node has a creation timestamp and authorship trail.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -186,7 +186,7 @@ Just don't confuse play with truth or fiction with policy.
 
 **In practice:** AI-generated mockups, diagrams, and concept art? Great. AI-generated legal advice, financial projections, or hiring decisions? Absolutely not.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -196,7 +196,7 @@ Responsible AI is not a checkbox. Models change. Context changes. Stakes change.
 
 **In practice:** This page gets reviewed every 6 months. Principles update when failures teach us something. The changelog is public.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -206,7 +206,7 @@ If AI helps write, design, or code something, that's collaboration—not plagiar
 
 **In practice:** Claude gets credit in project docs. AI-generated images cite the model. If something feels too polished to be original, we verify sources before publishing.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -216,7 +216,7 @@ Every API call burns electricity. Every training run has a footprint. Use AI whe
 
 **In practice:** Use cached results when possible. Don't regenerate content unnecessarily. Batch API calls. Choose smaller models when they suffice.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -232,7 +232,7 @@ AI will fail. Models will hallucinate. Bias will surface. When that happens:
 
 **Escalation path:** Issues go to [contact bex](https://sugartown.io/contact/). Critical failures pause all automated systems until root cause analysis completes.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -251,7 +251,7 @@ If AI generates content, it must:
 
 **In practice:** AI-generated images include descriptive alt text. Code snippets include ARIA labels. Content follows semantic heading hierarchy. Automated checks run before publish.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -293,7 +293,7 @@ These are widely accepted, boring-in-the-best-way references:
 - **Creative Commons – AI & Licensing Considerations:** What copyright means when machines do the remixing.  
   [https://creativecommons.org/ai/](https://creativecommons.org/ai/)
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -307,7 +307,7 @@ Just don't let them run payroll, justice, hiring decisions, or prod deploys unsu
 
 And if something breaks? A human apologizes. Not a model.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
 
@@ -329,6 +329,6 @@ And if something breaks? A human apologizes. Not a model.
 
 **Rationale:** Formalized existing practices into documented policy. Sugartown.io has been operating under these principles implicitly; this makes them explicit and auditable.
 
-[↑ Back to top](#ai-ethics--operations-aka-how-not-to-build-skynet)
+[↑ Back to top](#ai-ethics-operations-aka-how-not-to-build-skynet)
 
 ---
