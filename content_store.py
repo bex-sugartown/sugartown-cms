@@ -30,6 +30,7 @@ def normalize_taxonomy(gem):
     # Pick primary category (most specific wins)
     priority = [
         'Engineering & DX',
+        'AI & Automation',
         'Design Systems',
         'Product Ops',
         'Process Insight',
@@ -1274,7 +1275,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             'id': 1397,
             'title': "Confession: I Don't Lack Memory, I Just Forgot to Mention Projects",
             'status': 'publish',  
-            'category': 'AI and Automation',
+            'category': 'AI & Automation',
             'tags': ['claude','ai hallucinations', 'slop', 'claude', 'ai limitations', 'documentation', 'irony', 'product discovery', 'ux', 'ai workflows'],
             'content': """
             <h2>The Great Over-Documentation Incident of December 2025</h2>
@@ -1714,7 +1715,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 
     # GEM 27: The Scope Creep Origin Story
 {
-    'id': 1551,  # assign next available ID
+    'id': 1551,  
     'title': 'This Knowledge Graph Origin Story',
     'status': 'publish',
     'category': 'Ways of Working',  # single category
@@ -1810,7 +1811,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 
 # GEM 30: The Great Versioning Reconciliation
 {
-    'id': 0,  
+    'id': 1569,  
     'title': 'The Great Versioning Reconciliation',
     'status': 'publish',
     'category': 'Governance',
@@ -2096,7 +2097,7 @@ Do others depend on this?
 
 # GEM 32: Knowledge Graph Introduction
 {
-    #'id': 1295,  # Assign next available ID
+    'id': 1570,  
     'title': 'Project: Knowledge Graph — Topology Over Chronology',
     'status': 'publish',
     'category': 'AI & Automation',
@@ -2110,7 +2111,8 @@ Do others depend on this?
         'AI collaboration',
         'Sugartown',
         'system',
-        'claude'
+        'claude',
+        "agentic caucus"
     ],
     'content': """
 <p>The Knowledge Graph is what happens when you ask an AI to write a blog post and it declares, instead, that <strong>blogs are blobs and you need a headless CMS with semantic data architecture</strong>.</p>
@@ -2138,7 +2140,7 @@ Do others depend on this?
 
 <h3>Why It Exists (The Directive That Started Everything)</h3>
 
-<p>In November 2024, I asked the newly released Gemini 3 a simple question:</p>
+<p>In November 2025, I asked the newly released Gemini 3 a simple question:</p>
 
 <blockquote class="wp-block-quote">
 <p><strong>Me:</strong> "Write a blog post comparing Google account types that allow access to the update."</p>
