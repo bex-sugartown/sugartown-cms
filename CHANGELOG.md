@@ -1,5 +1,27 @@
 # Sugartown Release Notes
 
+## v2025.12.29: AI Governance + Design System Foundations
+**Date:** 2025-12-29  
+**Status:** 🟢 Production Stable  
+**Scope:** Design System, Governance, Documentation
+
+### 🎨 Design System
+* Moved base HTML element styles to global scope
+* Introduced semantic content utilities and layout components
+* Standardized class and token namespaces to st-*
+* Defined three-tier design token system with brand colors, spacing, and typography
+
+### ⚙️ CMS / Architecture
+* Updated AI Ethics page rendering and metadata structure
+* Improved publisher metadata capture and semantic output
+
+### 📘 Governance & Documentation
+* Published AI Ethics & Operations policy
+* Published design system ruleset and implementation guides
+* Published AI prompt templates, deployment checklist, and reference documentation
+
+---
+
 ## v2025.12.27: Taxonomy v4 + Interactive Filter System
 **Date:** 2025-12-27
 **Status:** 🟢 Production Stable

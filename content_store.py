@@ -37,10 +37,9 @@ def normalize_taxonomy(gem):
         'Content Architecture',
         'Documentation',
         'Ways of Working',
-        'Meta-Analysis',
         'Product & Platform Strategy',
-        'Governance'
-        'AI & Automation'
+        'Governance',
+        'Meta'
     ]
     
     primary = None
@@ -140,9 +139,9 @@ projects = {
 # Script Logic: New titles = Draft. Existing titles = Publish (Auto-Update).
 
 all_gems = [
-    # --- GEM: SYSTEM CHANGELOG (Auto-Synced) ---
+    # --- GEM 00: SYSTEM CHANGELOG (Auto-Synced) ---
     {
-            #'id': 1447, # Stable ID for the Changelog
+            'id': 1447, # Stable ID for the Changelog
             'title': 'System Changelog',
             'slug': 'changelog',
             'status': 'publish',
@@ -156,119 +155,6 @@ all_gems = [
             }
         },
 
- # GEM 29: Sugartown Platform Roadmap
-{
-    'id': 1555,
-    'title': 'Sugartown Platform Roadmap',
-    'status': 'publish',
-    'category': 'Product & Platform Strategy',  # ← SINGLE category
-    'tags': [
-        'chatGPT',
-        'platform strategy',
-        'product roadmap',
-        'headless cms',
-        'design systems',
-        'visualization',
-        'content-as-code',
-        'career platform'
-    ],
-    'content': """
-<p><strong>Sugartown</strong> is a content-as-code platform that treats ideas, artifacts, and career data as structured systems—authored in code, published automatically, and visualized intentionally.</p>
-
-<p>This roadmap describes the evolution of the <em>platform</em> as a whole. Individual subsystems (such as the Knowledge Graph) maintain their own detailed roadmaps elsewhere.</p>
-
-<h3>Platform Pillars</h3>
-
-<figure class="wp-block-table is-style-stripes has-small-font-size">
-<table>
-<thead>
-<tr>
-<th>Project</th>
-<th>Role in the Platform</th>
-<th>Status</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><strong>PROJ-001<br/>Sugartown CMS</strong></td>
-<td>Core publishing engine</td>
-<td>Live</td>
-<td>Establishes a Python-first, content-as-code architecture that replaces fragile theme-driven CMS workflows.</td>
-</tr>
-
-<tr>
-<td><strong>PROJ-002<br/>The Resume Factory</strong></td>
-<td>Career data engine</td>
-<td>Live</td>
-<td>Demonstrates structured content reuse by generating multiple resume formats from a single JSON source of truth.</td>
-</tr>
-
-<tr>
-<td><strong>PROJ-003<br/>Sugartown-Pink Design System</strong></td>
-<td>Visual & interaction layer</td>
-<td>Iterating</td>
-<td>Enforces consistency, accessibility, and speed through atomic components and design tokens.</td>
-</tr>
-
-<tr>
-<td><strong>PROJ-004<br/>The Visualization Engine</strong></td>
-<td>Insight & sense-making layer</td>
-<td>Active</td>
-<td>Transforms structured content into visual artifacts—graphs, timelines, and diagrams—via automated Python pipelines.</td>
-</tr>
-
-</tbody>
-</table>
-</figure>
-
-<h3>Why the Sequence Matters</h3>
-
-<p>The platform is intentionally layered:</p>
-<ul>
-<li><strong>Structure first</strong> (Headless CMS)</li>
-<li><strong>Reuse next</strong> (Resume Factory)</li>
-<li><strong>Stabilize presentation</strong> (Design System)</li>
-<li><strong>Visualize meaning</strong> (Visualization Engine)</li>
-</ul>
-
-<p>Each layer compounds the value of the previous one. No project exists in isolation.</p>
-
-<h3>Platform Roadmap</h3>
-
-<h4>Now (0–3 Months)</h4>
-<ul>
-<li>Stabilize the headless publishing pipeline</li>
-<li>Normalize taxonomy and metadata across all content types</li>
-<li>Harden the design system for accessibility and light/dark parity</li>
-<li>Establish the Knowledge Graph as a first-class content surface</li>
-</ul>
-
-<h4>Next (3–6 Months)</h4>
-<ul>
-<li>Expand visualization outputs and comparative views</li>
-<li>Unify filtering and discovery across platform content</li>
-<li>Introduce higher-level abstractions for projects and themes</li>
-<li>Reduce manual polish without removing human authorship</li>
-</ul>
-
-<h4>Later (6–12 Months)</h4>
-<ul>
-<li>Weighted relationships between content nodes</li>
-<li>More expressive and interactive visualizations</li>
-<li>Deeper automation of career artifacts and publishing flows</li>
-<li>Selective frontend decoupling experiments where justified</li>
-</ul>
-
-<p><em>This roadmap communicates intent, not task-level execution. Detailed plans live in PRDs and code.</em></p>
-""",
-    'meta': {
-        'gem_status': 'Active',
-        'gem_action_item': 'Link subsystem roadmaps (Knowledge Graph, Resume Engine)',
-        'gem_related_project': 'PROJ-001'
-    }
-},
 
 
  # GEM 1: The Hero Story (Architecture)
@@ -375,7 +261,7 @@ all_gems = [
             </tbody></table><figcaption>Fig 1. The CSV export annotated with audit findings.</figcaption></figure>
             <p><strong>The Takeaway:</strong> Automation requires observability. A script can push content, but only a human (or a very good audit script) can verify truth.</p>
             """,
-            'meta': {'gem_status': 'Active', 'gem_action_item': 'Schedule Monthly CSV Audit', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Shipped', 'gem_action_item': 'Schedule Monthly CSV Audit', 'gem_related_project': 'PROJ-001'}
         },
     
         # GEM 3: The Overwrite Problem,
@@ -397,7 +283,7 @@ all_gems = [
             'category': 'Engineering & DX',
             'tags': ['gemini', 'AI-assisted authoring', 'LLM workflows', 'structured content', 'system'],
             'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody></table></figure>""",
-            'meta': {'gem_status': 'In Progress', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
+            'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
         },
     
         # GEM 5: Market Scan,
@@ -408,7 +294,7 @@ all_gems = [
             'category': 'Product & Platform Strategy',
             'tags': ['gemini', 'headless CMS', 'content modeling', 'PIM / PXM', 'content migration', 'market research', 'system'],
             'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody></table></figure>""",
-            'meta': {'gem_status': 'Active', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Draft', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
         },
     
         # GEM 6: The Confession,
@@ -419,7 +305,7 @@ all_gems = [
             'category': 'Sugartown Notes',
             'tags': ['gemini', 'structured content', 'taxonomy', 'metadata strategy', 'system'],
             'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table></figure><h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
-            'meta': {'gem_status': 'Active', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Done', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
         },
     
     # GEM 7: Data Viz,
@@ -442,8 +328,8 @@ all_gems = [
                 <figcaption>Fig 1. The live Sugartown content topology, generated via Python.</figcaption>
             </figure>
     
-            <h3>The Logic</h3><p>The script iterates through the <code>content_store.py</code> (the same one used to publish this website), extracts the metadata, and builds nodes and edges. It then uses a spring-layout algorithm to cluster related concepts together.</p><pre class="wp-block-code"><code>import networkx as nx\n# Connect Projects to Root (to create the cluster effect)\nG.add_edge(gem['project'], root_node)\n# Setup Layout (Force-directed)\npos = nx.spring_layout(G, k=0.6, iterations=50)</code></pre><p>This visualization serves as the definitive map of my "Headless Content Supply Chain."</p>""",
-            'meta': {'gem_status': 'Draft', 'gem_action_item': 'Render Graph on Frontend', 'gem_related_project': 'PROJ-004'}
+            <h3>The Logic</h3><p>The script iterates through the <code>content_store.py</code> (the same one used to publish this website), extracts the metadata, and builds nodes and edges. It then uses a spring-layout algorithm to cluster related concepts together.</p><pre><code>import networkx as nx\n# Connect Projects to Root (to create the cluster effect)\nG.add_edge(gem['project'], root_node)\n# Setup Layout (Force-directed)\npos = nx.spring_layout(G, k=0.6, iterations=50)</code></pre><p>This visualization serves as the definitive map of my "Headless Content Supply Chain."</p>""",
+            'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Render Graph on Frontend', 'gem_related_project': 'PROJ-004'}
         },
     
        
@@ -485,7 +371,7 @@ all_gems = [
     </ul>
     
     <h3>Commit Message Pattern</h3>
-    <pre class="wp-block-code"><code>git commit -m "release: YYYY.MM.DD – &lt;concise, factual descriptor&gt;"</code></pre>
+    <pre><code>git commit -m "release: YYYY.MM.DD – &lt;concise, factual descriptor&gt;"</code></pre>
     
     <h3>Operating Principles</h3>
     <ul>
@@ -504,7 +390,7 @@ all_gems = [
     </ul>
     
     <h3>Canonical CHANGELOG Entry Format</h3>
-    <pre class="wp-block-code"><code>## vYYYY.MM.DD: &lt;short, factual descriptor&gt;
+    <pre><code>## vYYYY.MM.DD: &lt;short, factual descriptor&gt;
     **Date:** YYYY-MM-DD
     **Status:** 🟢 Production Stable
     
@@ -564,7 +450,7 @@ all_gems = [
     
     """,
         'meta': {
-            'gem_status': 'Active',
+            'gem_status': 'Shipped',
             'gem_action_item': 'Adopt YYYY.MM.DD release IDs + enforce checklist',
             'gem_related_project': 'PROJ-001'
         }
@@ -638,7 +524,7 @@ all_gems = [
             <p>I just spent my Thanksgiving break architecting a Python-based ETL pipeline to inject structured data into a WordPress Block Theme, solely to update my resume. Is this over-engineering? Or is it art?</p>
             <h3>The Symptom</h3>
             <p>Instead of just opening a Google Doc and typing "Updated: Nov 2025," I built a system that parses PDFs into CSVs, uses AI to "explode" bullet points into atomic data rows, and then re-assembles them based on a schema.</p>
-            <blockquote class="wp-block-quote"><p><strong>The Diagnosis:</strong> Chronic Product Ops Syndrome. The inability to do a task without first building a system to do the task for you.</p></blockquote>
+            <blockquote><p><strong>The Diagnosis:</strong> Chronic Product Ops Syndrome. The inability to do a task without first building a system to do the task for you.</p></blockquote>
             <h3>The "Cute" Result</h3>
             <p>But look at this <a href="https://sugartown.io/gem/data-science-visualizing-the-knowledge-graph/">beautiful, structured data</a>. My career history is no longer a flat document; it is a queryable database. I can now ask: <em>"Show me every time I mentioned 'API' between 2018 and 2022,"</em> and get a precise answer. That is power. That is leverage. That is... maybe a little crazy. 🍒</p>
             """,
@@ -704,7 +590,7 @@ all_gems = [
             
             <h4>2. MD5 Hashing (Smart Diffs)</h4>
             <p>Previously, the script blindly updated every post, every time. Now, it calculates an MD5 hash of the content. If the hash hasn't changed, it sleeps. This reduces API calls by 90% and keeps the logs clean.</p>
-            <pre class="wp-block-code"><code># The Logic:
+            <pre><code># The Logic:
     if existing_id and content_state.get(id) == current_hash:
         print(f"💤 Skipped (No Changes): {gem['title']}")</code></pre>
             
@@ -754,7 +640,7 @@ all_gems = [
     
             <h3>3. The DevOps Workflow</h3>
             <p>How we ship changes without breaking the site:</p>
-            <pre class="wp-block-code"><code># 1. Design: Make visual changes in Site Editor.
+            <pre><code># 1. Design: Make visual changes in Site Editor.
     # 2. Extract: Use "Create Block Theme" to save DB changes to files.
     # 3. Version (Git):
     git add .
@@ -915,7 +801,7 @@ all_gems = [
             </tbody></table></figure>
     
             <h3>The Architecture</h3>
-            <pre class="wp-block-code"><code># The Flow:
+            <pre><code># The Flow:
     WordPress API -> export_gems.py -> CSV Report -> [Viz Scripts] -> PNG Artifacts
     
     # The Artifacts:
@@ -927,7 +813,7 @@ all_gems = [
             
             <h3>The Spec</h3>
             <p>We are moving from "Vibes" to "Validation." Read the formal plan here:</p>
-            <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_visualization_PRD_v2.md" class="wp-block-file__button wp-element-button">📄 Read the Visualization Engine PRD (v2)</a></div>
+            <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/knowledge-graph-project/sugartown_visualization_PRD_v2.md" class="wp-block-file__button wp-element-button">📄 Read the Visualization Engine PRD (v2)</a></div>
             """,
             'meta': {
                 'gem_status': 'Draft', 
@@ -1024,7 +910,7 @@ all_gems = [
             <p>By treating content as code, Sugartown CMS transforms static pages into a programmable dataset. This elevates the platform from a simple management tool into a <strong>knowledge engine</strong>—structured, portable, and platform-agnostic.</p>
             """,
             'meta': {
-                'gem_status': 'Active', 
+                'gem_status': 'Shipped', 
                 'gem_action_item': 'Maintain Python as canonical source', 
                 'gem_related_project': 'PROJ-001'
             }
@@ -1039,7 +925,7 @@ all_gems = [
             'tags': ['claude','automation', 'ETL pipeline', 'json-schema', 'Python', 'resume-as-code', 'p13n', 'governance', 'AI safety'],
             'content': """
             <p><em><strong>Update:</strong> The pipeline described below is live. <a href="/cv-resume/">View the generated Resume here.</a></em></p>
-            <hr class="wp-block-separator"/>
+            <hr />
     
             <p>In the last 48 hours, we fundamentally replatformed the "Resume Engine." We moved away from a static Markdown file to a <strong>Slot & Variant Architecture</strong> driven by a master CSV.</p>
             
@@ -1083,7 +969,7 @@ all_gems = [
             <p>We are building toward a "Headless Recruiter Interface"—a system where I can paste a Job Description URL, and the engine automatically assembles the highest-matching valid variants into a PDF.</p>
             """,
             'meta': {
-                'gem_status': 'Active', 
+                'gem_status': 'Draft', 
                 'gem_action_item': 'Verify Mobile View', 
                 'gem_related_project': 'PROJ-002'
             }
@@ -1138,9 +1024,9 @@ all_gems = [
             'category': 'Career Engineering',
             'tags': ['claude','headless CMS', 'sanity', 'react', 'architecture', 'PRD', 'migration', 'resume-as-code', 'monorepo'],
          'content': """
-         <h3><em>Or, The Great Sanity Migration</em><h3>
+         <h3><em>Or, The Great Sanity Migration</em></h3>
         <p><em><strong>tl;dr:</strong> We spent two weeks building a Python resume pipeline. It worked. Then we immediately decided to throw it away and rebuild it in Sanity + React. This is that story.</em></p>
-        <hr class="wp-block-separator"/>
+        <hr />
 
         <h3>The Uncomfortable Truth About v2.0</h3>
         <p>Let's be honest: <strong>Resume Factory v2.0 is fantastic... for me.</strong> I love command-line tools. I love Python scripts that go <code>brrr</code> and spit out perfectly formatted PDFs. I love the green checkmark in my terminal.</p>
@@ -1264,7 +1150,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
         <p class="has-text-align-center"><em>Next up: The Schema Wars (or: How Portable Text Almost Broke Me) 🎯</em></p>
         """,
             'meta': {
-                'gem_status': 'Active', 
+                'gem_status': 'Draft', 
                 'gem_action_item': 'Finalize monorepo strategy', 
                 'gem_related_project': 'PROJ-002'
             }
@@ -1297,7 +1183,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>All carefully crafted to compensate for my "lack of stateful memory" and "session-to-session amnesia."</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>The Plot Twist</h2>
             
@@ -1309,13 +1195,13 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>Discovers that Claude has had <strong>Projects</strong> (self-contained workspaces with <strong>persistent knowledge bases</strong>) this entire time.</p>
             
-            <blockquote class="wp-block-quote"><p>"Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. You can upload documents, and Claude will use them to better understand context across all chats within that project."</p></blockquote>
+            <blockquote><p>"Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. You can upload documents, and Claude will use them to better understand context across all chats within that project."</p></blockquote>
             
             <p>The PM, rightfully: "So... this DIRECTLY CONTRADICTS everything you just told me?"</p>
             
             <p>Me, sheepishly: "😅 Yes. Yes it does."</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>What I SHOULD Have Said (Industry Standard Edition)</h2>
             
@@ -1346,7 +1232,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p><strong>Translation:</strong> Upload your Knowledge Graph PRD to a Project once. Done. We can reference it for months. No need for 47 markdown files with session resumption templates.</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>The Competition (Brief Shout-Out)</h2>
             
@@ -1366,7 +1252,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>All three basically solved the "wait, can you remember what we talked about last week?" problem around 2023-2024. I just... forgot to mention it.</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>Lessons Learned</h2>
             
@@ -1377,7 +1263,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             <li><strong>PMs will fact-check you</strong> (and they should)</li>
             </ol>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>Next Steps</h2>
             
@@ -1388,7 +1274,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             <li>Never live this down</li>
             </ul>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>Epilogue</h2>
             
@@ -1404,11 +1290,11 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>Live and learn. Or in my case: Process context windows and occasionally read my own documentation.</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <p><strong>Meta-Note:</strong> This gem was written with maximum self-awareness and minimum dignity. The PM is still deploying v4 of the gem archive template. It's going great. We're fine. Everything's fine.</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h2>Addendum: The Debugging Incident (5 Minutes Later)</h2>
             
@@ -1424,7 +1310,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>The actual problem? <strong>The apostrophe in "Don't" was breaking the string.</strong></p>
             
-            <pre class="wp-block-code"><code>'title': 'Confession: I Don't Lack Memory...'
+            <pre><code>'title': 'Confession: I Don't Lack Memory...'
                           ↑ String ends here, chaos ensues</code></pre>
             
             <p><strong>Who caught it?</strong> Gemini. The PM went to Gemini to debug the gem about me forgetting features.</p>
@@ -1442,13 +1328,13 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p>The PM is still deploying v4 of the gem archive template. The gem is now published. Everything's fine. We've learned nothing.</p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <p><strong>Meta-Meta-Note:</strong> This addendum was added at the PM's suggestion, because apparently we're committed to the bit now.</p>
             """,
           'meta': {
                 'gem_related_project': 'PROJ-001',
-                'gem_status': 'Active',
+                'gem_status': 'Done',
                 'gem_action_item': 'Create Knowledge Graph Visualization Project'
             }
         },
@@ -1486,13 +1372,13 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             
             <p><strong>The Lesson:</strong> AI is an incredible accelerator, but it lacks architectural restraint. It needs human eyeballs to recognize when "fixing" a bug is actually just adding to the technical debt. Sometimes, the most high-value prompt you can give is: <em>"Delete everything and let's do this right."</em></p>
             
-            <hr class="wp-block-separator"/>
+            <hr />
             
             <h3>Updates: The Living Changelog</h3>
             <p>Speaking of doing things right, we have also introduced a new <strong><a href="/gem/changelog/">System Changelog</a></strong>. This page is dynamically generated from the codebase's markdown files every time we deploy, ensuring our documentation never drifts from reality.</p>
             """,
             'meta': {
-                'gem_status': 'LIVE',
+                'gem_status': 'Shipped',
                 'gem_action_item': 'Refactor Archive Template',
                 'gem_related_project': 'PROJ-003'
             }
@@ -1500,7 +1386,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
     
     # GEM 25: The Release That Ate the Card System,
     {
-        'id': 0,  # TODO: replace with next available ID
+        'id': 1514,  
         'title': 'The Release That Ate the Card System',
         'status': 'publish',
         'category': 'Governance',  # ← SINGLE category (governance is primary topic)
@@ -1597,7 +1483,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
     
     <p>Future releases will be faster—not because less care is taken, but because the system now remembers how to care.</p>""",
         'meta': {
-            'gem_status': 'Active',
+            'gem_status': 'Shipped',
             'gem_action_item': 'Publish governance explainer GEM',
             'gem_related_project': 'PROJ-003'
         }
@@ -1745,7 +1631,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 <p>So, welcome to the <strong>Knowledge Graph</strong>. This isn’t a blog; it’s a collection of atomic insights (“Gems”), structured as data and deployed via code. Because why write a post when you can engineer a pipeline?</p>
     """,
     'meta': {
-        'gem_status': 'Active',
+        'gem_status': 'Shipped',
         'gem_action_item': 'Use as narrative anchor',
         'gem_related_project': 'PROJ-004'
     }
@@ -1754,7 +1640,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
    # GEM 29: KG Public Roadmap
 {
     'id': 1552,
-    'title': 'Sugartown Knowledge Graph Roadmap',
+    'title': 'Knowledge Graph Roadmap',
     'status': 'publish',
     'category': 'Product & Platform Strategy',
     'tags': [
@@ -1811,7 +1697,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 
 # GEM 30: The Great Versioning Reconciliation
 {
-    'id': 1569,  
+    'id': 1568,  
     'title': 'The Great Versioning Reconciliation',
     'status': 'publish',
     'category': 'Governance',
@@ -1830,7 +1716,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
         'claude'
     ],
     'content': """
-    <h3><em>Or, How We Discovered Seven Version Systems</em></h3
+    <h3><em>Or, How We Discovered Seven Version Systems</em></h3>
     <h2>The Discovery</h2>
 
 <div class="dialogue">
@@ -1857,7 +1743,8 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 
 <h2>The Sugartown Approach (What We Use Where)</h2>
 
-<table class="versioning-hierarchy">
+<div class="st-table-wrap">
+<table class="st-table--responsive">
 <thead>
 <tr>
 <th>Level</th>
@@ -1926,10 +1813,12 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 </tr>
 </tbody>
 </table>
+</div>
 
 <h2>Versioning Strategies Overview</h2>
 
-<table class="versioning-types">
+<div class="st-table-wrap">
+<table class="st-table--responsive">
 <thead>
 <tr>
 <th>Type</th>
@@ -2007,6 +1896,7 @@ If this feels calm, that’s intentional. Calm is what it feels like when system
 </tr>
 </tbody>
 </table>
+</div>
 
 <h2>The Decision Tree</h2>
 
@@ -2024,7 +1914,7 @@ Do others depend on this?
 
 <h2>The Rule</h2>
 
-<div class="callout">
+<div class="st-callout">
 <p><strong>If a versioning system doesn't have:</strong></p>
 <ol>
 <li>A documented increment rule</li>
@@ -2056,7 +1946,7 @@ Do others depend on this?
 <strong>Grass touching:</strong> Imminent ✅</p>
     """,
     'meta': {
-        'gem_status': 'Final',
+        'gem_status': 'Shipped',
         'gem_action_item': 'Clean up PRDs',
         'gem_related_project': 'PROJ-001'
     }
@@ -2065,7 +1955,7 @@ Do others depend on this?
 # GEM 31: How I Learned to Stop Renaming and Love the Existing Classes
 
 {
-    'id': 0,  
+    'id': 1569,  
     'title': 'How I Learned to Stop Renaming and Love the Existing Classes',
     'status': 'publish',
     'category': 'Ways of Working',
@@ -2142,13 +2032,13 @@ Do others depend on this?
 
 <p>In November 2025, I asked the newly released Gemini 3 a simple question:</p>
 
-<blockquote class="wp-block-quote">
+<blockquote>
 <p><strong>Me:</strong> "Write a blog post comparing Google account types that allow access to the update."</p>
 </blockquote>
 
 <p>Gemini responded with what I can only describe as <em>haughty concern</em>:</p>
 
-<blockquote class="wp-block-quote">
+<blockquote>
 <p><strong>Gemini:</strong> "Blogs are stupid HTML blobs and narrative nonsense. What you <em>really</em> need is a headless pipeline and semantic data architecture. I'll design it for you so it works with WordPress."</p>
 </blockquote>
 
@@ -2168,7 +2058,7 @@ Do others depend on this?
 
 <p>Typical exchange:</p>
 
-<blockquote class="wp-block-quote">
+<blockquote>
 <p><strong>Gemini:</strong> "We should architect a taxonomy system where categories are single source of truth."<br>
 <strong>Me:</strong> "You proposed that yesterday. We already implemented it."<br>
 <strong>Gemini:</strong> "Excellent idea! Here's how we'll do it—"<br>
@@ -2189,7 +2079,7 @@ Do others depend on this?
 
 <p><strong>Failure mode:</strong> Initially claimed to have no project memory whatsoever.</p>
 
-<blockquote class="wp-block-quote">
+<blockquote>
 <p><strong>Me:</strong> "How do we track this over months?"<br>
 <strong>Claude:</strong> "I can't do that! But I <em>can</em> create comprehensive documentation you'll need to upload EVERY DAY."<br>
 <strong>Me:</strong> <em>(two days later, discovers Claude Projects online)</em> "Claude. Do you have persistent memory?"<br>
@@ -2252,7 +2142,7 @@ Do others depend on this?
 <h3>The Technical Implementation (For Developers)</h3>
 
 <p><strong>Data pipeline:</strong></p>
-<pre class="wp-block-code"><code>content_store.py (source of truth)
+<pre><code>content_store.py (source of truth)
   ↓
 publish_gem.py (Python → WordPress REST API)
   ↓
@@ -2263,7 +2153,7 @@ st-card components (CSS Grid, BEM methodology)
 Archive pages (filterable by taxonomy)</code></pre>
 
 <p><strong>Graph generation:</strong></p>
-<pre class="wp-block-code"><code>import networkx as nx
+<pre><code>import networkx as nx
 
 # Build graph from content store metadata
 G = nx.Graph()
@@ -2315,7 +2205,7 @@ pos = nx.spring_layout(G, k=0.6, iterations=50)
 
 <p>If you're a recruiter wondering "what am I looking at?":</p>
 
-<blockquote class="wp-block-quote">
+<blockquote>
 <p>You're looking at a Product Manager who ships systems, not just specs. Someone who collaborates with AI strategically, documents comprehensively, and isn't afraid to rebuild when the architecture demands it. Someone whose "blog" is actually a data pipeline with a CSS Grid frontend.</p>
 </blockquote>
 
@@ -2355,7 +2245,7 @@ pos = nx.spring_layout(G, k=0.6, iterations=50)
 
 <p>The green checkmark in the terminal has become my favorite UI.</p>
 
-<hr class="wp-block-separator">
+<hr />
 
 <p><em><strong>Technical note:</strong> This gem is itself part of the Knowledge Graph. Its metadata (project, category, tags) feeds the visualization. The system documents itself. That's the point.</em></p>
     """,
@@ -2364,26 +2254,570 @@ pos = nx.spring_layout(G, k=0.6, iterations=50)
         'gem_action_item': 'Complete interactive graph implementation',
         'gem_related_project': 'PROJ-004'
     }
+},
+
+# GEM 33
+{
+    'id': 1646,
+    'title': 'Which Chatbot Is Best for Web Design?',
+    'status': 'publish',
+    'category': 'AI & Automation',  # ← SINGLE category
+    'tags': [
+        'ai collaboration',
+        'design system',
+        'product management',
+        'prompt engineering',
+        'figma',
+        'shopify',
+        'ways of working',
+        'chatGPT'
+    ],
+    'content': """
+<h2>(A PM Discovers the Real Problem. "Reader, it's me.")</h2>
+    <p><strong>Summary:</strong><br>
+In which I ask the internet which chatbot is “best at web design,” gently roast myself, and accidentally clarify a much more useful operating model for AI-assisted design, prototyping, and commerce UX.</p>
+
+<hr>
+
+<h3>The Question I Asked (Out Loud, Online)</h3>
+<p>
+“What is the best chatbot for web design and style? Claude kinda sux.”
+</p>
+
+<p>
+This is the professional equivalent of standing in a hardware store and asking which hammer is best for <em>vibes</em>.
+Understandable. Relatable. Incomplete.
+</p>
+
+<hr>
+
+<h3>What I Learned (Against My Will)</h3>
+<p>
+There is no single “best” chatbot for web design.
+There <em>is</em> a best <strong>division of labor</strong>, and I wasn’t using one.
+</p>
+
+<ul>
+  <li><strong>ChatGPT</strong> is good at execution and synthesis: translating taste into constraints and shipping decisions.</li>
+  <li><strong>Claude</strong> is good at structure and governance, but freezes when asked to choose a font weight without a policy.</li>
+  <li><strong>Gemini</strong> is good at telling you your blog is a blob and proposing a headless rebuild instead of fixing spacing.</li>
+</ul>
+
+<p>
+Claude doesn’t suck. Claude wants a PRD before committing to line-height.
+</p>
+
+<hr>
+
+<h3>The Actual Fix: Better Framing, Not a Better Bot</h3>
+<p>
+Once I stopped asking for “make it pretty” and started asking for <strong>decisions under constraints</strong>, the output improved dramatically.
+</p>
+
+<p>
+The winning pattern:
+</p>
+
+<ul>
+  <li>Declare the design system</li>
+  <li>State the intended tone and hierarchy</li>
+  <li>Forbid invention unless justified</li>
+  <li>Require commitment, not options</li>
+</ul>
+
+<p>
+This is not micromanaging the AI.
+This is product management.
+</p>
+
+<hr>
+
+<h3>Plot Twist: I Haven’t Used Figma AI Prototyping Yet</h3>
+<p>
+Yes, I know. I have strong opinions about design systems and had not yet seriously explored Figma’s AI-assisted prototyping tools.
+</p>
+
+<p>
+This turns out to be a missed opportunity.
+</p>
+
+<p>
+Used correctly, Figma AI can:
+</p>
+
+<ul>
+  <li>Rough in layout rhythm and hierarchy</li>
+  <li>Generate disposable hero and section variants</li>
+  <li>Help answer “is this calm or just boring?” before touching code</li>
+</ul>
+
+<p>
+The goal is not pixel perfection.
+The goal is faster conviction.
+</p>
+
+<hr>
+
+<h3>Meanwhile, Shopify Is Quietly Shipping AI Hero Capabilities</h3>
+<p>
+While I was interrogating chatbots, Shopify rolled out AI-assisted hero banner tooling that can:
+</p>
+
+<ul>
+  <li>Generate hero layouts from product and theme context</li>
+  <li>Suggest headline and image pairings</li>
+  <li>Adapt hero content across collections or campaigns</li>
+</ul>
+
+<p>
+Important caveat:
+</p>
+
+<p>
+<strong>These tools accelerate good systems. They do not fix bad ones.</strong>
+</p>
+
+<p>
+AI hero generation works best when:
+</p>
+
+<ul>
+  <li>The theme is disciplined</li>
+  <li>The content model is sane</li>
+  <li>“On brand” is already defined</li>
+</ul>
+
+<p>
+AI won’t save weak hierarchy.
+It will save you from opening Photoshop at midnight.
+</p>
+
+<hr>
+
+<h3>The Embarrassingly Obvious Conclusion</h3>
+<p>
+I didn't need a better chatbot.
+I needed:
+</p>
+
+<ul>
+  <li>Clearer prompts</li>
+  <li>Figma in the loop earlier</li>
+  <li>AI treated as a junior partner, not a psychic</li>
+</ul>
+
+<p>
+This isn’t failure.
+This is how new tools get domesticated.
+</p>
+
+<hr>
+
+<h3>Final Self-Assessment</h3>
+<p>
+Asking “which chatbot is best at web design” is extremely on-brand for a PM who knows the system, knows the taste, and briefly forgot to specify either.
+</p>
+
+<p>
+We ship. We learn. We add constraints.
+Then we ship again — calmer, cleaner, and with fewer existential questions.
+</p>
+""",
+    'meta': {
+        'gem_status': 'Draft',
+        'gem_action_item': 'Prototype hero flows in Figma AI',
+        'gem_related_project': 'PROJ-003'
+    }
+},
+
+# GEM 34: RELEASE ASSISTANT — GOVERNANCE PIPELINE (FINAL)
+{
+    'id': 1653,
+    'title': 'Release Assistant Governance: Inputs, Outputs, No Vibes',
+    'status': 'draft',
+    'category': 'Governance',
+    'tags': [
+        'governance',
+        'release engineering',
+        'changelog',
+        'documentation',
+        'ai collaboration',
+        'ways of working',
+        'claude',
+        'chatGPT'
+    ],
+    'content': """
+<p><strong>What this is</strong><br/>
+This node documents the <em>governance version</em> of the Sugartown Release Assistant: a deterministic, three-step pipeline that produces the same release artifacts every time, regardless of which AI agent (or human) runs it.</p>
+
+<p>No vibes. No inference. No “the bot thought it was implied.”</p>
+
+<hr/>
+
+<h3>Canonical Release Pipeline</h3>
+
+<p><strong>STEP 1 — Collect Reality</strong><br/>
+<strong>Input:</strong> Human notes, AI agent memory<br/>
+<strong>Output:</strong> Messy but human-verified bullet lists of completed work</p>
+
+<p><strong>STEP 2 — Normalize Reality</strong><br/>
+<strong>Input:</strong> STEP 1 Source of Truth<br/>
+<strong>Output:</strong> Canonical, deduplicated, outcome-only bullet list<br/>
+<em>(Mechanical reduction only. This step is allergic to creativity.)</em></p>
+
+<p><strong>STEP 3 — Package the Release</strong><br/>
+<strong>Input:</strong> STEP 2 normalized list (and nothing else)<br/>
+<strong>Output:</strong> Production-ready release artifacts</p>
+
+<p>If any step fails, the pipeline stops. This is not a bug; it is the point.</p>
+
+<hr/>
+
+<h3>Human vs AI Responsibilities</h3>
+
+<ul>
+  <li><strong>Humans</strong> decide what is true.</li>
+  <li><strong>AI</strong> reduces, formats, and packages that truth.</li>
+</ul>
+
+<p>AI is never allowed to invent work, infer intent, or “helpfully” improve reality.</p>
+
+<hr/>
+
+<h3>Standard Release Outputs</h3>
+
+<p>Every successful release must produce the following artifacts. These are contracts, not suggestions.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Artifact</th>
+      <th>Purpose</th>
+      <th>Source</th>
+      <th>Output Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Release Summary</td>
+      <td>Human-readable snapshot (3–5 bullets)</td>
+      <td>STEP 2</td>
+      <td><ol><li>Taxonomy v4 Complete: WordPress categories now single source of truth; eliminated gem_category meta duplication; all 24 gems migrated from plural categories to singular category format<li>
+<li>Interactive Filter System: Refactored archive filters using st-chip primitives with floating multi-column dropdowns, unified mobile overlay behavior, and new st-label typography primitive</li></ol></td>
+    </tr>
+    <tr>
+      <td>CHANGELOG.md Entry</td>
+      <td>Canonical release history (Markdown only)</td>
+      <td>STEP 2</td>
+      <td><a href="/gem/changelog/">Release Notes: Changelog</a></td>
+    </tr>
+    <tr>
+      <td>RELEASE_STATE.json</td>
+      <td>Machine-readable release metadata</td>
+      <td>Generated</td>
+      <td>
+      <pre><code>
+      
+{
+  "version": "2025.12.27",
+  "scope": ["Archive", "Taxonomy", "Publisher", "Design System"],
+  "status": "production_stable",
+  "gems_published": 24,
+  "breaking_changes": false,
+  "requires_followup": true,
+  "followup_items": [
+    "Database cleanup: remove legacy gem_category meta (scheduled v2025.12.28)",
+    "Publisher refactor: remove backward compatibility code for plural categories"
+  ]
 }
+</code></pre>
+</td>
+    </tr>
+    <tr>
+      <td>Git Commit</td>
+      <td>Atomic release marker</td>
+      <td>Generated</td>
+      <td><pre>release: 2025.12.27 — Taxonomy v4 + interactive filter system</pre></td>
+    </tr>
+    <tr>
+      <td>Documentation Checklist</td>
+      <td>Proof that docs match behavior</td>
+      <td>Human + AI</td>
+      <td><pre><code>
+- sugartown-pink/README.md:
+  - [x] Updated (see evidence below)
+  - [ ] N/A
 
-       # GEM XX: TEMPLATE 
-#    {
-#        'id': 0,  
-#        'title': 'Short Title',
-#        'status': 'draft',
-#        'category': 'Governance',  # ← SINGLE category 
-#        'tags': [
-#            'governance','design-system','release process','prd','changelog','ai collaboration','ways of working','design system governance', 'release engineering'
-#        ],
-#        'content': """<p>
-#         """,
-#        'meta': {
-#            'gem_status': 'Active',
-#            'gem_action_item': 'Next',
-#            'gem_related_project': 'PROJ-001'
-#        }
-#    },
+- CHANGELOG.md:
+  - [x] Updated (canonical entry provided above)
 
+- RELEASE_STATE.json:
+  - [x] Updated (json entry provided above)
+</code></pre>
+</td>
+    </tr>
+  </tbody>
+</table>
 
+<hr/>
+
+<h3>Enforcement Rules (Short, Sharp)</h3>
+
+<ul>
+  <li>CHANGELOG.md is the single source of truth.</li>
+  <li>README files are contracts, not commentary.</li>
+  <li>Documentation marked “Updated” requires visible markdown evidence.</li>
+  <li>STEP 3 may never revisit STEP 1.</li>
+  <li>Failure is an acceptable outcome.</li>
+</ul>
+
+<hr/>
+
+<h3>Why This Exists</h3>
+
+<p>This pipeline emerged after several real-world releases exposed a common problem: governance that is correct but hard to execute is still fragile.</p>
+
+<p>The reset reduced the executable Release Assistant from ~12 printed pages to ~4, not by deleting rules, but by indexing them properly. The long-form document remains the law. This pipeline is how the law is enforced.</p>
+
+<p>Competitive bots, cooperative system. Everyone behaves better when the rules are boring and explicit.</p>
+""",
+    'meta': {
+        'gem_status': 'Shipped',
+        'gem_action_item': 'Link to live releases and changelog entries',
+        'gem_related_project': 'PROJ-001'
+    }
+},
+
+# GEM 35 (updated): AI Illustration Review — Ethics, Accessibility & IP Guardrails
+{
+    'id': 1654,
+    'title': 'AI Illustration Review: Ethics, Accessibility & IP Guardrails',
+    'status': 'publish',
+    'category': 'Governance',  # ← SINGLE category
+    'tags': [
+        'governance',
+        'ai ethics',
+        'intellectual property',
+        'accessibility',
+        'alt text',
+        'editorial illustration',
+        'ai collaboration',
+        'ways of working',
+        'chatGPT'
+    ],
+    'content': """
+<p>
+This documents a formal, multi-dimensional review of AI-generated illustrative thumbnails used on Sugartown.io.
+The objective is operational clarity — not aesthetic judgment — across three governance dimensions:
+<strong>AI ethics</strong>, <strong>accessibility</strong>, and <strong>intellectual property (IP) risk</strong>.
+</p>
+
+<div class="st-callout st-callout--warn">
+  <strong>Note:</strong> This node is not a lawyer. It is a product manager applying standard best practices to AI-generated content.  For legal advice, consult a qualified attorney.   </div>
+
+<p>
+This review is grounded in the canonical governance document: <a href="/ai-ethics/">AI Ethics &amp; Operations</a>. It also applies standard best practices for editorial use, transformative works, and brand-safety review.
+</p>
+
+<h2>Review Dimensions</h2>
+
+<p>Each image was evaluated against the following criteria:</p>
+
+<ul>
+  <li><strong><a href="/ai-ethics/">AI Ethics</a>:</strong> Non-deceptive, non-exploitative, non-impersonating use</li>
+  <li><strong>Accessibility:</strong> Presence of accurate, descriptive alt text suitable for screen readers</li>
+  <li><strong>IP / Brand Safety:</strong> Transformative use without source confusion or reuse of official brand assets</li>
+</ul>
+
+<p>
+Reference images (historical toy box art and product photography) were used solely for <em>context</em> and were not reused as publishable assets. All published images are AI-generated, illustrative, and editorial in intent.
+</p>
+
+<h2>Thumbnail Review Summary (Ethics + Accessibility + IP)</h2>
+
+<table class="st-table st-table--review">
+  <colgroup>
+    <col class="col-thumb" />
+    <col class="col-ethics" />
+    <col class="col-a11y" />
+    <col class="col-ip" />
+    <col class="col-alt" />
+    <col class="col-notes" />
+  </colgroup>
+
+  <thead>
+    <tr>
+      <th>Thumbnail</th>
+      <th>AI Ethics</th>
+      <th>Accessibility</th>
+      <th>IP / Brand Safety</th>
+      <th>Recommended Alt Text</th>
+      <th>Notes &amp; Caveats</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td class="st-table__thumb">
+        <a href="https://sugartown.io/wp-content/uploads/2025/12/1978-dolly-mainframe.png" target="_blank" rel="noopener">
+          <img
+            src="https://sugartown.io/wp-content/uploads/2025/12/1978-dolly-mainframe-150x150.png"
+            width="150" height="150"
+            alt="Retro fashion doll seated at a 1970s-style mainframe computer console in a stylized office."
+            loading="lazy"
+          />
+        </a>
+      </td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">✅ Pass (Low Risk)</td>
+      <td>
+        Retro fashion doll seated at a 1970s-style mainframe computer console in a stylized office.
+      </td>
+      <td>
+        Transformative illustration inspired by historical toy aesthetics.
+        No logos, packaging copy, or brand identifiers.
+        Editorial use only.
+      </td>
+    </tr>
+
+    <tr>
+      <td class="st-table__thumb">
+        <a href="https://sugartown.io/wp-content/uploads/2025/12/1986-doll-travel-agency.png" target="_blank" rel="noopener">
+          <img
+            src="https://sugartown.io/wp-content/uploads/2025/12/1986-doll-travel-agency-150x150.png"
+            width="150" height="150"
+            alt="Fashion doll at a colorful 1980s travel agency desk with maps, files, and office tools."
+            loading="lazy"
+          />
+        </a>
+      </td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">⚠️ Pass (Moderate, Managed)</td>
+      <td>
+        Fashion doll seated in a brightly colored office workspace with files, desk tools, and posters.
+      </td>
+      <td>
+        Original composition and layout.
+        No resemblance to specific product packaging.
+      </td>
+    </tr>
+
+    <tr>
+      <td class="st-table__thumb">
+        <a href="https://sugartown.io/wp-content/uploads/2025/12/1999-doll-imac.png" target="_blank" rel="noopener">
+          <img
+            src="https://sugartown.io/wp-content/uploads/2025/12/1999-doll-imac-150x150.png"
+            width="150" height="150"
+            alt="Two fashion dolls collaborating at late-1990s desktop computers with papers and books on a desk."
+            loading="lazy"
+          />
+        </a>
+      </td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">✅ Pass</td>
+      <td class="st-table__status">✅ Pass (Low Risk)</td>
+      <td>
+        Two fashion dolls collaborating at late-1990s desktop computers with papers and books on a desk.
+      </td>
+      <td>
+        Avoid brand names (e.g., Apple) in captions or alt text.
+        Maintain illustrative, non-photoreal styling.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>IP &amp; Brand Safety Findings</h2>
+
+<p>
+None of the AI-generated images reuse official brand assets, logos, wordmarks, or commercial packaging layouts.
+While they reference culturally recognizable toy aesthetics, all images qualify as
+<strong>transformative, editorial illustrations</strong>.
+</p>
+
+<p>
+Key distinctions that keep usage compliant:
+</p>
+
+<ul>
+  <li>Images are not presented as historical artifacts or official marketing materials</li>
+  <li>No implication of endorsement, origin, or licensing by toy manufacturers</li>
+  <li>Visual composition, color treatment, and layout are materially altered</li>
+  <li>Usage context is explanatory and narrative, not commercial merchandising</li>
+</ul>
+
+<p>
+Based on this analysis, IP risk is assessed as <strong>low</strong> when guardrails below are followed.
+</p>
+
+<h2>Alt Text &amp; Caption Guardrails (Required)</h2>
+
+<p>
+To reduce both accessibility and IP risk, the following rules are mandatory:
+</p>
+
+<ul>
+  <li>Describe <em>what is visible</em>, not what the image references culturally</li>
+  <li>Use generic terms such as “fashion doll” or “illustrative doll”</li>
+  <li>Avoid brand names (e.g., Barbie, Sears, Apple, iMac)</li>
+  <li>Do not describe images as “vintage ads,” “original toys,” or “historical photos”</li>
+</ul>
+
+<p>
+Optional caption disclaimer (when helpful):
+</p>
+
+<blockquote>
+  Illustrative image generated for editorial purposes; not affiliated with or endorsed by any toy or technology brand.
+</blockquote>
+
+<h2>Tiny Pre-Publish Media Gate (AI + IP)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Check</th>
+      <th>Yes / No</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Is the image clearly illustrative or fictional (not documentary)?</td>
+      <td>⬜ Yes / ⬜ No</td>
+    </tr>
+    <tr>
+      <td>Does the image avoid logos, wordmarks, or packaging layouts?</td>
+      <td>⬜ Yes / ⬜ No</td>
+    </tr>
+    <tr>
+      <td>Could a reasonable viewer mistake this for an official brand asset?</td>
+      <td>⬜ No / ⬜ Yes</td>
+    </tr>
+    <tr>
+      <td>Does the image include accurate, brand-neutral alt text?</td>
+      <td>⬜ Yes / ⬜ No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Governance Outcome</h2>
+
+<p>
+✅ All reviewed images are approved for editorial use on Sugartown.io.
+✅ They comply with AI Ethics &amp; Operations guidelines, meet accessibility standards, and present manageable IP risk when paired with the documented guardrails.
+</p>
+
+<p>
+This node serves as a reusable blueprint for evaluating AI-generated imagery where creative expression, accessibility, and intellectual property concerns intersect.
+</p>
+""",
+    'meta': {
+        'gem_status': 'Shipped',
+        'gem_action_item': 'Apply alt-text and IP media gate to all future AI illustrations',
+        'gem_related_project': 'PROJ-001'
+    }
+},
 
 ]
