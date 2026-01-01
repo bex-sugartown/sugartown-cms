@@ -1,5 +1,38 @@
 # Sugartown Release Notes
 
+## v2026.01.01: Design System Alignment & Accessibility Audit
+
+**Date:** 2026-01-01  
+**Status:** 🟢 Production Stable  
+**Scope:** Design System, Accessibility, Documentation
+
+### 🎨 Design System
+
+* Canonicalized `st-chip` as single interactive primitive across archive filters, hero navigation, and metadata tags
+* Removed competing chip variant classes
+* Normalized metadata card border colors and grid spacing
+* Prevented global link underline styles from affecting chip components
+
+### ⚙️ CMS / Architecture
+
+* Fixed anchor links on AI Ethics page (publish_ethics_page.py)
+* Removed duplicate H1 headings via CSS hide for WordPress auto-generated titles
+* Enhanced metadata detection logic for semantic HTML structure
+
+### 🧩 Layout & Stability Fixes
+
+* Refactored CSS architecture: moved element styles from scoped wrappers to global base rules
+* Fixed responsive table rendering to prevent column squish and overflow
+* Tightened metadata grid spacing for visual consistency
+
+### 📚 Documentation & Governance
+
+* Completed accessibility audit with 16 documented issues and priority levels
+* Created `CSS_FILE_ORGANIZATION_RULES.md` as platform-agnostic reference
+* Standardized namespace across all CSS and documentation (ds- → st-)
+
+---
+
 ## v2025.12.29: AI Governance + Design System Foundations
 **Date:** 2025-12-29  
 **Status:** 🟢 Production Stable  
