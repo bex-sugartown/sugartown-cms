@@ -795,13 +795,17 @@ all_gems = [
             'category': 'Data Visualization',
             'tags': ['claude','PRD', 'requirements', 'python', 'visualization', 'data science', 'product management'],
             'content': """
-            <p><strong>Status:</strong> <code>In Progress</code> | <strong>Phase:</strong> <code>2.0</code> | <strong>Owner:</strong> <code>Product Ops</code></p>
-            
+           
             <h3>Executive Summary</h3>
             <p>Phase 1 established the "Content Engine" (Text). Phase 2 establishes the "Visualization Engine" (Images). We are building a suite of Python scripts that auto-generate insights from our own data.</p>
     
             <h3>Core Requirements</h3>
-           <table>
+           <table class="st-table">
+          <colgroup>
+            <col class="st-col--lg">  
+            <col>  
+            <col>            
+          </colgroup>
             <thead><tr><th>Requirement</th><th>The "Why"</th><th>Technical Implementation</th></tr></thead>
             <tbody>
             <tr><td><strong>1. Source Agnosticism</strong></td><td>Scripts must work without manual file selection.</td><td>Scripts automatically scan <code>output/reports/</code> and pick the file with the latest timestamp (e.g., <code>gems_report_2025-12-05.csv</code>).</td></tr>
@@ -822,7 +826,14 @@ all_gems = [
             
             <h3>The Spec</h3>
             <p>We are moving from "Vibes" to "Validation." Read the formal plan here:</p>
-            <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/knowledge-graph-project/sugartown_visualization_PRD_v2.md" class="wp-block-file__button wp-element-button">📄 Read the Visualization Engine PRD (v2)</a></div>
+
+            <p class="st-doc-link">
+              <a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/knowledge-graph-project/sugartown_visualization_PRD_v2.md" target="_blank" rel="noopener noreferrer" class="st-doc-link__anchor">
+                <span class="st-doc-link__icon" aria-hidden="true">📄</span>
+                <span class="st-doc-link__label">Read the Visualization Engine PRD</span>
+              </a>
+            </p>
+
             """,
             'meta': {
                 'gem_status': 'Draft', 
@@ -999,7 +1010,12 @@ all_gems = [
             <h3>The "Pink Card" Component</h3>
             <p>The defining visual of this phase is the <strong>Pink Card</strong>—a container used for Resume entries and Case Studies. It wasn't built; it was evolved.</p>
             
-           <table>
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--md">  
+            <col class="st-col--flex-lg">  
+            <col> 
+          </colgroup>
             <thead><tr><th>Evolution</th><th>CSS Strategy</th><th>The Lesson</th></tr></thead>
             <tbody>
             <tr><td><strong>v1 (The Box)</strong></td><td>Simple <code>border: 1px solid pink</code>.</td><td>Boring. Looked like a wireframe.</td></tr>
@@ -1016,7 +1032,14 @@ all_gems = [
             
             <h3>The Path Forward</h3>
             <p>We are moving from "Vibes" to "Tokens." Read the formal plan here:</p>
-            <div class="wp-block-file"><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_design_system_PRD_v1.md" class="wp-block-file__button wp-element-button">📄 Read the Design System PRD (v1.1)</a></div>
+
+            <p class="st-doc-link">
+              <a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/design-system/sugartown_design_system_PRD.md" target="_blank" rel="noopener noreferrer" class="st-doc-link__anchor">
+                <span class="st-doc-link__icon" aria-hidden="true">📄</span>
+                <span class="st-doc-link__label">Read the Design System PRD</span>
+              </a>
+            </p>
+
             """,
             'meta': {
                 'gem_status': 'Shipped', 
@@ -1027,7 +1050,7 @@ all_gems = [
     
         # GEM 22: Resume Factory v3.0 - The Great Migration,
     {
-            #'id': 1395,  # WordPress will assign ID on first publish
+            'id': 1395,  # WordPress will assign ID on first publish
             'title': 'Architecture Deep Dive: Resume Factory v3.0',
             'status': 'publish',
             'category': 'Career Engineering',
@@ -3012,7 +3035,7 @@ This node serves as a reusable blueprint for evaluating AI-generated imagery whe
 
         #GEM XX: TEST POST PLEASE IGNORE 
     {
-        'id': 9999,  # Bogus ID
+        #'id': 9999,  # Bogus ID
         'title': 'Test Post Please Ignore',  # Unique title
         'status': 'draft',
         'category': 'Governance',  # ← SINGLE category 
