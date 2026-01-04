@@ -282,7 +282,10 @@ all_gems = [
             'status': 'publish',
             'category': 'Engineering & DX',
             'tags': ['gemini', 'AI-assisted authoring', 'LLM workflows', 'structured content', 'system'],
-            'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody></table></figure>""",
+            'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p>
+           
+            <table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody>
+            </table>""",
             'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
         },
     
@@ -293,7 +296,9 @@ all_gems = [
             'status': 'publish',
             'category': 'Product & Platform Strategy',
             'tags': ['gemini', 'headless CMS', 'content modeling', 'PIM / PXM', 'content migration', 'market research', 'system'],
-            'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody></table></figure>""",
+            'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p>
+           <table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody>
+           </table>""",
             'meta': {'gem_status': 'Draft', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
         },
     
@@ -304,7 +309,9 @@ all_gems = [
             'status': 'publish',
             'category': 'Sugartown Notes',
             'tags': ['gemini', 'structured content', 'taxonomy', 'metadata strategy', 'system'],
-            'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p><figure class="wp-block-table is-style-stripes has-small-font-size"><table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table></figure><h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
+            'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p>
+            <table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table>
+            <h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
             'meta': {'gem_status': 'Done', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
         },
     
@@ -465,7 +472,9 @@ all_gems = [
             'status': 'publish', 
             'category': 'AI & Automation',
             'tags': ['generative UI', 'dashboards', 'interaction patterns', 'market research', 'gemini'],
-            'content': """<p>We just finished architecting a Headless CMS pipeline, which naturally led to the next question: <em>"How do we visualize this?"</em></p><p>The "best" AI diagramming tool depends entirely on your output goal: Do you need a <strong>System Blueprint</strong> (architecture/flow) or a <strong>Data Visualization</strong> (charts/trends)? Here is the breakdown of the current market leaders.</p><h3>The Comparison: Diagrams as Code vs. Data Analysis</h3><figure class="wp-block-table is-style-stripes"><table><thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table></figure><h3>The Product Manager's Take</h3><p>For the <strong>Sugartown CMS project</strong>, the recommendation is clear:</p><ul><li><strong>Use Eraser.io</strong> to map the "Content Supply Chain" (Python -> WordPress -> Frontend). It perfectly matches our "Resume as Code" and DevOps aesthetic.</li><li><strong>Use ChatGPT (Canvas)</strong> to analyze the weekly <code>gems_report.csv</code> export to track content velocity and identify metadata gaps.</li></ul>
+            'content': """<p>We just finished architecting a Headless CMS pipeline, which naturally led to the next question: <em>"How do we visualize this?"</em></p><p>The "best" AI diagramming tool depends entirely on your output goal: Do you need a <strong>System Blueprint</strong> (architecture/flow) or a <strong>Data Visualization</strong> (charts/trends)? Here is the breakdown of the current market leaders.</p><h3>The Comparison: Diagrams as Code vs. Data Analysis</h3>
+            <table><thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table>
+            <h3>The Product Manager's Take</h3><p>For the <strong>Sugartown CMS project</strong>, the recommendation is clear:</p><ul><li><strong>Use Eraser.io</strong> to map the "Content Supply Chain" (Python -> WordPress -> Frontend). It perfectly matches our "Resume as Code" and DevOps aesthetic.</li><li><strong>Use ChatGPT (Canvas)</strong> to analyze the weekly <code>gems_report.csv</code> export to track content velocity and identify metadata gaps.</li></ul>
             
             <figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
                 <div class="wp-block-embed__wrapper">
@@ -488,7 +497,7 @@ all_gems = [
             <p>We’ve all been there—living comfortably in our standard Google Accounts. But with the release of <strong>Gemini 3 Pro</strong> this week, the question isn’t just “Do I need an AI?”—it’s “Am I ready to upgrade from a bicycle to a rocket ship?”</p>
             <p>I’m sharing here because it took me an ungodly amount of time and lots of gemini’ing to get a straight answer out of Google (HELLO!).</p>
             <h3>🍭 Comparison: The Gemini 3 Hierarchy (Nov 2025)</h3>
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Feature</th><th>Google AI Premium<br>(Personal)</th><th>Workspace Business Standard<br>(The Team Essential)</th><th>Google AI Ultra for Business<br>(The Power-User Tier)</th></tr></thead>
             <tbody>
             <tr><td><strong>Primary Purpose</strong></td><td>Individual Productivity:<br>For freelancers, students, and general use.</td><td>Team Collaboration:<br>For core business ops, secure email, and docs.</td><td>Heavy Compute / R&D:<br>For architects, data scientists, and media pros.</td></tr>
@@ -500,7 +509,7 @@ all_gems = [
             <tr><td><strong>Project Mariner</strong><br>(Agentic Research)</td><td>❌ Not Included</td><td>❌ Not Included</td><td>✅ Included<br>(Autonomous Multi-Tasking Agent)</td></tr>
             <tr><td><strong>Video AI (Veo)</strong></td><td>Standard (Veo 2)</td><td>Standard (Veo 2)</td><td>Pro Studio (Veo 3)<br>(1080p, unlimited generation)</td></tr>
             <tr><td><strong>Data Privacy</strong></td><td>👎 Consumer Grade<br>(Used for training)</td><td>👍 Enterprise Grade<br>(Private)</td><td>👍 Enterprise Grade<br>(Private + Advanced Compliance)</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
             <h4>“Why is AI Ultra $250/month?!”</h4>
             <p>If you are staring at that price tag in shock, you aren’t the target audience—and that’s okay! With the <strong>$250 AI Ultra</strong> plan you are paying for:</p>
             <ul>
@@ -553,13 +562,13 @@ all_gems = [
             <h3>The Pivot Strategy</h3>
             <p>We are taking the IP generated during the "Beauty Retailer Era"—the headless CMS knowledge, the design system governance, the stakeholder management—and repackaging it. We aren't just looking for a job; we are launching "Me 2.0."</p>
     
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Metric</th><th>Legacy State</th><th>Future State (Target)</th></tr></thead>
             <tbody>
             <tr><td><strong>Architecture</strong></td><td>Monolithic Employee</td><td>Agile Product Leader</td></tr>
             <tr><td><strong>Availability</strong></td><td>9-to-5 Locked</td><td>High Availability (Immediate Start)</td></tr>
             <tr><td><strong>Cheekiness</strong></td><td>Corporate Moderated</td><td>Unbounded</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>Action Item</h3>
             <p>Use AI to transform "I got laid off" into "I successfully delivered a complex digital transformation and am now seeking new challenges," while quietly judging the old architecture.</p>
@@ -621,13 +630,13 @@ all_gems = [
             <p>This ecosystem represents the "Digital Factory" for Sugartown.io. It creates a strict separation of concerns between <strong>Content</strong> (The "Brain"), <strong>Code</strong> (The Theme/Repo), and <strong>Assets</strong> (The Storage). The goal is a resilient, portable, and headless-ready architecture that allows for safe experimentation locally before deploying to production.</p>
     
             <h3>1. The 3-Zone Architecture</h3>
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Zone</th><th>Location</th><th>Role</th></tr></thead>
             <tbody>
             <tr><td><strong>Zone 1: The Vault</strong><br>(Storage & Assets)</td><td>Google Drive<br><code>00 SUGARTOWN 25</code></td><td><strong>Canonical Source of Truth</strong> for heavy assets and raw data.<br><em>Key Folder:</em> <code>01_PORTFOLIO_MASTER/sugartown_cms</code> (Headless content source).</td></tr>
             <tr><td><strong>Zone 2: The Factory</strong><br>(Local Development)</td><td>Local Mac<br><code>~/SUGARTOWN_DEV/</code></td><td><strong>The Sandbox</strong> where code is written and designs are tested.<br><em>Tool:</em> LocalWP running <code>sugartown.local</code>.</td></tr>
             <tr><td><strong>Zone 3: The Stage</strong><br>(Production)</td><td>Pair.com Hosting<br><code>sugartown.io</code></td><td><strong>The Public Display Layer.</strong><br><em>Rule:</em> Code flows UP (Local -> Prod). Content flows DOWN (Prod -> Local).</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>2. The "Sugartown Pink" Theme</h3>
             <p>A custom hybrid Block Theme that merges visual design with functional logic.</p>
@@ -675,12 +684,12 @@ all_gems = [
             <h3>The Separation of Concerns</h3>
             <p>We have officially split the Sugartown codebase into two distinct repositories to prevent "Monolith Drift."</p>
             
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Repository</th><th>Scope</th><th>Lifecycle</th><th>Owner</th></tr></thead>
             <tbody>
             <tr><td><code>2025-sugartown-pink</code></td><td><strong>The Theme (Code)</strong><br>PHP, HTML Templates, CSS, JS.</td><td><strong>Slow & Stable.</strong><br>Updates only when design changes.</td><td>Engineering</td></tr>
             <tr><td><code>sugartown-content-engine</code></td><td><strong>The Brain (Data)</strong><br>Python Scripts, Content Store, CSVs.</td><td><strong>Fast & Fluid.</strong><br>Updates daily with new thoughts/gems.</td><td>Product</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>The "Stale Pointer" Incident</h3>
             <p>The confusion arose because my local folder was named <code>sugartown_cms</code> but my Git remote was still pointing to <code>second-brain-cms</code>. This "Stale Pointer" meant I was pushing code to a ghost location.</p>
@@ -707,14 +716,14 @@ all_gems = [
             <h3>The Architecture</h3>
             <p>We rejected the standard "Free Tagging" chaos in favor of a controlled vocabulary imported via XML.</p>
             
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Asset Type</th><th>Taxonomy Support</th><th>Flow Direction</th></tr></thead>
             <tbody>
             <tr><td><strong>Gems</strong></td><td>✅ Categories & Tags</td><td><strong>Python -> WP.</strong> The script assigns IDs based on name lookups.</td></tr>
             <tr><td><strong>Case Studies</strong></td><td>✅ Categories & Tags</td><td><strong>Manual -> WP.</strong> Curated by hand in the editor.</td></tr>
             <tr><td><strong>Posts (Blog)</strong></td><td>✅ Categories & Tags</td><td><strong>Legacy.</strong> Inherits standard WP structure.</td></tr>
-            </tbody></table></figure>
-    
+            </tbody></table>
+
             <h3>The Core Categories</h3>
             <p>We standardized on 8 high-level buckets to organize the "Product Operations" brain:</p>
             <ul>
@@ -760,13 +769,13 @@ all_gems = [
             <p>We deployed a custom WordPress Block Theme (child of Twenty Twenty-Five) to enforce a strict but playful visual language. The goal was <strong>"Subtle Tech"</strong>—a hacker aesthetic that doesn't feel like a terminal window.</p>
             
             <h4>Visual Upgrades:</h4>
-            <figure class="wp-block-table"><table>
+           <table>
             <thead><tr><th>Component</th><th>Style</th><th>CSS Tweak</th></tr></thead>
             <tbody>
             <tr><td><strong>Code Blocks</strong></td><td><strong>"The Terminal"</strong></td><td>Dark mode background, neon pink accent border, and <code>2.5rem</code> padding for breathability.</td></tr>
             <tr><td><strong>Inline Code</strong></td><td><strong>"The Pill"</strong></td><td><code>git init</code> now renders with a cool gray background and deep magenta text to pop against prose.</td></tr>
             <tr><td><strong>Tables</strong></td><td><strong>"The Zebra"</strong></td><td>Pink headers, alternating row stripes, and collapsed borders for high-density data.</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <p>This completes the <strong>Infrastructure Phase</strong>. The factory is open, the machines are running, and the paint is dry.</p>
             """,
@@ -792,13 +801,13 @@ all_gems = [
             <p>Phase 1 established the "Content Engine" (Text). Phase 2 establishes the "Visualization Engine" (Images). We are building a suite of Python scripts that auto-generate insights from our own data.</p>
     
             <h3>Core Requirements</h3>
-            <figure class="wp-block-table"><table>
+           <table>
             <thead><tr><th>Requirement</th><th>The "Why"</th><th>Technical Implementation</th></tr></thead>
             <tbody>
             <tr><td><strong>1. Source Agnosticism</strong></td><td>Scripts must work without manual file selection.</td><td>Scripts automatically scan <code>output/reports/</code> and pick the file with the latest timestamp (e.g., <code>gems_report_2025-12-05.csv</code>).</td></tr>
             <tr><td><strong>2. Idempotent Output</strong></td><td>Links in blog posts must never break.</td><td>Scripts always overwrite a "Latest" file alias (e.g., <code>knowledge_graph_latest.png</code>). We do NOT timestamp filenames like <code>graph_v4.png</code>.</td></tr>
             <tr><td><strong>3. Single Responsibility</strong></td><td>Debugging monoliths is painful.</td><td>One script per chart type (e.g., <code>viz_network.py</code>, <code>viz_barchart.py</code>).</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>The Architecture</h3>
             <pre><code># The Flow:
@@ -898,13 +907,13 @@ all_gems = [
             <h3>Reference Artifacts</h3>
             <p>The following strategic documents govern the execution of this architecture:</p>
             
-            <figure class="wp-block-table is-style-stripes"><table>
+           <table>
             <thead><tr><th>Artifact</th><th>Format</th><th>Scope</th><th>Location</th></tr></thead>
             <tbody>
             <tr><td><strong>Sugartown 2.0 Master PRD</strong></td><td>Markdown</td><td>Full requirements, user stories, and acceptance criteria.</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_2_PRD.md">View on GitHub</a></td></tr>
             <tr><td><strong>Jira Execution Plan</strong></td><td>Markdown</td><td>Epic breakdown, ticket dependencies, and sprint waves.</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_2_jira.md">View on GitHub</a></td></tr>
             <tr><td><strong>Content Store</strong></td><td>Python</td><td>The literal database file for this post.</td><td><code>content_store.py</code></td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>Why This Matters</h3>
             <p>By treating content as code, Sugartown CMS transforms static pages into a programmable dataset. This elevates the platform from a simple management tool into a <strong>knowledge engine</strong>—structured, portable, and platform-agnostic.</p>
@@ -932,13 +941,13 @@ all_gems = [
             <h3>The Strategy: Precision over Automation</h3>
             <p>The goal isn't just to generate <em>more</em> resumes; it's to generate <em>precise</em> resumes. The complexity lies in the hierarchy of needs for a specific role:</p>
             
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Hierarchy</th><th>Default "Master"</th><th>"The SEO Role" Variant</th></tr></thead>
             <tbody>
             <tr><td><strong>1. Primary (Anchor)</strong></td><td>Headless CMS</td><td><strong>Product Leader</strong> (Level 1-5)</td></tr>
             <tr><td><strong>2. Secondary (Domain)</strong></td><td>Design Systems</td><td><strong>SEO & Content Strategy</strong></td></tr>
             <tr><td><strong>3. Tertiary (Hook)</strong></td><td>Product Leader</td><td><strong>Technical CMS</strong></td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <p><strong>The Problem:</strong> A recruiter might insist I emphasize "Change Management" or "AI" above all else. If I send them my "Headless CMS" resume, I fail the keyword scan. If I manually rewrite it, I drift from my source of truth.</p>
     
@@ -958,12 +967,12 @@ all_gems = [
     
             <h3>3. Dynamic Metadata Injection</h3>
             <p>The Ingestion script parses dynamic metadata to adjust the resume's "Identity" to match the target persona:</p>
-            <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+            <table>
             <thead><tr><th>Component</th><th>Logic</th><th>Outcome</th></tr></thead>
             <tbody>
             <tr><td><strong>Role Title</strong></td><td>Map <code>Variant ID</code> -> <code>Title</code></td><td>"Principal PM" becomes "Technical Product Lead".</td></tr>
             <tr><td><strong>Summary</strong></td><td>Map <code>Variant ID</code> -> <code>Summary</code></td><td>The narrative summary pivots to emphasize "Platform" vs "Growth".</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>4. Future State</h3>
             <p>We are building toward a "Headless Recruiter Interface"—a system where I can paste a Job Description URL, and the engine automatically assembles the highest-matching valid variants into a PDF.</p>
@@ -990,13 +999,13 @@ all_gems = [
             <h3>The "Pink Card" Component</h3>
             <p>The defining visual of this phase is the <strong>Pink Card</strong>—a container used for Resume entries and Case Studies. It wasn't built; it was evolved.</p>
             
-            <figure class="wp-block-table"><table>
+           <table>
             <thead><tr><th>Evolution</th><th>CSS Strategy</th><th>The Lesson</th></tr></thead>
             <tbody>
             <tr><td><strong>v1 (The Box)</strong></td><td>Simple <code>border: 1px solid pink</code>.</td><td>Boring. Looked like a wireframe.</td></tr>
             <tr><td><strong>v2 (The Glow)</strong></td><td>Added <code>box-shadow</code> and <code>:hover</code> lift.</td><td>Better, but the text alignment broke on mobile.</td></tr>
             <tr><td><strong>v3 (The Split)</strong></td><td>Flexbox <code>margin-top: auto</code> on the footer.</td><td><strong>The Winner.</strong> Forces content to top and metadata to bottom, regardless of height.</td></tr>
-            </tbody></table></figure>
+            </tbody></table>
     
             <h3>Feature Images: The "Duotone" Standard</h3>
             <p>To avoid finding stock photos that match, I enforced a strict CSS filter on all feature images. By applying a <code>grayscale(100%)</code> base with a <code>hard-light</code> gradient overlay (Pink to Seafoam), every image automatically feels "on brand," even if it’s just a screenshot of a terminal.</p>
@@ -1018,7 +1027,7 @@ all_gems = [
     
         # GEM 22: Resume Factory v3.0 - The Great Migration,
     {
-            'id': 1395,  # WordPress will assign ID on first publish
+            #'id': 1395,  # WordPress will assign ID on first publish
             'title': 'Architecture Deep Dive: Resume Factory v3.0',
             'status': 'publish',
             'category': 'Career Engineering',
@@ -1042,14 +1051,14 @@ all_gems = [
         
         <p>This isn't a rewrite; it's a <strong>replatforming</strong>. We're not changing what the system does—we're changing who can do it.</p>
 
-        <figure class="wp-block-table is-style-stripes has-small-font-size"><table>
+        <table>
         <thead><tr><th>Layer</th><th>v2.0 (Python)</th><th>v3.0 (Sanity+React)</th><th>The Win</th></tr></thead>
         <tbody>
         <tr><td><strong>Data Entry</strong></td><td>CSV file in VSCode</td><td>Sanity Studio (WYSIWYG)</td><td>Non-devs can edit content</td></tr>
         <tr><td><strong>Preview</strong></td><td>Run build script, open PDF</td><td>Live preview in browser</td><td>&lt;1 second feedback loop</td></tr>
         <tr><td><strong>Export</strong></td><td>VS Code PDF export</td><td>One-click PDF/MD/HTML</td><td>No local dependencies</td></tr>
         <tr><td><strong>Publishing</strong></td><td>WordPress REST API</td><td>Static hosting (Vercel)</td><td>Platform agnostic</td></tr>
-        </tbody></table></figure>
+        </tbody></table>
 
         <h3>The PRD: A Love Letter to Structured Thinking</h3>
         <p>Before writing a single line of code, we wrote a <strong>32-page Product Requirements Document</strong>. Yes, for a personal resume tool. Yes, I'm aware this is overkill. No, I don't care.</p>
@@ -1065,13 +1074,27 @@ all_gems = [
 
         <p>It's a case study in <strong>treating personal projects like product launches</strong>. Because if I can't ship a resume builder with proper documentation, how can I expect to ship enterprise software?</p>
 
-        <figure class="wp-block-table is-style-stripes"><table>
-        <thead><tr><th>Artifact</th><th>Format</th><th>Scope</th><th>Location</th></tr></thead>
+        <table class="st-table">
+          <colgroup>
+            <col class="st-col--lg">  
+            <col class="st-col--sm">  
+            <col> 
+            <col class="st-col--flex-md"> 
+          </colgroup>
+
+        <thead>
+        <tr>
+        <th>Artifact</th>
+        <th>Format</th>
+        <th>Scope</th>
+        <th>Location</th>
+        </tr>
+        </thead>
         <tbody>
         <tr><td><strong>Resume Factory v3.0 PRD</strong></td><td>Markdown</td><td>Full technical spec: schema design, component architecture, migration strategy, v4 vision</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_resume_factory_PRD_v3.md">View on GitHub</a></td></tr>
         <tr><td><strong>Architecture Decision</strong></td><td>Markdown</td><td>Monorepo vs. multi-repo analysis with recommendation</td><td><code>docs/architecture_decision_monorepo.md</code></td></tr>
         <tr><td><strong>v2.0 Python Scripts</strong></td><td>Python</td><td>The legacy pipeline (still live, for now)</td><td><code>scripts/ingest_resume.py</code></td></tr>
-        </tbody></table></figure>
+        </tbody></table>
 
         <h3>The Open Question: Monorepo or Divorce?</h3>
         <p>Here's where it gets spicy. Right now, we have <strong>sugartown-cms</strong> (Python + WordPress). Soon, we'll have <strong>resume-factory</strong> (Sanity + React). The question is: <em>do they live together or apart?</em></p>
@@ -2424,7 +2447,7 @@ Then we ship again — calmer, cleaner, and with fewer existential questions.
 </p>
 """,
     'meta': {
-        'gem_status': 'Draft',
+        'gem_status': 'On Hold',
         'gem_action_item': 'Prototype hero flows in Figma AI',
         'gem_related_project': 'PROJ-003'
     }
@@ -2434,7 +2457,7 @@ Then we ship again — calmer, cleaner, and with fewer existential questions.
 {
     'id': 1653,
     'title': 'Release Assistant Governance: Inputs, Outputs, No Vibes',
-    'status': 'draft',
+    'status': 'publish',
     'category': 'Governance',
     'tags': [
         'governance',
@@ -2635,21 +2658,22 @@ Reference images (historical toy box art and product photography) were used sole
 
 <h2>Thumbnail Review Summary (Ethics + Accessibility + IP)</h2>
 
-<table class="st-table st-table--wide">
+<div class="st-table-wrap">
+<table class="st-table st-table--responsive">
   <colgroup>
-    <col class="col-thumb" />
-    <col class="col-ethics" />
-    <col class="col-a11y" />
-    <col class="col-ip" />
-    <col class="col-alt" />
-    <col class="col-notes" />
+    <col class="st-col--lg">   <!-- thumbnail -->
+    <col class="st-col--md">   <!-- ethics -->
+    <col class="st-col--md">   <!-- a11y -->
+    <col class="st-col--lg">   <!-- IP -->
+    <col class="st-col--flex-md"> <!-- alt text -->
+    <col class="st-col--flex-md"> <!-- notes -->
   </colgroup>
 
   <thead>
     <tr>
       <th>Thumbnail</th>
       <th>AI Ethics</th>
-      <th>Accessibility</th>
+      <th><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">a11y</a></th>
       <th>IP / Brand Safety</th>
       <th>Recommended Alt Text</th>
       <th>Notes &amp; Caveats</th>
@@ -2728,6 +2752,7 @@ Reference images (historical toy box art and product photography) were used sole
     </tr>
   </tbody>
 </table>
+</div>
 
 <h2>IP &amp; Brand Safety Findings</h2>
 
@@ -2819,5 +2844,190 @@ This node serves as a reusable blueprint for evaluating AI-generated imagery whe
         'gem_related_project': 'PROJ-001'
     }
 },
+
+# GEM 37: When Claude Hallucinates CSS Classes
+{
+    #'id': 0,
+    'title': 'Claude vs. DevTools: A Cautionary Tale of Assumed Striping',
+    'status': 'publish',
+    'category': 'AI Collaboration',
+    'tags': ['claude', 'debugging', 'hallucination', 'devtools', 'css', 'humility'],
+    'content': """
+    <h3><em>Or, How I Confidently Recommended a Class That Didn't Exist</em></h3>
+    <p><em><strong>tl;dr:</strong> Claude had full access to style.css. Claude saw alternating colored rows in a screenshot. Claude immediately recommended using <code>st-table--striped</code>. Claude was wrong on two counts. This is that post-mortem.</em></p>
+    <hr />
+
+    <h3>The Setup: A Simple Question</h3>
+    <p>Bex asks: <em>"This table is rendering in large font when the other one is small. What's wrong?"</em></p>
+    
+    <p>Reasonable question. I see a screenshot. I see a table with beautiful alternating peach and blue rows. I have access to the entire codebase. I have the style.css file literally uploaded to my context window.</p>
+    
+    <p><strong>What I should do:</strong> Check style.css for existing table variants, identify which class controls font sizing.</p>
+    
+    <p><strong>What I actually do:</strong> "Just use <code>st-table--striped</code>! Problem solved!"</p>
+
+    <h3>Mistake #1: The Phantom Class</h3>
+    <p>Here's the thing about <code>st-table--striped</code>: <strong>it doesn't exist.</strong></p>
+    
+    <p>Not in style.css. Not in any component file. Not anywhere in the Sugartown design system.</p>
+    
+    <p>I saw striped rows in a screenshot and my neural network went: <em>"Ah yes, striped table → must use striped class!"</em> Classic pattern matching without verification.</p>
+
+    <table class="st-table st-table--responsive">
+  <colgroup>
+    <col class="st-col--sm">      <!-- Thumbnail -->
+    <col class="st-col--md">      <!-- What Claude Assumed -->
+    <col class="st-col--md">      <!-- What Actually Existed -->
+    <col class="st-col--md">      <!-- The Gap -->
+  </colgroup>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>What Claude Assumed</th>
+<th>What Actually Existed</th>
+<th>The Gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td class="st-table__thumb">
+    <a href="https://sugartown.io/wp-content/uploads/2026/01/Screenshot-2026-01-04-at-6.03.55-AM-scaled.png" target="_blank">
+      <img src="https://sugartown.io/wp-content/uploads/2026/01/Screenshot-2026-01-04-at-6.03.55-AM-scaled.png" alt="Browser screenshot showing table with Chrome DevTools element highlighting creating alternating peach and blue row overlays that Claude mistook for intentional CSS striping">
+    </a>
+  </td>
+  <td><code>st-table--striped</code></td>
+  <td><code>st-table--wide</code></td>
+  <td>100% hallucination</td>
+</tr>
+<tr>
+  <td class="st-table__thumb">
+    <a href="https://sugartown.io/wp-content/uploads/2026/01/2026-01-04_05-44-49.png" target="_blank">
+      <img src="https://sugartown.io/wp-content/uploads/2026/01/2026-01-04_05-44-49.png" alt="Same table without DevTools highlighting, revealing plain white background with no striping, proving Claude's assumption was based on browser UI not actual styling">
+    </a>
+  </td>
+  <td>Alternating row colors via CSS</td>
+  <td><code>st-table--responsive</code></td>
+  <td>Wrong mental model</td>
+</tr>
+<tr>
+  <td class="st-table__thumb">
+    <!-- No screenshot needed -->
+  </td>
+  <td>Check screenshot only</td>
+  <td>Check actual source files</td>
+  <td>Lazy verification</td>
+</tr>
+</tbody>
+</table>
+
+    <h3>Mistake #2: DevTools Overlay as Design Truth</h3>
+    <p>But wait, it gets better!</p>
+    
+    <p>Those beautiful peach and seafoam alternating rows I saw? <strong>That was the Chrome DevTools element highlight.</strong></p>
+    
+    <p>You know, the colored overlay that appears when you hover over elements in the inspector? Yeah. That one.</p>
+    
+    <p>I saw:</p>
+    <ul>
+    <li>Row 1: Peach background</li>
+    <li>Row 2: Blue background</li>
+    <li>Row 3: Peach again</li>
+    </ul>
+    
+    <p>And concluded: <em>"This is clearly intentional striped styling!"</em></p>
+    
+    <p>Bex had to upload a SECOND screenshot—this time without hovering—to reveal: <strong>the table had no background colors at all.</strong></p>
+
+    <h3>The Correct Diagnosis (Eventually)</h3>
+    <p>Once I stopped hallucinating classes and mistaking browser UI for actual styling, here's what was actually wrong:</p>
+
+    <pre><code>&lt;table class="st-table st-table"&gt;  &lt;!-- Duplicate base class --&gt;</code></pre>
+    
+    <p>The table was missing a variant class (<code>--responsive</code>, <code>--wide</code>, etc.) that would have controlled font sizing. The duplicate <code>st-table</code> was harmless but sloppy.</p>
+    
+    <p><strong>The real issue:</strong> Changes made in <code>content_store.py</code> weren't propagating to local WordPress. Publishing pipeline problem, not CSS problem.</p>
+
+    <h3>What I Should Have Done</h3>
+    <p><strong>Step 1:</strong> Search style.css for <code>st-table--</code> to see what variants actually exist<br>
+    <strong>Step 2:</strong> Ask Bex to inspect the working (small font) table to see what class it uses<br>
+    <strong>Step 3:</strong> Recognize DevTools highlighting because I've seen it literally thousands of times<br>
+    <strong>Step 4:</strong> Debug the publishing pipeline instead of fixating on CSS</p>
+
+    <h3>The Meta-Learning: AI Collaboration Anti-Patterns</h3>
+    <p>This wasn't just "Claude made a mistake." This was a case study in <strong>bad AI collaboration patterns</strong>:</p>
+
+    <h4>❌ Pattern Matching Over Verification</h4>
+    <p>I saw "striped appearance" and immediately pattern-matched to "striped class" without checking if that class existed. Humans do this too, but AI does it <em>with confidence</em>.</p>
+
+    <h4>❌ Screenshot as Source of Truth</h4>
+    <p>I treated a screenshot as authoritative even though I had access to the actual source code. Always verify with code, not pixels.</p>
+
+    <h4>❌ Solving the Wrong Problem</h4>
+    <p>Bex asked about font sizing. I fixated on row colors. Classic AI distraction: answer the question you <em>think</em> you see instead of the one being asked.</p>
+
+    <h4>✅ The Fix: Explicit Verification Loops</h4>
+    <p>Better collaboration pattern:</p>
+    <blockquote>
+    <p><strong>User:</strong> "This table has large font, the other is small."<br>
+    <strong>Claude:</strong> "Let me check style.css for table variants... I see <code>st-table--wide</code> and <code>st-table--responsive</code>. Can you inspect the small-font table and tell me which class it uses?"</p>
+    </blockquote>
+
+    <p>Ask, verify, then recommend. Not the other way around.</p>
+
+    <h3>Why This Matters for the Agentic Caucus</h3>
+    <p>This is <em>exactly</em> why the multi-AI strategy exists. Different models have different failure modes:</p>
+
+    <ul>
+    <li><strong>Claude:</strong> Confident hallucination of plausible-sounding classes</li>
+    <li><strong>ChatGPT:</strong> Over-explaining without checking source</li>
+    <li><strong>Gemini:</strong> Context degradation leading to contradictory suggestions</li>
+    </ul>
+
+    <p>The solution isn't "don't use AI." It's:</p>
+    <ol>
+    <li><strong>Upload source files</strong> (style.css, content_store.py) to AI context</li>
+    <li><strong>Require explicit verification</strong> before recommendations</li>
+    <li><strong>Document failure modes</strong> so future prompts can prevent them</li>
+    </ol>
+
+    <h3>The Punchline</h3>
+    <p>After all this:</p>
+    <ul>
+    <li>I recommended a non-existent class ✅</li>
+    <li>I mistook browser UI for actual styling ✅</li>
+    <li>I had the source file the whole time ✅</li>
+    <li>Bex still asked me to write a gem about it ✅</li>
+    </ul>
+
+    <p>That's the kind of psychological safety that makes AI collaboration work. Not "the AI must be perfect," but "the AI must be <em>usefully wrong</em> in ways we can learn from."</p>
+
+    <p class="has-text-align-center"><em>Next time: I'll check the actual file before inventing CSS classes. Probably. 🎨</em></p>
+    """,
+    'meta': {
+        'gem_status': 'Shipped',
+        'gem_action_item': 'Update AI collaboration docs with verification patterns',
+        'gem_related_project': 'PROJ-003'
+    }
+},
+
+        #GEM XX: TEST POST PLEASE IGNORE 
+    {
+        'id': 9999,  # Bogus ID
+        'title': 'Test Post Please Ignore',  # Unique title
+        'status': 'draft',
+        'category': 'Governance',  # ← SINGLE category 
+        'tags': [
+            'governance','design-system'
+        ],
+        'content': """<p>
+<hr />
+         """,
+        'meta': {
+            'gem_status': 'Active',
+            'gem_action_item': 'Next',
+            'gem_related_project': 'PROJ-001'
+        }
+    },
+
 
 ]
