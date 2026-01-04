@@ -2635,7 +2635,7 @@ Reference images (historical toy box art and product photography) were used sole
 
 <h2>Thumbnail Review Summary (Ethics + Accessibility + IP)</h2>
 
-<table class="st-table st-table--review">
+<table class="st-table st-table--wide">
   <colgroup>
     <col class="col-thumb" />
     <col class="col-ethics" />

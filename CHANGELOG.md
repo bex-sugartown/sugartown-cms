@@ -1,5 +1,14 @@
 # Sugartown Release Notes
 
+## v2026.01.03 — Responsive Tables Stabilization
+
+- Fixed mobile table card layout so rows no longer overflow or clip off-screen.
+- Added consistent box-sizing, width constraints, and wrapper behavior for responsive tables.
+- Centered and constrained wide tables to prevent vertical text wrapping at larger breakpoints.
+- Confirmed canonical design tokens load correctly after cache invalidation (no empty body variables).
+
+---
+
 ## v2026.01.01: Design System Alignment & Accessibility Audit
 
 **Date:** 2026-01-01  
