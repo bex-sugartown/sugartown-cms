@@ -346,3 +346,14 @@ Code architecture may be referenced with attribution.
 
 **Last Updated:** December 2025  
 **Version:** 2.0 (Headless CMS Era)
+
+---
+
+## License
+
+This project is source-available but not open source.
+
+The code and assets are provided for reference and educational purposes only.
+
+See the [LICENSE](./LICENSE) file for full terms.
+# Git workflow configured
