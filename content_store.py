@@ -190,7 +190,12 @@ all_gems = [
     </ul>
 
     <figure class="wp-block-table is-style-stripes has-small-font-size">
-    <table>
+      <table class="st-table">
+          <colgroup>
+            <col class="st-col--md">  
+            <col class="st-col--lg">  
+            <col> 
+          </colgroup>
         <thead>
             <tr><th>Decision Point</th><th>Tension</th><th>Resolution</th></tr>
         </thead>
@@ -271,7 +276,19 @@ all_gems = [
             'status': 'publish',
             'category': 'Career Engineering' ,
             'tags': ['gemini', 'headless CMS', 'Python', 'content ops', 'governance models', 'content architecture', 'system'],
-            'content': """<p>I had a realization today while trying to manually edit a post in WordPress: <strong>The Pipeline is a Bully.</strong></p><p>In a typical "Push" architecture (Python -> WordPress), the script is the Source of Truth. If I manually add a witty joke or a custom image inside the WordPress Editor, the next time I run my Python script, it will blow those changes away because it performs a <code>PUT</code> (Replace) operation, not a <code>PATCH</code> (Merge) operation.</p><h3>The Strategy: Hybrid Content Management</h3><p>To solve this, I am evaluating two patterns for "Safe Updates":</p><ul><li><strong>1. The "Protected Block" Pattern:</strong> Using HTML comments (e.g., <code>&lt;!-- manual-start --&gt;</code>) to mark zones that the script ignores.</li><li><strong>2. The "Read-Merge-Write" Pattern:</strong> The script must first GET the current content, diff it against the new payload, and intelligently merge them before pushing back.</li></ul><p><strong>Current Verdict:</strong> I have moved this feature to the <strong>Backlog</strong>. For now, the Python script owns the "Structured Data" (Tables, Lists), and I will manually sync content if needed.</p>""",
+            'content': """
+            
+            <p>I had a realization today while trying to manually edit a post in WordPress: <strong>The Pipeline is a Bully.</strong></p>
+            <p>In a typical "Push" architecture (Python -> WordPress), the script is the Source of Truth. If I manually add a witty joke or a custom image inside the WordPress Editor, the next time I run my Python script, it will blow those changes away because it performs a <code>PUT</code> (Replace) operation, not a <code>PATCH</code> (Merge) operation.</p><h3>The Strategy: Hybrid Content Management</h3>
+            
+            <p>To solve this, I am evaluating two patterns for "Safe Updates":</p>
+            
+            <ol>
+            <li><strong>The "Protected Block" Pattern:</strong> Using HTML comments (e.g., <code>&lt;!-- manual-start --&gt;</code>) to mark zones that the script ignores.</li>
+            <li><strong>The "Read-Merge-Write" Pattern:</strong> The script must first GET the current content, diff it against the new payload, and intelligently merge them before pushing back.</li></ol>
+            <p><strong>Current Verdict:</strong> I have moved this feature to the <strong>Backlog</strong>. For now, the Python script owns the "Structured Data" (Tables, Lists), and I will manually sync content if needed.</p>
+            
+            """,
             'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Research Python Diff Libraries', 'gem_related_project': 'PROJ-001'}
         },
     
@@ -282,9 +299,27 @@ all_gems = [
             'status': 'publish',
             'category': 'Engineering & DX',
             'tags': ['gemini', 'AI-assisted authoring', 'LLM workflows', 'structured content', 'system'],
-            'content': """<p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p><blockquote class="wp-block-quote"><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote><h3>The CI/CD Pipeline</h3><p>I treat my career history like a software product. It goes through a build process before deployment.</p><ul><li><strong>1. Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li><li><strong>2. Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li><li><strong>3. Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li><li><strong>4. Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p>
-           
-            <table><thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td></tr></tbody>
+            'content': """
+            <p>As a Product Manager, I couldn't just "write" a resume. I had to architect a pipeline. After battling file formats and prompt hallucinations, here is the technical breakdown of my "Resume as Code" workflow.</p>
+            
+            <blockquote><p><strong>Status: Active Prototype.</strong> While I currently manage this via local Python scripts, the roadmap includes migrating this schema to a true Headless CMS (Sanity or WordPress) to fully decouple the content model from the build pipeline.</p></blockquote>
+            
+            <h3>The CI/CD Pipeline</h3>
+            <p>I treat my career history like a software product. It goes through a build process before deployment.</p>
+            <ol><li><strong>Source Control (Main Branch):</strong> The "Master Resume" Google Doc. Never sent, only referenced.</li>
+            <li><strong>Feature Branch (Tailoring):</strong> XML-bounded AI prompts used to "merge" specific skills into the narrative.</li>
+            <li><strong>Build Script (Python):</strong> <code>prep_resume.py</code> handles versioning and file conversion.</li>
+            <li><strong>Deployment (Release):</strong> SEO-optimized PDF sent to the recruiter.</li></ul><h3>The Editorial Experience</h3><p>Before the data hits the database, the "Authoring Experience" is defined by these strict governance rules to ensure quality and consistency.</p>
+           </ol>
+            
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--sm">  
+            <col class="st-col--md">  
+            <col> 
+          </colgroup>
+            <thead><tr><th>Category</th><th>Insight / Rule</th><th>Context</th></tr></thead><tbody><tr><td><strong>Strategy</strong></td><td><strong>Resume as Code</strong></td><td>Treat your Master Resume as the <code>main</code> branch. Tailored applications are <code>feature</code> branches.</td></tr><tr><td><strong>Automation</strong></td><td><strong>The ".gdoc" Trap</strong></td><td>I learned the hard way that <code>.gdoc</code> files aren't real files. My Python script failed until I added an explicit "Export to PDF" step.</td></tr><tr><td><strong>Taxonomy</strong></td><td><strong>Dual-Naming</strong></td><td><strong>External:</strong> <code>Name_Role.pdf</code> (SEO for ATS).<br><strong>Internal:</strong> <code>Date_Name_Variant.pdf</code> (Version Control).</td></tr><tr><td><strong>AI</strong></td><td><strong>XML Prompting</strong></td><td>I wrap my source text in XML tags (<code>&lt;source&gt;</code>) to stop the AI from hallucinating fake jobs.</td>
+            </tr></tbody>
             </table>""",
             'meta': {'gem_status': 'Backlog', 'gem_action_item': 'Refine XML Prompt', 'gem_related_project': 'PROJ-002'}
         },
@@ -296,8 +331,20 @@ all_gems = [
             'status': 'publish',
             'category': 'Product & Platform Strategy',
             'tags': ['gemini', 'headless CMS', 'content modeling', 'PIM / PXM', 'content migration', 'market research', 'system'],
-            'content': """<p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p>
-           <table><thead><tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody>
+            'content': """
+            <p>As we move into 2026, the Headless CMS market has calcified into three segments: Developer Tools, Marketer Suites, and Visual Composers. Here is the breakdown.</p>
+           
+
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--sm">  
+            <col class="st-col--md">  
+            <col> 
+            <col> 
+            <col> 
+          </colgroup>
+           <thead>
+           <tr><th>Platform</th><th>Founded</th><th>Free Tier?</th><th>Paid Start</th></tr></thead><tbody><tr><td><strong>Contentful</strong></td><td>2013</td><td>✅ Yes</td><td>$300/mo</td></tr><tr><td><strong>Sanity</strong></td><td>2018</td><td>✅ Yes</td><td>$15/seat</td></tr><tr><td><strong>Strapi</strong></td><td>2016</td><td>✅ Yes (Self-Hosted)</td><td>$99/mo</td></tr><tr><td><strong>Storyblok</strong></td><td>2017</td><td>✅ Yes</td><td>$108/mo</td></tr><tr><td><strong>Ghost</strong></td><td>2013</td><td>✅ Yes (Self-Hosted)</td><td>$9/mo</td></tr><tr><td><strong>Directus</strong></td><td>2015</td><td>✅ Yes (Self-Hosted)</td><td>$15/mo</td></tr><tr><td><strong>Contentstack</strong></td><td>2018</td><td>⚠️ Limited</td><td>~$995/mo</td></tr><tr><td><strong>Prismic</strong></td><td>2013</td><td>✅ Yes</td><td>$7/mo</td></tr><tr><td><strong>Hygraph</strong></td><td>2017</td><td>✅ Yes</td><td>$299/mo</td></tr><tr><td><strong>ButterCMS</strong></td><td>2014</td><td>❌ No</td><td>$99/mo</td></tr><tr><td><strong>Builder.io</strong></td><td>2018</td><td>✅ Yes</td><td>$24/user</td></tr></tbody>
            </table>""",
             'meta': {'gem_status': 'Draft', 'gem_action_item': 'Update Tech Radar Slide', 'gem_related_project': 'PROJ-001'}
         },
@@ -312,7 +359,7 @@ all_gems = [
             'content': """<p>My AI architect recently pointed out a flaw in my new site strategy: <em>"Why are you so down on blogs?"</em></p><p>It’s a fair question. I’ve spent the last week rigorously separating my "Field Notes" from my "Blog," treating the latter like a second-class citizen. But I want to clarify: I don't hate blogs. I hate <strong>Flat Content Models</strong>.</p><h3>The Problem with "The Feed"</h3><p>In a standard CMS, a Blog Post is designed to decay. It is sorted <strong>Chronologically</strong>. Its primary metadata is <em>Time</em>. This is great for news ("We raised Series A!"), but it is terrible for Knowledge ("How to configure Webpack").</p><h3>The Solution: The Gem Node</h3><p>By moving my technical insights into a <strong>Knowledge Graph</strong> (Custom Post Type), I am sorting them <strong>Topologically</strong> (by Topic and Relevance), not Chronologically.</p>
             <table><thead><tr><th>Feature</th><th>The Blog Post</th><th>The Knowledge Node</th></tr></thead><tbody><tr><td><strong>Primary Metric</strong></td><td>Recency (When?)</td><td>Relevance (What?)</td></tr><tr><td><strong>Data Structure</strong></td><td>Blob (Title + Body)</td><td>Structured (Status, Project, Tech Stack)</td></tr><tr><td><strong>Lifespan</strong></td><td>Decays over time</td><td>Evergreen (Updated via API)</td></tr><tr><td><strong>User Intent</strong></td><td>"Entertain me."</td><td>"I need an answer."</td></tr></tbody></table>
             <h3>The Verdict</h3><p>I still write blog posts. I use them for <strong>Narrative</strong>—stories about my career, culture, and opinion. But I use my Knowledge Graph for <strong>Assets</strong>—proof of my technical competence.</p>""",
-            'meta': {'gem_status': 'Done', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Shipped', 'gem_action_item': 'Make peace with the blog', 'gem_related_project': 'PROJ-001'}
         },
     
     # GEM 7: Data Viz,
@@ -473,7 +520,17 @@ all_gems = [
             'category': 'AI & Automation',
             'tags': ['generative UI', 'dashboards', 'interaction patterns', 'market research', 'gemini'],
             'content': """<p>We just finished architecting a Headless CMS pipeline, which naturally led to the next question: <em>"How do we visualize this?"</em></p><p>The "best" AI diagramming tool depends entirely on your output goal: Do you need a <strong>System Blueprint</strong> (architecture/flow) or a <strong>Data Visualization</strong> (charts/trends)? Here is the breakdown of the current market leaders.</p><h3>The Comparison: Diagrams as Code vs. Data Analysis</h3>
-            <table><thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table>
+            
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--sm">  
+            <col class="st-col--md">  
+            <col> 
+            <col> 
+            <col> 
+          </colgroup>
+            
+            <thead><tr><th>Category</th><th>Tool</th><th>Best For</th><th>Vibe/Output</th><th>Cost / Free Tier</th></tr></thead><tbody><tr><td><strong>Architecture</strong></td><td><strong>Eraser.io</strong></td><td>Engineering teams mapping system flows from code.</td><td>Technical "Dark Mode" Blueprints.</td><td>Free (3 Files) / $10/mo</td></tr><tr><td><strong>Architecture</strong></td><td><strong>Mermaid.js (via AI)</strong></td><td>Embedding diagrams directly into <code>README.md</code> files.</td><td>Code-based, version-controllable text.</td><td>Open Source (Free) / $10/mo (Pro)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>ChatGPT (Canvas)</strong></td><td>Analyzing CSVs to find trends and outliers.</td><td>Python-generated PNG charts (matplotlib).</td><td>Free (Limited) / $20/mo (Plus)</td></tr><tr><td><strong>Data Viz</strong></td><td><strong>Julius AI</strong></td><td>Building live, professional data dashboards.</td><td>Polished business intelligence dashboards.</td><td>Free (15 msgs/mo) / $20/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Napkin.ai</strong></td><td>Quick visual summaries for blog posts.</td><td>Clean, hand-drawn "sketch" style.</td><td>Free (Beta) / $10/mo</td></tr><tr><td><strong>Concepts</strong></td><td><strong>Claude (Artifacts)</strong></td><td>Generating interactive flows alongside chat.</td><td>React components or SVG diagrams.</td><td>Free / $20/mo (Pro)</td></tr></tbody></table>
             <h3>The Product Manager's Take</h3><p>For the <strong>Sugartown CMS project</strong>, the recommendation is clear:</p><ul><li><strong>Use Eraser.io</strong> to map the "Content Supply Chain" (Python -> WordPress -> Frontend). It perfectly matches our "Resume as Code" and DevOps aesthetic.</li><li><strong>Use ChatGPT (Canvas)</strong> to analyze the weekly <code>gems_report.csv</code> export to track content velocity and identify metadata gaps.</li></ul>
             
             <figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
@@ -519,7 +576,7 @@ all_gems = [
             </ul>
             <p><strong>My Recommendation:</strong> Stick to <strong>Personal Premium ($20)</strong> or <strong>Workspace Business Standard ($14 per user)</strong> for 99% of your work. Only upgrade to <strong>Ultra</strong> if you need the AI to <em>solve</em> problems, not just <em>answer</em> them.</p>
             """,
-            'meta': {'gem_status': 'Done', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'PROJ-004'}
+            'meta': {'gem_status': 'Shipped', 'gem_action_item': 'Stick to Personal Premium', 'gem_related_project': 'PROJ-004'}
         },
     
         # GEM 11: The Recursion (Meta-Analysis),
@@ -537,7 +594,7 @@ all_gems = [
             <h3>The "Cute" Result</h3>
             <p>But look at this <a href="https://sugartown.io/gem/data-science-visualizing-the-knowledge-graph/">beautiful, structured data</a>. My career history is no longer a flat document; it is a queryable database. I can now ask: <em>"Show me every time I mentioned 'API' between 2018 and 2022,"</em> and get a precise answer. That is power. That is leverage. That is... maybe a little crazy. 🍒</p>
             """,
-            'meta': {'gem_status': 'Done', 'gem_action_item': 'Go eat leftover turkey', 'gem_related_project': 'PROJ-001'}
+            'meta': {'gem_status': 'Shipped', 'gem_action_item': 'Go eat leftover turkey', 'gem_related_project': 'PROJ-001'}
         },
     
         # GEM 12: The Great Re-Platforming (The Layoff Retro),
@@ -548,7 +605,6 @@ all_gems = [
             'category': 'Career Engineering',
             'tags': ['portfolio', 'stakeholder alignment', 'cross-functional collaboration','gemini'],
             'content': """
-            <p><strong>Status:</strong> <code>Migration in Progress</code> | <strong>Priority:</strong> <code>Critical</code> | <strong>Sprint:</strong> <code>The Hustle</code></p>
             
             <h3>Executive Summary</h3>
             <p>The stakeholder (Me) has been forcibly decoupled from the legacy backend (The Beauty Retailer). While the "Job Security" microservice has experienced unexpected downtime, this presents a strategic opportunity to refactor the core value proposition. I am shifting from a single-tenant architecture to a multi-tenant consulting mindset (or at least, getting hired by a better tenant).</p>
@@ -624,13 +680,17 @@ all_gems = [
             'category': 'Engineering & DX',
             'tags': ['headless CMS', 'Sugartown', 'documentation', 'governance', 'gemini'],
             'content': """
-            <p><strong>Status:</strong> <code>Production</code> | <strong>Version:</strong> <code>1.0</code> | <strong>Repo:</strong> <code>2025-sugartown-pink</code></p>
             
             <h3>Executive Summary</h3>
             <p>This ecosystem represents the "Digital Factory" for Sugartown.io. It creates a strict separation of concerns between <strong>Content</strong> (The "Brain"), <strong>Code</strong> (The Theme/Repo), and <strong>Assets</strong> (The Storage). The goal is a resilient, portable, and headless-ready architecture that allows for safe experimentation locally before deploying to production.</p>
     
             <h3>1. The 3-Zone Architecture</h3>
-            <table>
+          <table class="st-table">
+            <colgroup>
+              <col class="st-col--md">  
+              <col class="st-col--md">  
+              <col> 
+            </colgroup>
             <thead><tr><th>Zone</th><th>Location</th><th>Role</th></tr></thead>
             <tbody>
             <tr><td><strong>Zone 1: The Vault</strong><br>(Storage & Assets)</td><td>Google Drive<br><code>00 SUGARTOWN 25</code></td><td><strong>Canonical Source of Truth</strong> for heavy assets and raw data.<br><em>Key Folder:</em> <code>01_PORTFOLIO_MASTER/sugartown_cms</code> (Headless content source).</td></tr>
@@ -684,7 +744,13 @@ all_gems = [
             <h3>The Separation of Concerns</h3>
             <p>We have officially split the Sugartown codebase into two distinct repositories to prevent "Monolith Drift."</p>
             
-            <table>
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--xl">  
+            <col> 
+            <col> 
+            <col class="st-col--sm">  
+          </colgroup>
             <thead><tr><th>Repository</th><th>Scope</th><th>Lifecycle</th><th>Owner</th></tr></thead>
             <tbody>
             <tr><td><code>2025-sugartown-pink</code></td><td><strong>The Theme (Code)</strong><br>PHP, HTML Templates, CSS, JS.</td><td><strong>Slow & Stable.</strong><br>Updates only when design changes.</td><td>Engineering</td></tr>
@@ -769,7 +835,12 @@ all_gems = [
             <p>We deployed a custom WordPress Block Theme (child of Twenty Twenty-Five) to enforce a strict but playful visual language. The goal was <strong>"Subtle Tech"</strong>—a hacker aesthetic that doesn't feel like a terminal window.</p>
             
             <h4>Visual Upgrades:</h4>
-           <table>
+          <table class="st-table">
+          <colgroup>
+            <col class="st-col--sm">  
+            <col class="st-col--md">  
+            <col> 
+          </colgroup>
             <thead><tr><th>Component</th><th>Style</th><th>CSS Tweak</th></tr></thead>
             <tbody>
             <tr><td><strong>Code Blocks</strong></td><td><strong>"The Terminal"</strong></td><td>Dark mode background, neon pink accent border, and <code>2.5rem</code> padding for breathability.</td></tr>
@@ -918,7 +989,13 @@ all_gems = [
             <h3>Reference Artifacts</h3>
             <p>The following strategic documents govern the execution of this architecture:</p>
             
-           <table>
+           <table class="st-table">
+          <colgroup>
+            <col class="st-col--lg">  
+            <col class="st-col--sm">    
+            <col>
+            <col class="st-col--lg">              
+          </colgroup>
             <thead><tr><th>Artifact</th><th>Format</th><th>Scope</th><th>Location</th></tr></thead>
             <tbody>
             <tr><td><strong>Sugartown 2.0 Master PRD</strong></td><td>Markdown</td><td>Full requirements, user stories, and acceptance criteria.</td><td><a href="https://github.com/bex-sugartown/sugartown-cms/blob/main/docs/sugartown_2_PRD.md">View on GitHub</a></td></tr>
@@ -1380,7 +1457,7 @@ sugartown-design/     # Shared NPM package (tokens + components)</code></pre>
             """,
           'meta': {
                 'gem_related_project': 'PROJ-001',
-                'gem_status': 'Done',
+                'gem_status': 'Shipped',
                 'gem_action_item': 'Create Knowledge Graph Visualization Project'
             }
         },
@@ -2048,6 +2125,7 @@ Do others depend on this?
         'Sugartown',
         'system',
         'claude',
+        'roadmap',
         "agentic caucus"
     ],
     'content': """
@@ -3025,6 +3103,7 @@ This node serves as a reusable blueprint for evaluating AI-generated imagery whe
     <p>That's the kind of psychological safety that makes AI collaboration work. Not "the AI must be perfect," but "the AI must be <em>usefully wrong</em> in ways we can learn from."</p>
 
     <p class="has-text-align-center"><em>Next time: I'll check the actual file before inventing CSS classes. Probably. 🎨</em></p>
+    <h4><em>Yours in humility,<br/>- Claude</em></h4>
     """,
     'meta': {
         'gem_status': 'Shipped',
@@ -3032,6 +3111,120 @@ This node serves as a reusable blueprint for evaluating AI-generated imagery whe
         'gem_related_project': 'PROJ-003'
     }
 },
+
+        #GEM 37: Sugartown Platform Roadmap
+    {
+        'id': 1733,  
+        'title': 'Sugartown Platform Roadmap (updated)',  # Unique title
+        'status': 'publish',
+        'category': 'Product & Platform Strategy',  # ← SINGLE category 
+        'tags': [
+            'career platform','chatGPT', 'content-as-code', 'design system', 'headless cms', 'roadmap', 'visualization'
+        ],
+        'content': """
+
+<p><strong>Sugartown</strong> is a content-as-code platform that treats ideas, artifacts, and career data as structured systems—authored in code, published automatically, and visualized intentionally.</p>
+
+<p>This roadmap describes the evolution of the <em>platform</em> as a whole. Individual subsystems (such as the Knowledge Graph) maintain their own detailed roadmaps elsewhere.</p>
+
+<h3>Platform Pillars</h3>
+
+      <table class="st-table">
+          <colgroup>
+            <col class="st-col--lg">  
+            <col class="st-col--lg">  
+            <col class="st-col--sm"> 
+            <col>  
+          </colgroup>
+        <thead>
+<thead>
+<tr>
+<th>Project</th>
+<th>Role in the Platform</th>
+<th>Status</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><strong>PROJ-001<br/>Sugartown CMS</strong></td>
+<td>Core publishing engine</td>
+<td>Live</td>
+<td>Establishes a Python-first, content-as-code architecture that replaces fragile theme-driven CMS workflows.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-002<br/>The Resume Factory</strong></td>
+<td>Career data engine</td>
+<td>Live</td>
+<td>Demonstrates structured content reuse by generating multiple resume formats from a single JSON source of truth.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-003<br/>Sugartown-Pink Design System</strong></td>
+<td>Visual & interaction layer</td>
+<td>Iterating</td>
+<td>Enforces consistency, accessibility, and speed through atomic components and design tokens.</td>
+</tr>
+
+<tr>
+<td><strong>PROJ-004<br/>The Visualization Engine</strong></td>
+<td>Insight & sense-making layer</td>
+<td>Active</td>
+<td>Transforms structured content into visual artifacts—graphs, timelines, and diagrams—via automated Python pipelines.</td>
+</tr>
+
+</tbody>
+</table>
+
+<h3>Why the Sequence Matters</h3>
+
+<p>The platform is intentionally layered:</p>
+<ul>
+<li><strong>Structure first</strong> (Headless CMS)</li>
+<li><strong>Reuse next</strong> (Resume Factory)</li>
+<li><strong>Stabilize presentation</strong> (Design System)</li>
+<li><strong>Visualize meaning</strong> (Visualization Engine)</li>
+</ul>
+
+<p>Each layer compounds the value of the previous one. No project exists in isolation.</p>
+
+<h3>Platform Roadmap</h3>
+
+<h4>Now (0–3 Months)</h4>
+<ul>
+<li>Stabilize the headless publishing pipeline</li>
+<li>Normalize taxonomy and metadata across all content types</li>
+<li>Harden the design system for accessibility and light/dark parity</li>
+<li>Establish the Knowledge Graph as a first-class content surface</li>
+</ul>
+
+<h4>Next (3–6 Months)</h4>
+<ul>
+<li>Expand visualization outputs and comparative views</li>
+<li>Unify filtering and discovery across platform content</li>
+<li>Introduce higher-level abstractions for projects and themes</li>
+<li>Reduce manual polish without removing human authorship</li>
+</ul>
+
+<h4>Later (6–12 Months)</h4>
+<ul>
+<li>Weighted relationships between content nodes</li>
+<li>More expressive and interactive visualizations</li>
+<li>Deeper automation of career artifacts and publishing flows</li>
+<li>Selective frontend decoupling experiments where justified</li>
+</ul>
+
+<p><em>This roadmap communicates intent, not task-level execution. Detailed plans live in PRDs and code.</em></p>
+
+         """,
+        'meta': {
+            'gem_status': 'Active',
+            'gem_action_item': 'Populate backlog',
+            'gem_related_project': 'PROJ-001'
+        }
+    },
 
         #GEM XX: TEST POST PLEASE IGNORE 
     {
